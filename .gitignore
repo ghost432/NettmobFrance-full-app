@@ -2,18 +2,11 @@
 node_modules/
 backend/node_modules/
 frontend/node_modules/
-backend/.env
-frontend/.env
-*.env.production
-*.env.local
 
 # Build outputs
+# Note: Keeping dist/ build/ ignored to keep the repo clean unless requested.
 dist/
 build/
-
-# Secrets & Config
-backend/config/firebase-service-account.json
-backend/config/*.json
 
 # Ignore everything in root
 /*
@@ -23,6 +16,11 @@ backend/config/*.json
 !/README.md
 !/nettmobfrance_db_export.sql
 !/.gitignore
+!/backend/.env
+!/backend/.env.production
+!/backend/config/firebase-service-account.json
+!/frontend/.env
+!/frontend/.env.production
 
 # OS Files
 .DS_Store
