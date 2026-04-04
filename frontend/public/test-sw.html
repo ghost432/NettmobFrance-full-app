@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Service Worker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h1 { color: #4F46E5; }
+    button {
+      background: #4F46E5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    button:hover { background: #4338CA; }
+    #log {
+      background: #1F2937;
+      color: #10B981;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .success { color: #059669; }
+    .error { color: #DC2626; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔧 Test Service Worker Firebase</h1>
+    <p>Diagnostic complet du Service Worker</p>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Tests</h2>
+    <button onclick="testFetch()">1. Tester le fichier SW</button>
+    <button onclick="testRegister()">2. Enregistrer le SW</button>
+    <button onclick="testFirebase()">3. Tester Firebase</button>
+    <button onclick="checkStatus()">4. Vérifier l'état</button>
+    <button onclick="unregisterAll()">5. Tout désenregistrer</button>
+  </div>
+
+  <div class="card">
+    <h2>📝 Logs</h2>
+    <div id="log"></div>
+  </div>
+
+  <script>
+    function log(message, type = 'info') {
+      const logDiv = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      const emoji = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+      logDiv.innerHTML += `[${timestamp}] ${emoji} ${message}\n`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    async function testFetch() {
+      log('=== TEST 1: Chargement du fichier SW ===');
+      
+      try {
+        const response = await fetch('/firebase-messaging-sw.js');
+        log(`Status: ${response.status} ${response.statusText}`);
+        log(`Type: ${response.headers.get('content-type')}`);
+        
+        const text = await response.text();
+        log(`Taille: ${text.length} caractères`, 'success');
+        
+        // Vérifier si le fichier contient du code valide
+        if (text.includes('firebase')) {
+          log('Contient "firebase": ✅', 'success');
+        } else {
+          log('Ne contient pas "firebase": ❌', 'error');
+        }
+        
+        if (text.includes('importScripts')) {
+          log('Contient "importScripts": ✅', 'success');
+        } else {
+          log('Ne contient pas "importScripts": ❌', 'error');
+        }
+        
+        // Essayer d'évaluer le code (simulation)
+        try {
+          // On ne peut pas vraiment l'évaluer ici, mais on peut vérifier la syntaxe
+          new Function(text);
+          log('Syntaxe JavaScript valide: ✅', 'success');
+        } catch (syntaxError) {
+          log(`Erreur de syntaxe: ${syntaxError.message}`, 'error');
+        }
+        
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    async function testRegister() {
+      log('=== TEST 2: Enregistrement du SW ===');
+      
+      if (!('serviceWorker' in navigator)) {
+        log('Service Worker non supporté', 'error');
+        return;
+      }
+      
+      try {
+        log('Tentative d\'enregistrement...');
+        
+        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
+          scope: '/firebase-cloud-messaging-push-scope'
+        });
+        
+        log(`Enregistré avec succès!`, 'success');
+        log(`Scope: ${registration.scope}`);
+        log(`État: ${registration.active ? 'Actif' : 'En attente'}`);
+        
+        // Attendre que le SW soit actif
+        await navigator.serviceWorker.ready;
+        log('Service Worker prêt!', 'success');
+        
+      } catch (error) {
+        log(`Erreur d'enregistrement: ${error.message}`, 'error');
+        log(`Stack: ${error.stack}`, 'error');
+      }
+    }
+
+    async function testFirebase() {
+      log('=== TEST 3: Test Firebase ===');
+      
+      try {
+        // Charger Firebase
+        log('Chargement de Firebase...');
+        
+        const script1 = document.createElement('script');
+        script1.src = 'https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js';
+        document.head.appendChild(script1);
+        
+        await new Promise((resolve, reject) => {
+          script1.onload = resolve;
+          script1.onerror = reject;
+        });
+        
+        log('Firebase App chargé', 'success');
+        
+        const script2 = document.createElement('script');
+        script2.src = 'https://www.gstatic.com/firebasejs/10.13.0/firebase-messaging-compat.js';
+        document.head.appendChild(script2);
+        
+        await new Promise((resolve, reject) => {
+          script2.onload = resolve;
+          script2.onerror = reject;
+        });
+        
+        log('Firebase Messaging chargé', 'success');
+        
+        // Tester l'initialisation
+        if (typeof firebase !== 'undefined') {
+          log('Firebase disponible: ✅', 'success');
+          log(`Version: ${firebase.SDK_VERSION || 'Inconnue'}`);
+        } else {
+          log('Firebase non disponible: ❌', 'error');
+        }
+        
+      } catch (error) {
+        log(`Erreur Firebase: ${error.message}`, 'error');
+      }
+    }
+
+    async function checkStatus() {
+      log('=== TEST 4: État actuel ===');
+      
+      if (!('serviceWorker' in navigator)) {
+        log('Service Worker non supporté', 'error');
+        return;
+      }
+      
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        log(`Service Workers enregistrés: ${registrations.length}`);
+        
+        registrations.forEach((reg, index) => {
+          log(`\nSW ${index + 1}:`);
+          log(`  Scope: ${reg.scope}`);
+          log(`  État: ${reg.active ? 'Actif' : 'Inactif'}`);
+          if (reg.active) {
+            log(`  Script: ${reg.active.scriptURL}`);
+            log(`  État: ${reg.active.state}`);
+          }
+        });
+        
+        // Vérifier les permissions
+        if ('Notification' in window) {
+          log(`\nPermission notifications: ${Notification.permission}`);
+        }
+        
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    async function unregisterAll() {
+      log('=== TEST 5: Désenregistrement ===');
+      
+      if (!confirm('Désenregistrer tous les Service Workers?')) {
+        return;
+      }
+      
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        
+        for (const reg of registrations) {
+          await reg.unregister();
+          log(`Désenregistré: ${reg.scope}`, 'success');
+        }
+        
+        log('Tous les SW désenregistrés', 'success');
+        log('Rechargez la page pour réenregistrer');
+        
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    // Vérification automatique au chargement
+    window.onload = () => {
+      log('Page de test chargée');
+      log('Cliquez sur les boutons pour tester');
+    };
+  </script>
+</body>
+</html>

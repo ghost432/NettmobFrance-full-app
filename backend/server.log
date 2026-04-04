@@ -1,0 +1,1538 @@
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BKNAHqov_9DETgh_h87m...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BKNAHqov_9DETgh_h87m...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+User connected: N70liMYAoK5dw2CFAAAB
+ User 26 joined room user_26
+User connected: xLK5JMEFM-_7X6kZAAAD
+ User 26 joined room user_26
+User connected: GywjtgbII5YumqxhAAAF
+ User 26 joined room user_26
+❌ Erreur configuration email: Connection timeout
+ℹ️  Vérifiez vos credentials SMTP dans le fichier .env
+ℹ️  Pour IONOS, assurez-vous que l'accès SMTP est activé dans votre compte
+User connected: TGYgTPxBqWpEjZcyAAAI
+User connected: NcIJ0ef8pBweKprAAAAJ
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: DqFVreJSLo1aLD0CAAAL
+ User 26 joined room user_26
+Geocoding error: RequestError: getaddrinfo EAI_AGAIN api.mapbox.com
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:122:26) {
+  code: 'EAI_AGAIN',
+  timings: {
+    start: 1763633499068,
+    socket: 1763633499072,
+    lookup: 1763633519089,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763633519094,
+    abort: undefined,
+    phases: {
+      wait: 4,
+      dns: 20017,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 20026
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'valeur',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 10,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 180
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 288,
+  mission_name: 'valeur',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+✨ Mission créée avec succès: 29
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 29
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 29: valeur
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 29: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 29: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+🔔 FORCE NOTIFICATIONS pour mission 29: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: valeur (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+Erreur parsing work_areas: SyntaxError: Unexpected token 'P', "Paris,Lill"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2042:36
+    at Array.filter (<anonymous>)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2033:35
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+🎯 0 automobs éligibles après filtrage ville
+🔔 FORCE NOTIFICATIONS pour mission 29: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: valeur (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+Erreur parsing work_areas: SyntaxError: Unexpected token 'P', "Paris,Lill"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2042:36
+    at Array.filter (<anonymous>)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2033:35
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+🎯 0 automobs éligibles après filtrage ville
+🔐 Tentative de connexion: ulrichthierry47@gmail.com
+📊 Recherche utilisateur: ulrichthierry47@gmail.com
+✅ Utilisateur trouvé - ID: 25 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: ulrichthierry47@gmail.com
+User connected: N2y-O6WBJhCyis3rAAAN
+ User 25 joined room user_25
+✅ Token FCM mis à jour pour l'utilisateur 25
+User connected: qyFSu-0xNBro9byxAAAP
+ User 25 joined room user_25
+User connected: _NVq-JQMculsmCWkAAAR
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: iSaCAJXxQ5IyLU3pAAAT
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: 6ihQuMNnWLCdbDVBAAAV
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+User connected: 1VZ-XbiNPJ14BX8ZAAAX
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+ User 25 joined room user_25
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: YDkH2A0mnQ77654WAAAZ
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: 4DbxNcm5FT8z_jcMAAAb
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: TwLtyRaFl2qV9HtbAAAd
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: hFCOJeUmMfxACDBgAAAf
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: 0QXaVKHE3WXy7_ymAAAh
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: UR08Ml6kL_HkiDA9AAAj
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: MXBhDbpHK1dP_95DAAAl
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: KngBg5wd0LbbvSuDAAAn
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: Kujha0_aeTVe9R2WAAAp
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+ User 25 joined room user_25
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: 2JRcWhjIPiBj4ChuAAAr
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+ User 25 joined room user_25
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: zThZDYPgPP1F8wk9AAAt
+ User 25 joined room user_25
+💾 [Backend] Compétences reçues (raw): [6,5,8,7]
+💾 [Backend] Compétences parsées: [ 6, 5, 8, 7 ]
+🗑️ [Backend] Anciennes compétences supprimées pour profile_id: 8
+✅ [Backend] 4 compétences sauvegardées
+🔍 [Backend] Chargement profil pour user_id: 25 profile_id: 8
+✅ [Backend] Compétences chargées: [ 6, 5, 8, 7 ]
+User connected: Tmx3v4xtvaCUnvAqAAAv
+ User 25 joined room user_25
+User connected: gQhvcEbG1AQnozd_AAAy
+User connected: AElPQhPjcrwehlujAAAz
+ User 25 joined room user_25
+ User 25 joined room user_25
+User connected: Ldh2DAd_0MtdQWHqAAA1
+ User 25 joined room user_25
+🔐 Tentative de connexion: antoinepaulcm@gmail.com
+📊 Recherche utilisateur: antoinepaulcm@gmail.com
+✅ Utilisateur trouvé - ID: 26 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: antoinepaulcm@gmail.com
+User connected: k6fINZ6-1jW3pQINAAA3
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+🔔 FORCE NOTIFICATIONS pour mission 9: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: hhjhjhhj hjhb  jh jh jh jh (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+🎯 1 automobs éligibles après filtrage ville
+📬 Notification créée pour user 25: 🎯 Nouvelle Mission Disponible
+📲 1 notifications envoyées avec succès
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+Get applications error: Error: connect ETIMEDOUT
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:1646:37
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:29:5
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:18:5
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:261:12
+    at getSecret (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:97:14) {
+  code: 'ETIMEDOUT',
+  errno: undefined,
+  sql: undefined,
+  sqlState: undefined,
+  sqlMessage: undefined
+}
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763634118906,
+    socket: 1763634119230,
+    lookup: 1763634119602,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763634306051,
+    abort: undefined,
+    phases: {
+      wait: 324,
+      dns: 372,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 187145
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'matin bonheur',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763634142937,
+    socket: 1763634142938,
+    lookup: 1763634143001,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763634306143,
+    abort: undefined,
+    phases: {
+      wait: 1,
+      dns: 63,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 163206
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'matin bonheur',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+⚠️ Web Push désactivé pour user 25
+❌ Erreur envoi SMS à +237655974875: Timeout SMS (8s)
+📊 Envoi groupé terminé: 0/1 réussis
+⚠️ 1 SMS ont échoué: [ { phone: '+237655974875', error: 'Timeout SMS (8s)' } ]
+📱 [FORCE-NOTIF] SMS: 0/1 envoyés
+User connected: dvtYY0RYr16bvZExAAA6
+User connected: cRqA-Quv5214VmhzAAA7
+ User 26 joined room user_26
+ User 26 joined room user_26
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 51,
+  mission_name: 'matin bonheur',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 51,
+  mission_name: 'matin bonheur',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+User connected: mXuyECN17z_JpHVkAAA9
+User connected: VgDxSWIrs_flJa-TAAA_
+ User 26 joined room user_26
+✨ Mission créée avec succès: 30
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 30
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 30: matin bonheur
+✨ Mission créée avec succès: 31
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 31
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 31: matin bonheur
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 31: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 31: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 30: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 30: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+🔔 FORCE NOTIFICATIONS pour mission 9: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: hhjhjhhj hjhb  jh jh jh jh (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+🎯 1 automobs éligibles après filtrage ville
+📬 Notification créée pour user 25: 🎯 Nouvelle Mission Disponible
+📲 1 notifications envoyées avec succès
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+⚠️ Web Push désactivé pour user 25
+❌ Erreur envoi notifications multicast: FirebaseMessagingSessionError: Error while making requests: GOAWAY - session_timed_out, Error code: 0
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/messaging/messaging.js:182:32 {
+  errorInfo: {
+    code: 'messaging/app/network-error',
+    message: 'Error while making requests: GOAWAY - session_timed_out, Error code: 0'
+  },
+  codePrefix: 'messaging',
+  pendingBatchResponse: Promise { <pending> }
+}
+Erreur envoi notifications FCM multiples: FirebaseMessagingSessionError: Error while making requests: GOAWAY - session_timed_out, Error code: 0
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/messaging/messaging.js:182:32 {
+  errorInfo: {
+    code: 'messaging/app/network-error',
+    message: 'Error while making requests: GOAWAY - session_timed_out, Error code: 0'
+  },
+  codePrefix: 'messaging',
+  pendingBatchResponse: Promise { <pending> }
+}
+🔥 [FORCE-NOTIF] FCM: undefined/undefined envoyés
+❌ Erreur envoi SMS à +237655974875: Timeout SMS (8s)
+📊 Envoi groupé terminé: 0/1 réussis
+⚠️ 1 SMS ont échoué: [ { phone: '+237655974875', error: 'Timeout SMS (8s)' } ]
+📱 [FORCE-NOTIF] SMS: 0/1 envoyés
+🔔 FORCE NOTIFICATIONS pour mission 9: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: hhjhjhhj hjhb  jh jh jh jh (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+🎯 1 automobs éligibles après filtrage ville
+📬 Notification créée pour user 25: 🎯 Nouvelle Mission Disponible
+📲 1 notifications envoyées avec succès
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+⚠️ Web Push désactivé pour user 25
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ [FORCE-NOTIF] Email envoyé à Raymond Salazar
+📧 [FORCE-NOTIF] Emails: 1/1 envoyés
+❌ Erreur envoi SMS à +237655974875: Timeout SMS (8s)
+📊 Envoi groupé terminé: 0/1 réussis
+⚠️ 1 SMS ont échoué: [ { phone: '+237655974875', error: 'Timeout SMS (8s)' } ]
+📱 [FORCE-NOTIF] SMS: 0/1 envoyés
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763634469689,
+    socket: 1763634469786,
+    lookup: 1763634470036,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763634604708,
+    abort: undefined,
+    phases: {
+      wait: 97,
+      dns: 250,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 135019
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'sysys',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 593,
+  mission_name: 'sysys',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+✨ Mission créée avec succès: 32
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 32
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 32: sysys
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 32: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 32: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763634499621,
+    socket: 1763634499622,
+    lookup: 1763634499762,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763634633383,
+    abort: undefined,
+    phases: {
+      wait: 1,
+      dns: 140,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 133762
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'sysys',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 593,
+  mission_name: 'sysys',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+✨ Mission créée avec succès: 33
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 33
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 33: sysys
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 33: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 33: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,8)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ Erreur envoi notification: FirebaseAppError: Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/app/firebase-app.js:87:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  errorInfo: {
+    code: 'app/invalid-credential',
+    message: 'Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/app/firebase-app.js:87:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  errorInfo: {
+    code: 'app/invalid-credential',
+    message: 'Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/app/firebase-app.js:87:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  errorInfo: {
+    code: 'app/invalid-credential',
+    message: 'Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".'
+  },
+  codePrefix: 'app'
+}
+✅ 0/1 notifications FCM envoyées à l'utilisateur 25
+✅ 0/1 notifications FCM envoyées à l'utilisateur 25
+✅ 0/1 notifications FCM envoyées à l'utilisateur 25
+✅ Firebase FCM Push envoyé à user 25: 🎯 Nouvelle Mission Disponible → /automob/missions/9
+✅ Firebase FCM Push envoyé à user 25: 🎯 Nouvelle Mission Disponible → /automob/missions/9
+✅ Firebase FCM Push envoyé à user 25: 🎯 Nouvelle Mission Disponible → /automob/missions/9
+✅ 0/1 notifications envoyées
+⚠️ 1 échecs: [
+  'Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".'
+]
+✅ 0/1 notifications envoyées
+⚠️ 1 échecs: [
+  'Credential implementation provided to initializeApp() via the "credential" property failed to fetch a valid Google OAuth2 access token with the following error: "request to https://www.googleapis.com/oauth2/v4/token failed, reason: ".'
+]
+✅ 0/1 notifications FCM envoyées
+✅ 0/1 notifications FCM envoyées
+🔥 [FORCE-NOTIF] FCM: undefined/undefined envoyés
+🔥 [FORCE-NOTIF] FCM: undefined/undefined envoyés
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ [FORCE-NOTIF] Email envoyé à Raymond Salazar
+📧 [FORCE-NOTIF] Emails: 1/1 envoyés
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ [FORCE-NOTIF] Email envoyé à Raymond Salazar
+📧 [FORCE-NOTIF] Emails: 1/1 envoyés
+User connected: m0pxMAksfCSKMwiYAABC
+User connected: zbZyJVhm2LYBJFO2AABD
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: N1u3Jy0UgHczpNflAABF
+ User 26 joined room user_26
+User connected: EsTZypXU1y7KsuJ8AABI
+User connected: _mfJSKcY4YwWEeb2AABJ
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: T1jkCGhg4tC4Wy79AABL
+ User 26 joined room user_26
+User connected: jSoFgGIlDss1duIOAABO
+User connected: Frf_4qbR9myxGJhIAABP
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: jZ-CSYnH4_1PzJL0AABR
+ User 26 joined room user_26
+🔐 Tentative de connexion: antoinepaulcm@gmail.com
+📊 Recherche utilisateur: antoinepaulcm@gmail.com
+✅ Utilisateur trouvé - ID: 26 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: antoinepaulcm@gmail.com
+User connected: 8KCjA4QvQfUL9LWbAABT
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+User connected: eaZwxSrOLw6cYYk6AABW
+User connected: 6Uz--umI2KJIkyfSAABX
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: yb5c4hYzadKcWa5pAABZ
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+User connected: _lVuxZzhi5wZLQqpAABb
+User connected: cXp5p2AGy2gkgz0zAABd
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: YwEqTVfuLMwgWl44AABf
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+🔔 FORCE NOTIFICATIONS pour mission 11: {
+  send_to_offline: true,
+  notification_type: 'new_mission',
+  force_all: true,
+  include_push: true,
+  include_email: true,
+  priority: 'high',
+  retry_failed: true
+}
+✅ Mission trouvée: Besoin de chef (Client: antoinepaulcm@gmail.com)
+📋 1 automobs potentiels trouvés
+🎯 1 automobs éligibles après filtrage ville
+📬 Notification créée pour user 25: 🎯 Nouvelle Mission Disponible
+📲 1 notifications envoyées avec succès
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+⚠️ Web Push désactivé pour user 25
+❌ Erreur envoi SMS à +237655974875: Timeout SMS (8s)
+📊 Envoi groupé terminé: 0/1 réussis
+⚠️ 1 SMS ont échoué: [ { phone: '+237655974875', error: 'Timeout SMS (8s)' } ]
+📱 [FORCE-NOTIF] SMS: 0/1 envoyés
+❌ Erreur envoi notification: FirebaseMessagingError: Requested entity was not found.
+    at FirebaseMessagingError.fromServerError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/error.js:269:16)
+    at createFirebaseError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/messaging/messaging-errors-internal.js:36:47)
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/messaging/messaging-api-request-internal.js:74:75
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:145:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:203:9) {
+  errorInfo: {
+    code: 'messaging/registration-token-not-registered',
+    message: 'Requested entity was not found.'
+  },
+  codePrefix: 'messaging'
+}
+✅ 0/1 notifications FCM envoyées à l'utilisateur 25
+✅ Firebase FCM Push envoyé à user 25: 🎯 Nouvelle Mission Disponible → /automob/missions/11
+✅ 0/1 notifications envoyées
+⚠️ 1 échecs: [ 'Requested entity was not found.' ]
+✅ 0/1 notifications FCM envoyées
+🔥 [FORCE-NOTIF] FCM: undefined/undefined envoyés
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ [FORCE-NOTIF] Email envoyé à Raymond Salazar
+📧 [FORCE-NOTIF] Emails: 1/1 envoyés
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763635246558,
+    socket: 1763635246634,
+    lookup: 1763635246905,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763635382948,
+    abort: undefined,
+    phases: {
+      wait: 76,
+      dns: 271,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 136390
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'Besoin de chef',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 207,
+  mission_name: 'Besoin de chef',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+✨ Mission créée avec succès: 34
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 34
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 34: Besoin de chef
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 34: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 34: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+Geocoding error: RequestError
+    at ClientRequest.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:639:26)
+    at ClientRequest.emit (node:events:536:35)
+    at origin.emit (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)AggregateError [ETIMEDOUT]: 
+    at internalConnectMultiple (node:net:1122:18)
+    at afterConnectMultiple (node:net:1689:7) {
+  code: 'ETIMEDOUT',
+  timings: {
+    start: 1763635275985,
+    socket: 1763635275985,
+    lookup: 1763635276393,
+    connect: undefined,
+    secureConnect: undefined,
+    upload: undefined,
+    response: undefined,
+    end: undefined,
+    error: 1763635411621,
+    abort: undefined,
+    phases: {
+      wait: 0,
+      dns: 408,
+      tcp: undefined,
+      tls: undefined,
+      request: undefined,
+      firstByte: undefined,
+      download: undefined,
+      total: 135636
+    }
+  }
+}
+🚨 FALLBACK VILLE: {
+  originalAddress: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  extractedCity: 'France'
+}
+Création mission avec les données: {
+  clientId: 26,
+  mission_name: 'Besoin de chef',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'jour',
+  finalMaxHours: 8,
+  hourly_rate: 18,
+  finalLocationType: 'sur_site',
+  address: '34 Avenue Des Champs-Élysées, 75008 Paris, France',
+  city: 'France',
+  budget: 144
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'France',
+  descriptionLength: 207,
+  mission_name: 'Besoin de chef',
+  clientId: 26
+}
+🚨 VALEURS NULL DÉTECTÉES: [
+  { column: 'latitude', value: null },
+  { column: 'longitude', value: null }
+]
+✨ Mission créée avec succès: 35
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 35
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 35: Besoin de chef
+❌ [MISSION_NOTIF] Erreur recherche automobs éligibles: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [MISSION_NOTIF] Erreur publication mission 35: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+❌ [EXPERT] Erreur traitement notifications pour mission 35: Error: Unknown column 'ap.notification_preferences' in 'field list'
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at MissionNotificationService.findEligibleAutomobs (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:89:35)
+    at MissionNotificationService.publishMissionNotifications (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/missionNotificationService.js:36:43)
+    at Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:737:72)
+    at process.processImmediate (node:internal/timers:483:21) {
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sql: '\n' +
+    '        SELECT DISTINCT \n' +
+    '          u.id, u.email, u.verified, u.created_at as user_created_at,\n' +
+    '          ap.first_name, ap.last_name, ap.phone as profile_phone, \n' +
+    '          ap.phone_country_code, ap.city, ap.work_areas, \n' +
+    '          ap.availability_start_date, ap.availability_end_date, \n' +
+    '          ap.id_verified, ap.secteur_id, ap.web_push_enabled, \n' +
+    '          ap.web_push_subscription, ap.id AS automob_profile_id,\n' +
+    '          ap.notification_preferences\n' +
+    '        FROM users u\n' +
+    '        JOIN automob_profiles ap ON u.id = ap.user_id\n' +
+    '        JOIN automob_competences ac ON ap.id = ac.automob_profile_id\n' +
+    "        WHERE u.role = 'automob' \n" +
+    '          AND u.verified = TRUE \n' +
+    '          AND ac.competence_id IN (6,5,7)\n' +
+    '          AND ap.id_verified = 1\n' +
+    '      ',
+  sqlState: '42S22',
+  sqlMessage: "Unknown column 'ap.notification_preferences' in 'field list'"
+}
+User connected: wc_F6dQwux5zegxNAABh
+User connected: rPU0OY48KNSZfLT2AABj
+ User 26 joined room user_26

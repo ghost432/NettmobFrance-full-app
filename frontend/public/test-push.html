@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Web Push - NettmobFrance</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    
+    .section {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      margin: 5px 0;
+      background: white;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    
+    .status-icon {
+      font-size: 20px;
+      min-width: 25px;
+    }
+    
+    .status-label {
+      font-weight: 600;
+      min-width: 150px;
+      color: #555;
+    }
+    
+    .status-value {
+      color: #333;
+      flex: 1;
+      word-break: break-all;
+    }
+    
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+    .warning { color: #f59e0b; }
+    .info { color: #3b82f6; }
+    
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin: 5px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .alert-info {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+      color: #1e40af;
+    }
+    
+    .alert-warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+    
+    .alert-error {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      color: #991b1b;
+    }
+    
+    .code {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔔 Test Web Push Notifications</h1>
+    <p class="subtitle">Diagnostic et test du système de notifications push</p>
+    
+    <div id="results"></div>
+    
+    <div class="buttons">
+      <button onclick="runDiagnostic()">🔍 Lancer le Diagnostic</button>
+      <button onclick="requestPermission()">🔔 Demander Permission</button>
+      <button onclick="subscribe()">✅ S'abonner</button>
+      <button onclick="unsubscribe()">❌ Se désabonner</button>
+      <button onclick="sendTest()">📤 Envoyer Test</button>
+      <button onclick="clearResults()">🗑️ Effacer</button>
+    </div>
+  </div>
+
+  <script>
+    const VAPID_PUBLIC_KEY = 'BKNAHqov_9DETgh_h87mZgWBGwrjlZZipaZYjKm9TGZEoQ6mKqGP0D9yjOwRQqVckSDKPmRJ4J37FG01SZrMUjE';
+    
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+    
+    function addResult(html) {
+      document.getElementById('results').innerHTML += html;
+    }
+    
+    function clearResults() {
+      document.getElementById('results').innerHTML = '';
+    }
+    
+    async function runDiagnostic() {
+      clearResults();
+      addResult('<div class="section"><h2>🔍 Diagnostic en cours...</h2></div>');
+      
+      // 1. Support
+      addResult('<div class="section"><h2>1️⃣ Support du Navigateur</h2>');
+      
+      const swSupport = 'serviceWorker' in navigator;
+      const pmSupport = 'PushManager' in window;
+      const notifSupport = 'Notification' in window;
+      
+      addResult(`
+        <div class="status">
+          <span class="status-icon ${swSupport ? 'success' : 'error'}">${swSupport ? '✅' : '❌'}</span>
+          <span class="status-label">Service Worker:</span>
+          <span class="status-value">${swSupport ? 'Supporté' : 'Non supporté'}</span>
+        </div>
+        <div class="status">
+          <span class="status-icon ${pmSupport ? 'success' : 'error'}">${pmSupport ? '✅' : '❌'}</span>
+          <span class="status-label">Push Manager:</span>
+          <span class="status-value">${pmSupport ? 'Supporté' : 'Non supporté'}</span>
+        </div>
+        <div class="status">
+          <span class="status-icon ${notifSupport ? 'success' : 'error'}">${notifSupport ? '✅' : '❌'}</span>
+          <span class="status-label">Notifications:</span>
+          <span class="status-value">${notifSupport ? 'Supporté' : 'Non supporté'}</span>
+        </div>
+      </div>`);
+      
+      if (!swSupport || !pmSupport || !notifSupport) {
+        addResult('<div class="alert alert-error">❌ Votre navigateur ne supporte pas les Web Push. Utilisez Chrome, Firefox ou Edge.</div>');
+        return;
+      }
+      
+      // 2. HTTPS
+      addResult('<div class="section"><h2>2️⃣ Sécurité (HTTPS)</h2>');
+      const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      addResult(`
+        <div class="status">
+          <span class="status-icon ${isSecure ? 'success' : 'error'}">${isSecure ? '✅' : '❌'}</span>
+          <span class="status-label">Protocole:</span>
+          <span class="status-value">${location.protocol}//${location.host}</span>
+        </div>
+      </div>`);
+      
+      if (!isSecure) {
+        addResult('<div class="alert alert-error">❌ Les Web Push nécessitent HTTPS ou localhost. Utilisez https:// ou localhost.</div>');
+      }
+      
+      // 3. Permission
+      addResult('<div class="section"><h2>3️⃣ Permission</h2>');
+      const permission = Notification.permission;
+      const permIcon = permission === 'granted' ? '✅' : permission === 'denied' ? '❌' : '⚠️';
+      const permClass = permission === 'granted' ? 'success' : permission === 'denied' ? 'error' : 'warning';
+      
+      addResult(`
+        <div class="status">
+          <span class="status-icon ${permClass}">${permIcon}</span>
+          <span class="status-label">État:</span>
+          <span class="status-value">${permission}</span>
+        </div>
+      </div>`);
+      
+      if (permission === 'denied') {
+        addResult('<div class="alert alert-error">❌ Permission refusée. Cliquez sur l\'icône 🔒 dans la barre d\'adresse pour réinitialiser.</div>');
+      } else if (permission === 'default') {
+        addResult('<div class="alert alert-warning">⚠️ Permission non demandée. Cliquez sur "Demander Permission".</div>');
+      }
+      
+      // 4. Service Worker
+      addResult('<div class="section"><h2>4️⃣ Service Worker</h2>');
+      try {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (reg) {
+          const state = reg.active?.state || 'N/A';
+          const stateIcon = state === 'activated' ? '✅' : '⚠️';
+          const stateClass = state === 'activated' ? 'success' : 'warning';
+          
+          addResult(`
+            <div class="status">
+              <span class="status-icon ${stateClass}">${stateIcon}</span>
+              <span class="status-label">État:</span>
+              <span class="status-value">${state}</span>
+            </div>
+            <div class="status">
+              <span class="status-icon info">ℹ️</span>
+              <span class="status-label">Scope:</span>
+              <span class="status-value">${reg.scope}</span>
+            </div>
+          </div>`);
+          
+          if (state !== 'activated') {
+            addResult('<div class="alert alert-warning">⚠️ Service Worker pas encore activé. Rafraîchissez la page.</div>');
+          }
+        } else {
+          addResult(`
+            <div class="status">
+              <span class="status-icon error">❌</span>
+              <span class="status-label">État:</span>
+              <span class="status-value">Non enregistré</span>
+            </div>
+          </div>`);
+          addResult('<div class="alert alert-error">❌ Service Worker non enregistré. Allez sur l\'application principale pour l\'enregistrer.</div>');
+        }
+      } catch (error) {
+        addResult(`
+          <div class="status">
+            <span class="status-icon error">❌</span>
+            <span class="status-label">Erreur:</span>
+            <span class="status-value">${error.message}</span>
+          </div>
+        </div>`);
+      }
+      
+      // 5. Souscription
+      addResult('<div class="section"><h2>5️⃣ Souscription Push</h2>');
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const sub = await reg.pushManager.getSubscription();
+        
+        if (sub) {
+          const endpoint = sub.endpoint;
+          addResult(`
+            <div class="status">
+              <span class="status-icon success">✅</span>
+              <span class="status-label">État:</span>
+              <span class="status-value">Active</span>
+            </div>
+            <div class="status">
+              <span class="status-icon info">ℹ️</span>
+              <span class="status-label">Endpoint:</span>
+              <span class="status-value">${endpoint.substring(0, 60)}...</span>
+            </div>
+          </div>`);
+        } else {
+          addResult(`
+            <div class="status">
+              <span class="status-icon warning">⚠️</span>
+              <span class="status-label">État:</span>
+              <span class="status-value">Pas de souscription</span>
+            </div>
+          </div>`);
+          addResult('<div class="alert alert-warning">⚠️ Pas de souscription active. Cliquez sur "S\'abonner".</div>');
+        }
+      } catch (error) {
+        addResult(`
+          <div class="status">
+            <span class="status-icon error">❌</span>
+            <span class="status-label">Erreur:</span>
+            <span class="status-value">${error.message}</span>
+          </div>
+        </div>`);
+      }
+      
+      // Résumé
+      addResult('<div class="section"><h2>📊 Résumé</h2>');
+      if (swSupport && pmSupport && notifSupport && isSecure && permission === 'granted') {
+        addResult('<div class="alert alert-info">✅ Tout est prêt ! Vous pouvez recevoir des notifications push.</div>');
+      } else {
+        addResult('<div class="alert alert-warning">⚠️ Certaines conditions ne sont pas remplies. Suivez les instructions ci-dessus.</div>');
+      }
+      addResult('</div>');
+    }
+    
+    async function requestPermission() {
+      try {
+        const permission = await Notification.requestPermission();
+        addResult(`<div class="alert alert-info">Permission: ${permission}</div>`);
+        if (permission === 'granted') {
+          addResult('<div class="alert alert-info">✅ Permission accordée ! Vous pouvez maintenant vous abonner.</div>');
+        }
+      } catch (error) {
+        addResult(`<div class="alert alert-error">❌ Erreur: ${error.message}</div>`);
+      }
+    }
+    
+    async function subscribe() {
+      try {
+        addResult('<div class="alert alert-info">⏳ Souscription en cours...</div>');
+        
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          throw new Error('Permission refusée');
+        }
+        
+        const reg = await navigator.serviceWorker.ready;
+        const sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+        });
+        
+        addResult('<div class="alert alert-info">✅ Souscription créée ! Endpoint: ' + sub.endpoint.substring(0, 60) + '...</div>');
+        addResult('<div class="alert alert-warning">⚠️ Note: Cette souscription n\'est pas enregistrée dans votre compte. Utilisez l\'application principale pour un enregistrement complet.</div>');
+      } catch (error) {
+        addResult(`<div class="alert alert-error">❌ Erreur: ${error.message}</div>`);
+      }
+    }
+    
+    async function unsubscribe() {
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const sub = await reg.pushManager.getSubscription();
+        
+        if (sub) {
+          await sub.unsubscribe();
+          addResult('<div class="alert alert-info">✅ Désabonné avec succès</div>');
+        } else {
+          addResult('<div class="alert alert-warning">⚠️ Aucune souscription active</div>');
+        }
+      } catch (error) {
+        addResult(`<div class="alert alert-error">❌ Erreur: ${error.message}</div>`);
+      }
+    }
+    
+    async function sendTest() {
+      addResult('<div class="alert alert-warning">⚠️ Cette fonction nécessite d\'être connecté à l\'application principale. Utilisez le bouton "Tester Web Push" dans l\'interface admin.</div>');
+    }
+    
+    // Auto-run diagnostic on load
+    window.addEventListener('load', () => {
+      setTimeout(runDiagnostic, 500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nettoyage Service Worker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 { color: #4F46E5; }
+    button {
+      background: #4F46E5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px;
+    }
+    button:hover { background: #4338CA; }
+    .success { color: #059669; }
+    .error { color: #DC2626; }
+    #log {
+      background: #1F2937;
+      color: #10B981;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔧 Nettoyage Service Worker</h1>
+    <p>Utilisez cette page pour désenregistrer tous les Service Workers et nettoyer le cache.</p>
+    
+    <button onclick="unregisterAll()">Désenregistrer tous les SW</button>
+    <button onclick="clearCache()">Vider le cache</button>
+    <button onclick="clearAll()">Tout nettoyer</button>
+    <button onclick="checkStatus()">Vérifier l'état</button>
+    
+    <div id="log"></div>
+  </div>
+
+  <script>
+    function log(message, type = 'info') {
+      const logDiv = document.getElementById('log');
+      const timestamp = new Date().toLocaleTimeString();
+      const emoji = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+      logDiv.innerHTML += `[${timestamp}] ${emoji} ${message}\n`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    async function unregisterAll() {
+      log('Désenregistrement des Service Workers...');
+      
+      if (!('serviceWorker' in navigator)) {
+        log('Service Worker non supporté', 'error');
+        return;
+      }
+
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        
+        if (registrations.length === 0) {
+          log('Aucun Service Worker enregistré', 'success');
+          return;
+        }
+
+        for (const registration of registrations) {
+          await registration.unregister();
+          log(`Service Worker désenregistré: ${registration.scope}`, 'success');
+        }
+
+        log(`${registrations.length} Service Worker(s) désenregistré(s)`, 'success');
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    async function clearCache() {
+      log('Nettoyage du cache...');
+      
+      if (!('caches' in window)) {
+        log('Cache API non supportée', 'error');
+        return;
+      }
+
+      try {
+        const cacheNames = await caches.keys();
+        
+        if (cacheNames.length === 0) {
+          log('Aucun cache trouvé', 'success');
+          return;
+        }
+
+        for (const cacheName of cacheNames) {
+          await caches.delete(cacheName);
+          log(`Cache supprimé: ${cacheName}`, 'success');
+        }
+
+        log(`${cacheNames.length} cache(s) supprimé(s)`, 'success');
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    async function clearAll() {
+      log('=== NETTOYAGE COMPLET ===');
+      await unregisterAll();
+      await clearCache();
+      
+      // Nettoyer le localStorage
+      log('Nettoyage du localStorage...');
+      localStorage.clear();
+      log('LocalStorage nettoyé', 'success');
+      
+      log('=== NETTOYAGE TERMINÉ ===', 'success');
+      log('Rechargez la page principale pour réenregistrer le SW');
+    }
+
+    async function checkStatus() {
+      log('=== VÉRIFICATION DE L\'ÉTAT ===');
+      
+      if (!('serviceWorker' in navigator)) {
+        log('Service Worker non supporté', 'error');
+        return;
+      }
+
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        log(`Service Workers enregistrés: ${registrations.length}`);
+        
+        registrations.forEach((reg, index) => {
+          log(`  SW ${index + 1}: ${reg.scope}`);
+          log(`    État: ${reg.active ? 'Actif' : 'Inactif'}`);
+        });
+
+        const cacheNames = await caches.keys();
+        log(`Caches: ${cacheNames.length}`);
+        cacheNames.forEach(name => log(`  - ${name}`));
+
+        log('=== FIN VÉRIFICATION ===');
+      } catch (error) {
+        log(`Erreur: ${error.message}`, 'error');
+      }
+    }
+
+    // Vérification automatique au chargement
+    window.onload = () => {
+      log('Page de nettoyage chargée');
+      checkStatus();
+    };
+  </script>
+</body>
+</html>

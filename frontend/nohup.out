@@ -1,0 +1,12 @@
+nohup: les entrées sont ignorées
+
+> nettmobfrance-frontend@1.0.0 dev
+> vite --port 5176 --host
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+
+  VITE v5.4.21  ready in 10467 ms
+
+  ➜  Local:   http://localhost:5176/
+  ➜  Network: http://192.168.221.56:5176/
+  ➜  Network: http://172.18.0.1:5176/

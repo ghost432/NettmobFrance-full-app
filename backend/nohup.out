@@ -1,0 +1,79 @@
+nohup: les entrées sont ignorées
+
+> nettmobfrance-backend@1.0.0 start
+> node server.js
+
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+❌ Database connection failed (1/3): connect ETIMEDOUT
+🔄 Retry in 2 seconds...
+✅ Database connected successfully
+✅ Serveur email prêt et opérationnel
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+❌ Erreur vérification fcm_tokens: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IF NOT EXISTS helpful_yes INT DEFAULT 0' at line 1
+User connected: L9CuUmDsrrck_C9YAAAC
+User connected: tSqXS1uJnVy5Y-sTAAAD
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: BDfitvAUsE-vqSKgAAAF
+ User 26 joined room user_26
+User connected: 7ioTjGUId3bpkUcRAAAH
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+User connected: WUgrSskPiy8RtQhgAAAL
+User connected: 3zwIbgcLlXGH1cDKAAAM
+User connected: HawYG9PqOkblfkf6AAAN
+ User 26 joined room user_26
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: vwQ0_4jRSSlvLCaLAAAP
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+User connected: CCp0E1NS5BZ2wLM7AAAS
+User connected: j_N5a4uzf92XyBysAAAT
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: hkPzn3O1iwWIymQgAAAV
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+User connected: 39E90yZ5p5fPAsAyAAAY
+User connected: 06sBjXKB6r_hWsuZAAAZ
+ User 26 joined room user_26
+ User 26 joined room user_26
+User connected: 7ysLoAJAswrjlX7gAAAb
+ User 26 joined room user_26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26
+✅ Token FCM mis à jour pour l'utilisateur 26

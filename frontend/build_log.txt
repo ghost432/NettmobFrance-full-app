@@ -1,0 +1,29 @@
+
+> nettmobfrance-frontend@1.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 3710 modules transformed.
+x Build failed in 20.85s
+error during build:
+src/pages/DisputeDetails.jsx (23:9): "safeJsonParse" is not exported by "src/lib/utils.js", imported by "src/pages/DisputeDetails.jsx".
+file: /home/thierry-ninja/Desktop/windsurf-project-4/frontend/src/pages/DisputeDetails.jsx:23:9
+
+21: import { Badge } from '@/components/ui/badge';
+22: import { Button } from '@/components/ui/button';
+23: import { safeJsonParse } from '@/lib/utils';
+             ^
+24: 
+25: const DisputeDetails = () => {
+
+    at getRollupError (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:17040:16)
+    at Module.traceVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:17452:29)
+    at ModuleScope.findVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:15070:39)
+    at ReturnValueScope.findVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at FunctionBodyScope.findVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at ReturnValueScope.findVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at FunctionBodyScope.findVariable (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:5673:38)
+    at Identifier.bind (file:///home/thierry-ninja/Desktop/windsurf-project-4/frontend/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)

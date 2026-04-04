@@ -1,0 +1,160 @@
+/* 
+ * Couleurs de marque extraites de 12.png
+ * NettmobFrance Brand Colors
+ */
+
+:root {
+  /* Couleurs principales de la marque */
+  --brand-primary: #A52450;        /* Rose/Magenta foncé - Couleur principale */
+  --brand-primary-light: #AE4B97;  /* Rose/Magenta clair */
+  --brand-primary-dark: #8B1E42;   /* Version plus foncée */
+  
+  --brand-secondary: #3A559F;      /* Bleu */
+  --brand-secondary-light: #4A6BB0;
+  --brand-secondary-dark: #2A4580;
+  
+  --brand-accent: #FDA050;         /* Orange */
+  --brand-accent-light: #FFBB70;
+  --brand-accent-dark: #E68A30;
+  
+  --brand-coral: #E64656;          /* Rouge/Corail */
+  --brand-gray: #807DA2;           /* Gris/Violet */
+  
+  /* Couleurs pour les clients (Rose/Magenta) */
+  --client-primary: #A52450;
+  --client-primary-hover: #8B1E42;
+  --client-primary-light: #AE4B97;
+  --client-bg: #FFF5F8;            /* Fond rose très clair */
+  --client-border: #F0D0DC;        /* Bordure rose clair */
+  
+  /* Couleurs pour les automobs (Bleu) */
+  --automob-primary: #3A559F;
+  --automob-primary-hover: #2A4580;
+  --automob-primary-light: #4A6BB0;
+  --automob-bg: #F5F7FB;           /* Fond bleu très clair */
+  --automob-border: #D0D8E8;       /* Bordure bleue claire */
+  
+  /* Couleurs d'accent (Orange pour les actions importantes) */
+  --action-primary: #FDA050;
+  --action-hover: #E68A30;
+  --action-light: #FFBB70;
+  
+  /* Couleurs de statut */
+  --success: #16a34a;
+  --warning: #FDA050;              /* Utilise l'orange de la marque */
+  --error: #E64656;                /* Utilise le corail de la marque */
+  --info: #3A559F;                 /* Utilise le bleu de la marque */
+}
+
+/* Boutons Client (Rose/Magenta) */
+.btn-client-primary {
+  background-color: var(--client-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-client-primary:hover {
+  background-color: var(--client-primary-hover);
+}
+
+/* Boutons Automob (Bleu) */
+.btn-automob-primary {
+  background-color: var(--automob-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-automob-primary:hover {
+  background-color: var(--automob-primary-hover);
+}
+
+/* Boutons d'action (Orange) */
+.btn-action {
+  background-color: var(--action-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-action:hover {
+  background-color: var(--action-hover);
+}
+
+/* Liens Client */
+.link-client {
+  color: var(--client-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link-client:hover {
+  color: var(--client-primary-hover);
+  text-decoration: underline;
+}
+
+/* Liens Automob */
+.link-automob {
+  color: var(--automob-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link-automob:hover {
+  color: var(--automob-primary-hover);
+  text-decoration: underline;
+}
+
+/* Badges Client */
+.badge-client {
+  background-color: var(--client-bg);
+  color: var(--client-primary);
+  border: 1px solid var(--client-border);
+}
+
+/* Badges Automob */
+.badge-automob {
+  background-color: var(--automob-bg);
+  color: var(--automob-primary);
+  border: 1px solid var(--automob-border);
+}
+
+/* Cards Client */
+.card-client {
+  border-left: 4px solid var(--client-primary);
+}
+
+.card-client-header {
+  background-color: var(--client-bg);
+  border-bottom: 1px solid var(--client-border);
+}
+
+/* Cards Automob */
+.card-automob {
+  border-left: 4px solid var(--automob-primary);
+}
+
+.card-automob-header {
+  background-color: var(--automob-bg);
+  border-bottom: 1px solid var(--automob-border);
+}
+
+/* Alertes avec couleurs de marque */
+.alert-warning {
+  background-color: #FFF8ED;
+  border-color: var(--action-primary);
+  color: #8B5A00;
+}
+
+.alert-error {
+  background-color: #FEF2F2;
+  border-color: var(--error);
+  color: #7F1D1D;
+}
+
+.alert-info {
+  background-color: var(--automob-bg);
+  border-color: var(--automob-primary);
+  color: #1E3A8A;
+}

@@ -1,0 +1,2509 @@
+
+> nettmobfrance-backend@1.0.0 dev
+> nodemon server.js
+
+[33m[nodemon] 3.1.14[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+User connected: -UjIrY07NE0WHjiyAAAB
+ User 28 joined room user_28
+User connected: w7z51fNdwEceCquLAAAD
+ User 28 joined room user_28
+✅ Serveur email prêt et opérationnel
+User connected: WsjfG5kVK8PM1W3-AAAF
+ User 28 joined room user_28
+User connected: lJziJ1UZvMKa1Tg9AAAI
+User connected: tkUskNzsXwuHK3eiAAAJ
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: 4rZGQbUgdElS47_jAAAL
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: sku10hKtf_Jea1gnAAAO
+User connected: oVUyIue_T4W5mwHIAAAP
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: 64wkshz6a9sLkyTcAAAR
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: V6MpXCq-kI_A-1BfAAAU
+User connected: LApffxzl_FmzDhKVAAAV
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: N2txU-QJ-GLdCq-_AAAY
+User connected: ucW0GYRPahEoZvjqAAAZ
+ User 28 joined room user_28
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: b4hoF9N1YnK5qeA-AAAc
+User connected: 0_i0mJMlQZI7KZlfAAAd
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: gBxa9hfKIRwed012AAAf
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: faj5DILa3qOLEAHfAAAh
+ User 28 joined room user_28
+User connected: CBovM2N096Aqu8EaAAAj
+ User 28 joined room user_28
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+User connected: PLqB7W6vHPF1F1XEAAAC
+User connected: ME8Mi-UWdnXffOXSAAAD
+✅ Blog slugs + images OK
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: 1FHxDnHdCpGonuDOAAAG
+User connected: JfQZfj7K3qp8sxn-AAAH
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: q_oglD7k6CeckDZFAAAJ
+ User 28 joined room user_28
+✅ Serveur email prêt et opérationnel
+ Test de connexion reçu
+ Test connexion base de données...
+ Test lecture table users...
+ Test lecture table secteurs...
+ Test lecture table competences...
+ Tous les tests réussis !
+🗺️ Géocodage réussi: {
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  latitude: 48.870556,
+  longitude: 2.307986,
+  city: 'Paris',
+  fullResponse: {
+    id: 'address.8500262269511308',
+    type: 'Feature',
+    place_type: [ 'address' ],
+    relevance: 1,
+    properties: {
+      accuracy: 'rooftop',
+      mapbox_id: 'dXJuOm1ieGFkcjpmNzJiOWQ5YS1mZjg2LTRjNTctYjE5OC01ZDdlMjk2NTg5N2Y'
+    },
+    text: 'Rue Du Colisée',
+    place_name: '10 Rue Du Colisée, 75008 Paris, France',
+    center: [ 2.307986, 48.870556 ],
+    geometry: { type: 'Point', coordinates: [Array] },
+    address: '10',
+    context: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+  }
+}
+Create mission error: ReferenceError: Cannot access 'budget' before initialization
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:643:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Error details: {
+  message: "Cannot access 'budget' before initialization",
+  code: undefined,
+  sqlMessage: undefined,
+  sql: undefined
+}
+🗺️ Géocodage réussi: {
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  latitude: 48.870556,
+  longitude: 2.307986,
+  city: 'Paris',
+  fullResponse: {
+    id: 'address.8500262269511308',
+    type: 'Feature',
+    place_type: [ 'address' ],
+    relevance: 1,
+    properties: {
+      accuracy: 'rooftop',
+      mapbox_id: 'dXJuOm1ieGFkcjpmNzJiOWQ5YS1mZjg2LTRjNTctYjE5OC01ZDdlMjk2NTg5N2Y'
+    },
+    text: 'Rue Du Colisée',
+    place_name: '10 Rue Du Colisée, 75008 Paris, France',
+    center: [ 2.307986, 48.870556 ],
+    geometry: { type: 'Point', coordinates: [Array] },
+    address: '10',
+    context: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+  }
+}
+Create mission error: ReferenceError: Cannot access 'budget' before initialization
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:643:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Error details: {
+  message: "Cannot access 'budget' before initialization",
+  code: undefined,
+  sqlMessage: undefined,
+  sql: undefined
+}
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+User connected: Wvf9D-3Pdic2o7sPAAAB
+ User 28 joined room user_28
+User connected: Gw-TUwuvTissrNs7AAAE
+User connected: b_7kJw_rFiszQ0PIAAAF
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: oe-F7J45lzS4oJioAAAH
+ User 28 joined room user_28
+User connected: Mf7oXRaz-hCfp4XfAAAJ
+ User 28 joined room user_28
+❌ Erreur configuration email: Greeting never received
+ℹ️  Vérifiez vos credentials SMTP dans le fichier .env
+ℹ️  Pour IONOS, assurez-vous que l'accès SMTP est activé dans votre compte
+🗺️ Géocodage réussi: {
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  latitude: 48.870556,
+  longitude: 2.307986,
+  city: 'Paris',
+  fullResponse: {
+    id: 'address.8500262269511308',
+    type: 'Feature',
+    place_type: [ 'address' ],
+    relevance: 1,
+    properties: {
+      accuracy: 'rooftop',
+      mapbox_id: 'dXJuOm1ieGFkcjpmNzJiOWQ5YS1mZjg2LTRjNTctYjE5OC01ZDdlMjk2NTg5N2Y'
+    },
+    text: 'Rue Du Colisée',
+    place_name: '10 Rue Du Colisée, 75008 Paris, France',
+    center: [ 2.307986, 48.870556 ],
+    geometry: { type: 'Point', coordinates: [Array] },
+    address: '10',
+    context: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+  }
+}
+Création mission avec les données: {
+  clientId: 28,
+  mission_name: 'babana fatigeue',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'semaine',
+  finalMaxHours: 46,
+  hourly_rate: 20,
+  finalLocationType: 'sur_site',
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  city: 'Paris'
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'Paris',
+  descriptionLength: 234,
+  mission_name: 'babana fatigeue',
+  clientId: 28
+}
+✨ Mission créée avec succès: 49
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 49
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 49: babana fatigeue
+🔍 [MISSION_NOTIF] 1 automobs trouvés avec les compétences requises
+✅ [GEO] Automob 27: Ville profil "paris" = Mission "paris" - ÉLIGIBLE
+✅ [MISSION_NOTIF] 1 automobs éligibles après filtrage
+📋 [MISSION_NOTIF] 1 automobs éligibles trouvés
+📬 Notification créée pour user 27: 🎯 Nouvelle Mission Disponible
+📲 [MISSION_NOTIF] 1 notifications in-app créées
+⚠️ [MISSION_NOTIF] Aucun automob avec Web Push activé
+User connected: GBQloNs4SeFkHMBbAAAL
+ User 28 joined room user_28
+User connected: J_LP1Cg6yNz2L0adAAAN
+ User 28 joined room user_28
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/bf9c3b34-dfc8-4bec-9fce-95d71a6a45fb
+✅ 4/4 notifications envoyées
+✅ 4/4 notifications FCM envoyées
+🔥 [MISSION_NOTIF] FCM: 4/4 envoyés
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/ab85022f-58d4-4c5f-894f-8c2aa420247f
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/c9659f12-8437-45e6-b636-c2cdc1f4e343
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/fd53a065-378d-4f0d-924c-641530f20f27
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎯 Nouvelle Mission Disponible → /automob/missions/49
+✅ Email de notification envoyé à mounchilithierry432@gmail.com
+✅ [MISSION_NOTIF] Email envoyé à Thierry Ninja (mounchilithierry432@gmail.com)
+📧 [MISSION_NOTIF] Emails: 1/1 envoyés
+   ✅ SMS préparé pour Thierry Ninja: +237655974875
+📱 [SMS] 1 automobs prêts pour SMS
+📤 [SMS] Envoi à 1 numéros uniques...
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+📋 Options d'envoi: {
+  to: '+237655974875',
+  from: 'Messaging Service',
+  messagingServiceSid: 'MG383000008a718d76118524f63b57c0ba',
+  bodyLength: 132
+}
+❌ Erreur envoi SMS à +237655974875: Timeout SMS (15s)
+   Code erreur: Aucun code
+   Status: Aucun status
+   Stack: Error: Timeout SMS (15s)
+    at Timeout._onTimeout (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/twilioService.js:138:31)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7)
+   Détails: Timeout - Twilio ne répond pas (15s)
+📊 Envoi groupé terminé: 0/1 réussis
+⚠️ 1 SMS ont échoué: [
+  {
+    phone: '+237655974875',
+    error: 'Timeout - Twilio ne répond pas (15s)'
+  }
+]
+📱 [SMS] Résultat: 0/1 envoyés avec succès
+⚠️ [SMS] 1 échecs:
+   ❌ +237655974875: Timeout - Twilio ne répond pas (15s)
+   ❌ SMS Thierry Ninja: +237655974875
+✅ [MISSION_NOTIF] Publication terminée pour mission 49: {
+  eligible: 1,
+  notifications: 1,
+  web_push: 0,
+  fcm: 4,
+  emails: 1,
+  sms: 0
+}
+📬 Notification créée pour user 28: ✅ Mission publiée avec succès
+📬 [MISSION_NOTIF] Client 28 notifié du succès de publication
+📊 [EXPERT] Résumé final de publication:
+   - 1 automobs éligibles
+   - 1 notifications in-app
+   - 0 Web Push
+   - 4 FCM mobile
+   - 1 emails
+   - 0 SMS
+User connected: fPflv4ypAI0TaINDAAAQ
+User connected: KBFnnq1a5v2y9Kv8AAAR
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: ftbMt3aCoMmoXw_GAAAT
+ User 28 joined room user_28
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/01bcb0e1-2aa6-4ce7-ae2f-c995ac632380
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/dd56b970-e298-43d2-91b1-77dcaeb4e3e7
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/a7fad342-af06-4f3b-bd90-f4dde082827f
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/ed697168-fc4b-4a85-829d-b01312e63d3a
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ✅ Mission publiée avec succès → /client/missions/49
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+🎉 [EXPERT] Traitement unifié des notifications terminé pour mission 49
+User connected: LDEUOltg1XoaWNN-AAAV
+ User 28 joined room user_28
+User connected: uZ0ikVR1BHUHWOitAAAX
+ User 28 joined room user_28
+User connected: CGQ_N0-BaeYV4YNhAAAZ
+ User 28 joined room user_28
+User connected: O6N_-z7AbJ9oGB25AAAb
+ User 28 joined room user_28
+User connected: Vg0y65XySyzzWT4QAAAd
+ User 28 joined room user_28
+User connected: tQpYCO4dMkhNIe9fAAAf
+ User 28 joined room user_28
+🗺️ Géocodage réussi: {
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  latitude: 48.870556,
+  longitude: 2.307986,
+  city: 'Paris',
+  fullResponse: {
+    id: 'address.8500262269511308',
+    type: 'Feature',
+    place_type: [ 'address' ],
+    relevance: 1,
+    properties: {
+      accuracy: 'rooftop',
+      mapbox_id: 'dXJuOm1ieGFkcjpmNzJiOWQ5YS1mZjg2LTRjNTctYjE5OC01ZDdlMjk2NTg5N2Y'
+    },
+    text: 'Rue Du Colisée',
+    place_name: '10 Rue Du Colisée, 75008 Paris, France',
+    center: [ 2.307986, 48.870556 ],
+    geometry: { type: 'Point', coordinates: [Array] },
+    address: '10',
+    context: [ [Object], [Object], [Object], [Object], [Object], [Object] ]
+  }
+}
+Création mission avec les données: {
+  clientId: 28,
+  mission_name: 'babana fatigeue',
+  finalWorkTime: 'jour',
+  secteur_id: 2,
+  finalBillingFrequency: 'semaine',
+  finalMaxHours: 46,
+  hourly_rate: 20,
+  finalLocationType: 'sur_site',
+  address: '10 Rue Du Colisée, 75008 Paris, France',
+  city: 'Paris'
+}
+🔍 VALIDATION PRE-INSERTION: {
+  sql: 'INSERT INTO missions (client_id, mission_name, title, work_time, secteur_id, billing_frequency, max_hours, hourly_rate, location_type, address, city, latitude, longitude, description, automobs_needed,...',
+  valuesCount: 22,
+  cityValue: 'Paris',
+  descriptionLength: 234,
+  mission_name: 'babana fatigeue',
+  clientId: 28
+}
+✨ Mission créée avec succès: 50
+🔄 [EXPERT] Début du traitement unifié des notifications pour mission 50
+🚀 [MISSION_NOTIF] Début publication notifications pour mission 50: babana fatigeue
+🔍 [MISSION_NOTIF] 1 automobs trouvés avec les compétences requises
+✅ [GEO] Automob 27: Ville profil "paris" = Mission "paris" - ÉLIGIBLE
+✅ [MISSION_NOTIF] 1 automobs éligibles après filtrage
+📋 [MISSION_NOTIF] 1 automobs éligibles trouvés
+📬 Notification créée pour user 27: 🎯 Nouvelle Mission Disponible
+📲 [MISSION_NOTIF] 1 notifications in-app créées
+⚠️ [MISSION_NOTIF] Aucun automob avec Web Push activé
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/fb8cade3-0343-4b31-9d4b-b54ddb64d87a
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/cfda242c-2758-4b73-aaa1-db0c2531b9a3
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/9f86207b-438b-43e3-945e-e1031af5d64e
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/4bf1772e-5fe5-4064-b19e-72ed1ab9faf2
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎯 Nouvelle Mission Disponible → /automob/missions/50
+✅ 4/4 notifications envoyées
+✅ 4/4 notifications FCM envoyées
+🔥 [MISSION_NOTIF] FCM: 4/4 envoyés
+✅ Email de notification envoyé à mounchilithierry432@gmail.com
+✅ [MISSION_NOTIF] Email envoyé à Thierry Ninja (mounchilithierry432@gmail.com)
+📧 [MISSION_NOTIF] Emails: 1/1 envoyés
+   ✅ SMS préparé pour Thierry Ninja: +237655974875
+📱 [SMS] 1 automobs prêts pour SMS
+📤 [SMS] Envoi à 1 numéros uniques...
+📱 Envoi SMS groupé démarré: 1 destinataires
+📤 Envoi SMS à +237655974875...
+📋 Options d'envoi: {
+  to: '+237655974875',
+  from: 'Messaging Service',
+  messagingServiceSid: 'MG383000008a718d76118524f63b57c0ba',
+  bodyLength: 132
+}
+✅ SMS envoyé à +237655974875: SMf7eeeb759e6a7a9b90dc75a2b0eaa8b0 (accepted)
+📊 Envoi groupé terminé: 1/1 réussis
+📱 [SMS] Résultat: 1/1 envoyés avec succès
+   ✅ SMS Thierry Ninja: +237655974875
+✅ [MISSION_NOTIF] Publication terminée pour mission 50: {
+  eligible: 1,
+  notifications: 1,
+  web_push: 0,
+  fcm: 4,
+  emails: 1,
+  sms: 1
+}
+📬 Notification créée pour user 28: ✅ Mission publiée avec succès
+📬 [MISSION_NOTIF] Client 28 notifié du succès de publication
+📊 [EXPERT] Résumé final de publication:
+   - 1 automobs éligibles
+   - 1 notifications in-app
+   - 0 Web Push
+   - 4 FCM mobile
+   - 1 emails
+   - 1 SMS
+⚠️ [Auth] Pas de token pour GET /unread-count
+⚠️ [Auth] Pas de token pour GET /
+⚠️ [Auth] Pas de token pour GET /unread-count
+⚠️ [Auth] Pas de token pour GET /client/pending-applications-count
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/30e289c0-45ae-43b0-bfab-9ee3a7a4aeef
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/66809e98-59d8-407a-ac17-b9e2b9833309
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/18add14b-6c4f-46a1-b36c-1be73884e2c4
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/1c1c0666-b6e5-4f58-8472-2411aeed4994
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ✅ Mission publiée avec succès → /client/missions/50
+User connected: L6uDkZY6Newks7usAAAi
+User connected: pnIwCQDdLxqGFEerAAAj
+ User 27 joined room user_27
+ User 27 joined room user_27
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+🎉 [EXPERT] Traitement unifié des notifications terminé pour mission 50
+User connected: yK8PJvPjBoN2NY47AAAl
+ User 27 joined room user_27
+User connected: dwxXuG_7GzV_CnUqAAAp
+User connected: 0CK7GZCLPO0wb4aXAAAq
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: qogBKY5mzwY93dDIAAAs
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: CdvS9EQ6yKdfEJv_AAAu
+ User 27 joined room user_27
+User connected: m1lHbIjq4uJsIMVSAAAw
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: KHJeCrWp3aEhVokpAAAy
+ User 27 joined room user_27
+User connected: Quesv64U1SRdqDOXAAA0
+ User 27 joined room user_27
+📬 Notification créée pour user 28: Nouvelle candidature
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/947c45ea-79ee-4d2a-afbc-fd8b2f4180f6
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/fa516dcf-f746-48dc-acc7-ffb20eebb316
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/a9a607c7-3c34-4434-942d-08db9a08a2d5
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/b6c944e9-b1f4-45c3-8dd1-071b29b10805
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/317fee96-7565-4786-885f-005f16f714e8
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/2570b9aa-0ee6-4b22-b4d7-a7303e6b9d49
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: Nouvelle candidature → /client/missions/50
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/dc9780ed-5630-4f5c-8ad7-d2752afbc424
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/03296fca-ae1a-4ccb-bfb3-d1d755e66a20
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Notification nouvelle candidature envoyée au client 28
+📬 Notification créée pour user 27: Candidature envoyée
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f9bfbcc3-71f5-47ca-b4a5-d7a8f52ca1cf
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/0a8164e4-79d7-4a33-b9d2-3bc1d5064932
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/af967a83-bbed-46d6-a022-79257562208f
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/65b176df-ce5b-44d0-b035-adc211d30036
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: Candidature envoyée → /automob/my-applications
+User connected: xL8YwT5KXdeTBAFvAAA2
+ User 27 joined room user_27
+User connected: muKLE_agibCwhNTjAAA4
+ User 27 joined room user_27
+✅ Email de notification envoyé à mounchilithierry432@gmail.com
+User connected: F0hh5qSQ7WkZ0ytbAAA9
+User connected: -3YtJQ6M_CIT2eCMAAA-
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: ubiO6jjxYRrTvgrKAABA
+ User 27 joined room user_27
+User connected: sinU6kbvkiVAAIi-AABB
+User connected: r4te2_nSZ4c5-tjZAABC
+ User 27 joined room user_27
+User connected: j5bWp_qkjupCJ9gTAABE
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Token FCM mis à jour pour l'utilisateur 27
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+🔐 Tentative de connexion: ulrichthierry47@gmail.com
+📊 Recherche utilisateur: ulrichthierry47@gmail.com
+✅ Utilisateur trouvé - ID: 28 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: ulrichthierry47@gmail.com
+User connected: 3Axh6Afde-RXGDoSAABH
+User connected: WDuTuk13HQ6FjCwoAABI
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: kGdpHudgiuPU_jfoAABK
+ User 28 joined room user_28
+User connected: QRuHJnZzJ1Rl90b2AABM
+ User 28 joined room user_28
+User connected: NeR3FgZxNca_JtXJAABO
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: 00204OUMzJ0J0riEAABQ
+ User 28 joined room user_28
+User connected: hShR_ilr5UUkxQL3AABS
+ User 28 joined room user_28
+User connected: IBH1umNzWWJtwt4UAABU
+ User 28 joined room user_28
+User connected: AD-3ah86l8LMVUJBAABW
+ User 28 joined room user_28
+� [APPLICATION_UPDATE] Début: { missionId: '48', applicationId: '10', status: 'accepte', userId: 28 }
+📊 [APPLICATION_UPDATE] Applications trouvées: 1
+📬 [APPLICATION_UPDATE] Infos récupérées: { missionFound: true, automobFound: true, clientEmailFound: true }
+✅ [APPLICATION_UPDATE] mission_automobs mis à jour
+🚫 [MISSION_FULL] La mission 48 est complète (1/1). Refus automatique des autres candidatures.
+🔔 Création notification acceptation pour Automob: 27
+📬 Notification créée pour user 27: 🎉 Candidature acceptée
+� [APPLICATION_UPDATE] Début: { missionId: '48', applicationId: '10', status: 'accepte', userId: 28 }
+📊 [APPLICATION_UPDATE] Applications trouvées: 1
+📬 [APPLICATION_UPDATE] Infos récupérées: { missionFound: true, automobFound: true, clientEmailFound: true }
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/3c56288f-56d9-47cb-ba1a-5eff39042b8a
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/326f3654-db97-40be-b93d-89f5736ed139
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/1b5c7a44-8ace-443e-9f88-f0e35bf2f738
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/2e6f7240-d1a0-4b3f-b5e0-6d6934bc4df3
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/964980ea-0312-47e0-a5ad-3ead90115e62
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/d5b8d057-7402-4a43-925f-d07f5caf7806
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Candidature acceptée → /automob/missions/48
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/9ca5f0f0-13f4-4f6b-8dbe-0ce0fcba7853
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f0e2a56e-f5b7-461a-8adf-f7a041d5e84b
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Notification candidature acceptée envoyée à l'automob 27
+🔔 Création notification mission en cours pour Client: 28
+📬 Notification créée pour user 28: Mission en cours
+📧 Envoi email acceptation à: mounchilithierry432@gmail.com
+📧 Envoi email mission en cours à: ulrichthierry47@gmail.com
+✅ [APPLICATION_UPDATE] Succès
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/ba1d53cc-5d9b-42ab-852b-8477db731421
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/310f9190-ca0e-439c-9fd2-3d3d05a2f83b
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/604fb2c7-b164-4cc1-9ff4-a0d552680082
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/fdc46fc7-5fc9-4561-abe2-ff64061eff22
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: Mission en cours → /client/missions/48
+✅ Email de notification envoyé à mounchilithierry432@gmail.com
+✅ Email acceptation envoyé à: mounchilithierry432@gmail.com
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ Email mission en cours envoyé à: ulrichthierry47@gmail.com
+� [APPLICATION_UPDATE] Début: { missionId: '50', applicationId: '11', status: 'accepte', userId: 28 }
+📊 [APPLICATION_UPDATE] Applications trouvées: 1
+📬 [APPLICATION_UPDATE] Infos récupérées: { missionFound: true, automobFound: true, clientEmailFound: true }
+✅ [APPLICATION_UPDATE] mission_automobs mis à jour
+🚫 [MISSION_FULL] La mission 50 est complète (1/1). Refus automatique des autres candidatures.
+🔔 Création notification acceptation pour Automob: 27
+📬 Notification créée pour user 27: 🎉 Candidature acceptée
+� [APPLICATION_UPDATE] Début: { missionId: '50', applicationId: '11', status: 'accepte', userId: 28 }
+📊 [APPLICATION_UPDATE] Applications trouvées: 1
+📬 [APPLICATION_UPDATE] Infos récupérées: { missionFound: true, automobFound: true, clientEmailFound: true }
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/209ce0ba-1420-4307-bf03-e1bf59cc2222
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/d84ff337-50f4-410b-99f3-5d2589caabe1
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f2f1e616-13af-4bde-895c-aa91b9e1fcff
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/b8176ce7-1116-4e7d-9268-39a723b7967f
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/909aea8a-b80e-44e2-b44c-a43e847495ef
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Notification candidature acceptée envoyée à l'automob 27
+🔔 Création notification mission en cours pour Client: 28
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/33af85ce-9a46-440a-adc4-f47890821aa6
+📬 Notification créée pour user 28: Mission en cours
+📧 Envoi email acceptation à: mounchilithierry432@gmail.com
+📧 Envoi email mission en cours à: ulrichthierry47@gmail.com
+✅ [APPLICATION_UPDATE] Succès
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/89824c4a-3eda-4b1a-96f3-ad1c01d86714
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/96ea21c7-57d2-4174-b8d6-f855c86189b8
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/806b4bee-521d-4184-b9f2-5740893a090b
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/48bff415-cbf4-43ba-8e50-7f6cd1edc1f7
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Candidature acceptée → /automob/missions/50
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f3d6767f-c032-415a-b703-b0acd299cfd0
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/675d5cdf-e4aa-4d63-9bd1-5be016cfbbe3
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: Mission en cours → /client/missions/50
+✅ Email de notification envoyé à mounchilithierry432@gmail.com
+✅ Email acceptation envoyé à: mounchilithierry432@gmail.com
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+✅ Email mission en cours envoyé à: ulrichthierry47@gmail.com
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: sU93MNL-qQLmN05CAABZ
+User connected: RJfK4NfgM6UQtAt0AABa
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: tykHp25ZJGF7AQ3bAABc
+ User 27 joined room user_27
+User connected: 8kTY1HghlV3CmlrVAABe
+ User 27 joined room user_27
+User connected: sOTxnhyCvMrwvEVnAABg
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: _9lfGAPt6tNa2baYAABi
+ User 27 joined room user_27
+User connected: P4kw5KCQhG9CMe8JAABk
+ User 27 joined room user_27
+User connected: GBU17i5AXnIAr93AAABm
+ User 27 joined room user_27
+User connected: xN2_xZmqHP-1mu5XAABo
+ User 27 joined room user_27
+User connected: XL_iTbGyxt4bwHWGAABq
+ User 27 joined room user_27
+User connected: 89lihdF-uEha2IMiAABs
+ User 27 joined room user_27
+User connected: fwMvu8aoSrg9j__uAABu
+ User 27 joined room user_27
+User connected: QfaP1xdJBuZ-d2iPAABw
+ User 27 joined room user_27
+User connected: AyWt1Lib1uBdM7NBAABy
+ User 27 joined room user_27
+User connected: MWHbMhB7UjqzO9LFAAB0
+ User 27 joined room user_27
+User connected: ui77Catwh1glXltGAAB2
+ User 27 joined room user_27
+User connected: af7RIhvDO4kec3n6AAB4
+ User 27 joined room user_27
+User connected: d5EqQ9xAIf7DklK8AAB6
+ User 27 joined room user_27
+User connected: LsnXIiUH1VbfHDsCAAB8
+ User 27 joined room user_27
+User connected: ELoffD7Yx5yGCIYjAAB-
+ User 27 joined room user_27
+User connected: DX_1lKSHxpd488tbAACA
+ User 27 joined room user_27
+User connected: NURvcl7YeWPKD7s2AACC
+ User 27 joined room user_27
+User connected: badAswsELxO1AcjqAACE
+ User 27 joined room user_27
+📬 Notification créée pour user 28: ⏰ Feuille de temps à approuver
+📬 Notification créée pour user 27: 📤 Feuille de temps envoyée
+User connected: VNHfvgM_OyaszP31AACG
+ User 27 joined room user_27
+User connected: bbheEI5QHZ07VrdCAACI
+ User 27 joined room user_27
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ⏰ Feuille de temps à approuver → /client/timesheet/11
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 📤 Feuille de temps envoyée → /automob/my-missions
+User connected: KogZJyaptiI4KOZjAACK
+ User 27 joined room user_27
+User connected: Z6JmD42ASOqaizPMAACM
+ User 27 joined room user_27
+📬 Notification créée pour user 28: ⏰ Feuille de temps à approuver
+📬 Notification créée pour user 27: 📤 Feuille de temps envoyée
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+❌ Erreur envoi email soumission timesheet: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ⏰ Feuille de temps à approuver → /client/timesheet/10
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 📤 Feuille de temps envoyée → /automob/my-missions
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: xD2_gbnmhR8HIW6LAACP
+User connected: 0oP-E0kyKvPa0WfcAACQ
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: h4YAVBKyRi4p0pPaAACS
+ User 27 joined room user_27
+User connected: 9S3W0yI9Pzkb3A6nAACU
+ User 27 joined room user_27
+User connected: Cdl1u5fmdWMTou0rAACW
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: X1rNcL6l-lv5qeudAACY
+ User 27 joined room user_27
+User connected: KhhANIG7BRJI41WYAACa
+ User 27 joined room user_27
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+❌ Erreur envoi email confirmation timesheet: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+User connected: HCZ2YS3oxQzQ5z_FAACc
+ User 27 joined room user_27
+User connected: ah04PYkjIpz3xHRcAACe
+ User 27 joined room user_27
+User connected: pj5ex6A4ZeWnMxk8AACg
+ User 27 joined room user_27
+User connected: wO57nIrtKzBp0bXpAACi
+ User 27 joined room user_27
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: him8lTFETRgS3fWiAACl
+User connected: THOqlD84fe7TnjYMAACm
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: uPYb_XV6amIQZiqhAACo
+ User 27 joined room user_27
+User connected: DpVXa1UfDGT53s8XAACq
+ User 27 joined room user_27
+User connected: 1bAVoRZ8_1X-fiyTAACs
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: tkO9nBYSMjnrUabcAACu
+ User 27 joined room user_27
+User connected: 13Ru1qdBQwI4cU-IAACw
+ User 27 joined room user_27
+❌ Erreur envoi email notification: Error: Connection closed unexpectedly
+    at SMTPConnection._onClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:868:34)
+    at SMTPConnection._onSocketClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:197:42)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:536:35)
+    at node:net:343:12
+    at Socket.done (node:_tls_wrap:648:7)
+    at Object.onceWrapper (node:events:639:26)
+    at Socket.emit (node:events:536:35)
+    at TCP.<anonymous> (node:net:343:12) {
+  code: 'ECONNECTION',
+  command: 'CONN'
+}
+❌ Erreur envoi email soumission timesheet: Error: Connection closed unexpectedly
+    at SMTPConnection._onClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:868:34)
+    at SMTPConnection._onSocketClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:197:42)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:536:35)
+    at node:net:343:12
+    at Socket.done (node:_tls_wrap:648:7)
+    at Object.onceWrapper (node:events:639:26)
+    at Socket.emit (node:events:536:35)
+    at TCP.<anonymous> (node:net:343:12) {
+  code: 'ECONNECTION',
+  command: 'CONN'
+}
+User connected: bLtfF9iGJhnn-x3qAACy
+ User 27 joined room user_27
+User connected: E8M-fBs8yCzG0zEbAAC0
+ User 27 joined room user_27
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+❌ Erreur envoi email confirmation timesheet: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+User connected: lsvyOUFWoF7s0Sl9AAC2
+ User 27 joined room user_27
+User connected: 4jkwdFioZdvZG28lAAC4
+ User 27 joined room user_27
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: xsTuVrp5PXuGWVKPAAC7
+User connected: LtNNmdF1YX__mmryAAC8
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: rDblRRvJtAI50qILAAC-
+ User 27 joined room user_27
+User connected: -lpUzyvyAGD7jp1jAADA
+ User 27 joined room user_27
+User connected: 2wno93yBw8YgyklgAADC
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: W9sHgmjGDsCupkIYAADE
+ User 27 joined room user_27
+User connected: 8jajYglkm6BMLlsbAADG
+ User 27 joined room user_27
+User connected: RucUnSvRTVeWvupnAADI
+ User 27 joined room user_27
+User connected: zDMJMZloEXV_bhxpAADK
+ User 27 joined room user_27
+User connected: irK9a5bTOQ5rF5mrAADM
+ User 27 joined room user_27
+User connected: qIre-jHKBX-bgVltAADO
+ User 27 joined room user_27
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: uq5uTEHoyoRReXRcAADR
+User connected: r7u9oc7SlcObaO1iAADS
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: msuMQHb0Kwqvxn-uAADU
+ User 27 joined room user_27
+User connected: uzdiQQ5XwhGedOw7AADW
+ User 27 joined room user_27
+User connected: ynyy-XguGeX87YQrAADY
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: -Z5_w3kud7WtbjEeAADa
+ User 27 joined room user_27
+User connected: olUyAyp3g9WkAzvXAADc
+ User 27 joined room user_27
+User connected: o1Sz-IquvuZXFoVXAADe
+ User 27 joined room user_27
+User connected: -ONPvlxK2MZy_YIaAADg
+ User 27 joined room user_27
+🔐 Tentative de connexion: ulrichthierry47@gmail.com
+📊 Recherche utilisateur: ulrichthierry47@gmail.com
+✅ Utilisateur trouvé - ID: 28 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: ulrichthierry47@gmail.com
+User connected: dvhU1i3TkWuTD23gAADj
+User connected: EIGBcfQnmLrqdB6RAADk
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: _MG0NlaD0PfeNDKzAADm
+ User 28 joined room user_28
+User connected: r1vvCFsN5VlNuZhaAADo
+ User 28 joined room user_28
+User connected: bjCY1yN1iDNr8cHLAADq
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: ptq56CU1gDmrSbvtAADs
+ User 28 joined room user_28
+User connected: URELfOa11Xv3LkQMAADu
+ User 28 joined room user_28
+✅ Tous les timesheets approuvés pour automob 27 sur mission 48
+✅ Timesheet 11 approuvé. Les factures seront générées à la fin de la mission.
+📬 Notification créée pour user 27: 🎉 Mission terminée
+📬 Notification créée pour user 28: ✅ Mission terminée
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+Erreur email complétion client: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+✅ [SYNC] Mission 48 marquée comme terminée globalement car tous les automobs ont fini.
+📦 Début génération factures pour mission 48, automob 27
+✅ 1 timesheets approuvés trouvés: [ 11 ]
+📄 Génération facture automob...
+💰 Tentative de crédit wallet: 600€ pour automob 27
+✅ Wallet crédité avec succès: 600€ pour automob 27, nouveau solde: 600€
+📬 Notification créée pour user 27: 📄 Nouvelle facture générée
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+Erreur création facture automob: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+❌ Erreur génération factures: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+📬 Notification créée pour user 27: 🎉 Mission terminée !
+📬 Notification créée pour user 27: ⭐ Nouvel avis reçu !
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Mission terminée → /automob/invoices
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ✅ Mission terminée → /client/invoices
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+Erreur envoi email: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+User connected: GsI6YdgpSLe5OXXIAADw
+ User 28 joined room user_28
+User connected: VKvEDu5vf8nqVR1NAADy
+ User 28 joined room user_28
+User connected: HAeh3QkegwC3bz-SAAD0
+ User 28 joined room user_28
+User connected: OBXeF4_jUaAhwYZlAAD2
+ User 28 joined room user_28
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: timeout of 15000ms exceeded.
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: timeout of 15000ms exceeded.'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 📄 Nouvelle facture générée → /automob/invoices
+User connected: R1HuxAZtsiyuWi6mAAD4
+ User 28 joined room user_28
+User connected: zLIbG1ezk6chUF5nAAD6
+ User 28 joined room user_28
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Mission terminée ! → /automob/my-missions
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: ⭐ Nouvel avis reçu ! → /automob/reviews
+User connected: mtRzNYrJAYdXYSvpAAD8
+ User 28 joined room user_28
+User connected: dTnRNe9KdR8tINyVAAD-
+ User 28 joined room user_28
+✅ Tous les timesheets approuvés pour automob 27 sur mission 50
+✅ Timesheet 10 approuvé. Les factures seront générées à la fin de la mission.
+📬 Notification créée pour user 27: 🎉 Mission terminée
+📬 Notification créée pour user 28: ✅ Mission terminée
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/5a3a5ff8-e75c-4ade-8b36-24864ca301fc
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/5c507f81-1735-4af3-862a-2ce3f47dcbc8
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/9aed7699-a98f-4185-be09-a707e19f1d3a
+✅ [SYNC] Mission 50 marquée comme terminée globalement car tous les automobs ont fini.
+📦 Début génération factures pour mission 50, automob 27
+✅ 1 timesheets approuvés trouvés: [ 10 ]
+📄 Génération facture automob...
+💰 Tentative de crédit wallet: 980€ pour automob 27
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/ad2eda89-50d0-4be6-91e5-113dc3b8b77c
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/99b9d398-760f-4d79-a6fd-88a2ca7d5c32
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f565e125-3af7-4690-87bd-6300ab92597c
+✅ Wallet crédité avec succès: 980€ pour automob 27, nouveau solde: 1580€
+📬 Notification créée pour user 27: 📄 Nouvelle facture générée
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/bca32bd7-f00a-4307-8fda-590183e13194
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Mission terminée → /automob/invoices
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/f8d9ec9d-8b90-446c-9057-b57453561a72
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/8425c64b-11ae-4db3-bd60-d6cbf9046fea
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/00b7985b-911c-4a5a-9f36-98400c838907
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/4fad0b86-cb34-4477-9b95-3251c49d547d
+✅ 4/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 📄 Nouvelle facture générée → /automob/invoices
+✅ Notification envoyée avec succès: projects/nettmobfrance-92e4a/messages/8798025f-1a3d-43d6-ab80-42410310e6ef
+✅ 4/4 notifications FCM envoyées à l'utilisateur 28
+✅ Firebase FCM Push envoyé à user 28: ✅ Mission terminée → /client/invoices
+❌ Erreur envoi email notification: Error: Connection closed unexpectedly
+    at SMTPConnection._onClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:868:34)
+    at SMTPConnection._onSocketClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:197:42)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:536:35)
+    at node:net:343:12
+    at Socket.done (node:_tls_wrap:648:7)
+    at Object.onceWrapper (node:events:639:26)
+    at Socket.emit (node:events:536:35)
+    at TCP.<anonymous> (node:net:343:12) {
+  code: 'ECONNECTION',
+  command: 'CONN'
+}
+Erreur création facture automob: Error: Connection closed unexpectedly
+    at SMTPConnection._onClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:868:34)
+    at SMTPConnection._onSocketClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:197:42)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:536:35)
+    at node:net:343:12
+    at Socket.done (node:_tls_wrap:648:7)
+    at Object.onceWrapper (node:events:639:26)
+    at Socket.emit (node:events:536:35)
+    at TCP.<anonymous> (node:net:343:12) {
+  code: 'ECONNECTION',
+  command: 'CONN'
+}
+❌ Erreur génération factures: Error: Connection closed unexpectedly
+    at SMTPConnection._onClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:868:34)
+    at SMTPConnection._onSocketClose (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:197:42)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:536:35)
+    at node:net:343:12
+    at Socket.done (node:_tls_wrap:648:7)
+    at Object.onceWrapper (node:events:639:26)
+    at Socket.emit (node:events:536:35)
+    at TCP.<anonymous> (node:net:343:12) {
+  code: 'ECONNECTION',
+  command: 'CONN'
+}
+📬 Notification créée pour user 27: 🎉 Mission terminée !
+✅ [SYNC] Mission 50 marquée comme terminée globalement car tous les automobs ont fini.
+📦 Début génération factures pour mission 50, automob 27
+✅ 1 timesheets approuvés trouvés: [ 10 ]
+📄 Génération facture automob...
+⚠️ Facture automob déjà existante pour mission 50 / automob 27. ID: 14. Annulation de la création.
+✅ Facture automob générée: ID 14 - Wallet automatiquement crédité
+📄 Génération facture client...
+Erreur création facture client: ReferenceError: totalAmount is not defined
+    at createClientInvoice (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/invoiceService.js:345:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2023:35
+❌ Erreur génération factures: ReferenceError: totalAmount is not defined
+    at createClientInvoice (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/invoiceService.js:345:44)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/missions.js:2023:35
+📬 Notification créée pour user 27: 🎉 Mission terminée !
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Mission terminée ! → /automob/my-missions
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+Erreur envoi email: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+❌ Erreur envoi email notification: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+Erreur envoi email: Error: Connection timeout
+    at SMTPConnection._formatError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:814:19)
+    at SMTPConnection._onError (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:795:20)
+    at Timeout.<anonymous> (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/nodemailer/lib/smtp-connection/index.js:237:22)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  code: 'ETIMEDOUT',
+  command: 'CONN'
+}
+User connected: 0Q4Xp5AmBNSjKAw-AAEA
+ User 28 joined room user_28
+User connected: gwK9w4QQKdWrYRsnAAEC
+ User 28 joined room user_28
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 0)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 1)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:545:9)
+    at process.processTimers (node:internal/timers:519:7)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 2)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+❌ Erreur envoi notification: FirebaseAppError: Error while making request: .
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/firebase-admin/lib/utils/api-request.js:266:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async sendPushNotification (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/config/firebase-admin.js:154:22)
+    at async Promise.allSettled (index 3)
+    at async sendFCMNotificationToUser (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/services/fcmNotificationService.js:49:21)
+    at async Immediate.<anonymous> (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/utils/notificationHelper.js:205:9) {
+  errorInfo: {
+    code: 'app/network-timeout',
+    message: 'Error while making request: .'
+  },
+  codePrefix: 'app'
+}
+✅ 0/4 notifications FCM envoyées à l'utilisateur 27
+✅ Firebase FCM Push envoyé à user 27: 🎉 Mission terminée ! → /automob/my-missions
+User connected: cOg2wP9gMGP3xG92AAEE
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+ User 28 joined room user_28
+User connected: 7UN6PIVoGbVWyc29AAEG
+ User 28 joined room user_28
+✅ Email de notification envoyé à ulrichthierry47@gmail.com
+User connected: ixFFxcXPF9jFZ0hlAAEJ
+User connected: 9uiQlEblPtcqr48kAAEK
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: JvYZCdPdWObpLCyWAAEM
+ User 28 joined room user_28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+User connected: O1zl1wkk09L2PRLEAAEP
+User connected: 1dMPSqfdbdq6XFOdAAEQ
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: GevCl9QbxTbdCbc3AAES
+ User 28 joined room user_28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: qjorqOfStMS9Q48yAAEU
+ User 28 joined room user_28
+User connected: 4iBlC_Pi-EcYCrccAAEW
+ User 28 joined room user_28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 3 pour user 28
+User connected: xoWujK12PDqpG3aVAAEY
+ User 28 joined room user_28
+User connected: EYHIZSTJT_3dlvV_AAEa
+ User 28 joined room user_28
+🔐 Tentative de connexion: admin@nettmobfrance.fr
+📊 Recherche utilisateur: admin@nettmobfrance.fr
+✅ Utilisateur trouvé - ID: 1 Role: admin Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: admin )
+✅ Connexion réussie pour: admin@nettmobfrance.fr
+User connected: LA_VkyM7MbFNJ6IGAAEd
+User connected: bV3RpoREp4xRCj11AAEe
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: Qk9cR2zlwzQLEXPIAAEg
+ User 1 joined room user_1
+🔍 [Dashboard] Récupération des statistiques admin...
+User connected: 7o4SIUITuYULNus8AAEi
+ User 1 joined room user_1
+User connected: 4YG5xetm9Os-fgMDAAEk
+✅ [Dashboard] Statistiques récupérées avec succès
+🔍 [Dashboard] Récupération des statistiques admin...
+ User 1 joined room user_1
+✅ [Dashboard] Statistiques récupérées avec succès
+User connected: jBW5QRttckNiSrTMAAEm
+ User 1 joined room user_1
+User connected: p2nGbv25T1wyiYIlAAEo
+ User 1 joined room user_1
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+User connected: VBf02GutjeGKZBvvAAAB
+ User 28 joined room user_28
+User connected: usTKpjLa5oEI55zvAAAD
+ User 28 joined room user_28
+User connected: Rl0rdPWvPEu2uWguAAAF
+ User 1 joined room user_1
+User connected: 1AZy-VE5LEq0n1lDAAAH
+ User 1 joined room user_1
+User connected: VwNBJSntScmBUuDxAAAJ
+ User 1 joined room user_1
+User connected: uBc0vhalk0vy7-jwAAAL
+ User 28 joined room user_28
+User connected: uc4SdZG1f9nxqZjJAAAN
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+User connected: W8OCvDHUbmMgRyu6AAAB
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+ User 1 joined room user_1
+User connected: wJ22Pj4a_dDOvxx8AAAF
+User connected: fs8j1yloXmxe4J0MAAAG
+User connected: sm1s1tCIhfqVnpuzAAAH
+ User 28 joined room user_28
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: iI34KFA0UVU6Ai7-AAAJ
+ User 1 joined room user_1
+User connected: fSfrXwXl90QvTZIfAAAL
+ User 28 joined room user_28
+User connected: SpGJ8B46bZqvxkZZAAAN
+ User 28 joined room user_28
+✅ Serveur email prêt et opérationnel
+User connected: IYfjnHuWSgM3hZ9CAAAQ
+User connected: CYOZvnR3ZYTG3ce4AAAR
+ User 1 joined room user_1
+User connected: eSHN8iFAEsvBwgUtAAAT
+ User 1 joined room user_1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+User connected: AXOs055Yz5FJpZfrAAAV
+ User 1 joined room user_1
+User connected: aA90KHTlcyrDhP3wAAAX
+ User 1 joined room user_1
+🔐 Tentative de connexion: ulrichthierry47@gmail.com
+📊 Recherche utilisateur: ulrichthierry47@gmail.com
+✅ Utilisateur trouvé - ID: 28 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: ulrichthierry47@gmail.com
+User connected: uc5jTDueu55n1Yf3AAAa
+User connected: EDOP_mZh3UqFaGzOAAAb
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: D4MUbjCRwvLPHX8kAAAd
+ User 28 joined room user_28
+User connected: VO5jBP5wHps3TRYLAAAf
+ User 28 joined room user_28
+User connected: 7ZXvj-s4LVXMYdPSAAAh
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+User connected: F4jl6MpHUuLTOh3UAAAj
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+ User 28 joined room user_28
+User connected: YIs79DakthcXWPXLAAAl
+ User 28 joined room user_28
+User connected: Eq9t-8nks_jdFdx5AAAn
+ User 28 joined room user_28
+User connected: htzLAd6zPNaykhzwAAAp
+ User 28 joined room user_28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+📋 Début récupération factures client pour user 28
+User connected: X1FQkpNEQ_RvaJyVAAAr
+✅ Factures client trouvées: 1 pour user 28
+ User 28 joined room user_28
+User connected: Q_YiAcZlsFGEicpFAAAt
+ User 28 joined room user_28
+User connected: ieBb1X4TKNAEWTqDAAAw
+User connected: q5ELMhajfqd48qi9AAAx
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: r_b3AgdUiqlNPxhaAAAz
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+✅ Token FCM mis à jour pour l'utilisateur 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+🔐 Tentative de connexion: mounchilithierry432@gmail.com
+📊 Recherche utilisateur: mounchilithierry432@gmail.com
+✅ Utilisateur trouvé - ID: 27 Role: automob Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: automob )
+✅ Connexion réussie pour: mounchilithierry432@gmail.com
+User connected: zZ91qWrqHj0VcqQgAAA2
+User connected: uphSxj2KVcPK4YL1AAA3
+ User 27 joined room user_27
+ User 27 joined room user_27
+User connected: IKRGYZbW8vmRx_rQAAA5
+ User 27 joined room user_27
+User connected: tNNj8yh48ES8IRWrAAA7
+ User 27 joined room user_27
+User connected: XR_VouIj98laTYHvAAA9
+ User 27 joined room user_27
+✅ Token FCM mis à jour pour l'utilisateur 27
+User connected: qnLfmrEKkMcV0e7AAAA_
+ User 27 joined room user_27
+📄 Factures automob trouvées: 2 pour user 27
+📄 Factures automob trouvées: 2 pour user 27
+User connected: Z3SPVrkcG5p2RMf6AABB
+ User 27 joined room user_27
+🔐 Tentative de connexion: admin@nettmobfrance.fr
+📊 Recherche utilisateur: admin@nettmobfrance.fr
+✅ Utilisateur trouvé - ID: 1 Role: admin Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: admin )
+✅ Connexion réussie pour: admin@nettmobfrance.fr
+User connected: G1ltApdzyvNuuGRfAABE
+User connected: DLZ8XMrZB-ihUiAdAABF
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: GNzA4u_oFtI0JrACAABI
+🔍 [Dashboard] Récupération des statistiques admin...
+User connected: yaA4GQHy0DMLFlRBAABJ
+ User 1 joined room user_1
+✅ [Dashboard] Statistiques récupérées avec succès
+ User 1 joined room user_1
+🔍 [Dashboard] Récupération des statistiques admin...
+✅ [Dashboard] Statistiques récupérées avec succès
+User connected: TVIxm-OtUulR9cHPAABL
+ User 1 joined room user_1
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+📋 Admin: Récupération de toutes les factures
+User connected: z8J3bOXumPPGc8YmAABN
+✅ Admin: 3 factures trouvées
+ User 1 joined room user_1
+User connected: GlxrazGOQE8pOAcWAABP
+ User 1 joined room user_1
+User connected: BqMXTGMCvuubFg0WAABR
+ User 1 joined room user_1
+User connected: 1bxYYTV2ZE25YZTbAABT
+ User 1 joined room user_1
+User connected: KiQBcJHvUnTD5De_AABV
+📋 Admin: Récupération de toutes les factures
+ User 1 joined room user_1
+✅ Admin: 3 factures trouvées
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+User connected: GTHgr7o-VoDkEk4IAABX
+ User 1 joined room user_1
+User connected: Ty_Uwo4Mq0db7BGfAABa
+User connected: 47-idsTHd3f831VhAABb
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: TjZ4yvTSy30b4iJsAABd
+❌ Erreur récupération stats PWA: Error: Table 'nettmobfrance.pwa_installations' doesn't exist
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/admin.js:562:36
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:58:5
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:261:12
+    at getSecret (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:101:10)
+    at adminRequired (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:45:7)
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5) {
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sql: 'SELECT COUNT(*) as total FROM pwa_installations',
+  sqlState: '42S02',
+  sqlMessage: "Table 'nettmobfrance.pwa_installations' doesn't exist"
+}
+❌ Erreur récupération stats PWA: Error: Table 'nettmobfrance.pwa_installations' doesn't exist
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/admin.js:562:36
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:58:5
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:261:12
+    at getSecret (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:101:10)
+    at adminRequired (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:45:7)
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5) {
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sql: 'SELECT COUNT(*) as total FROM pwa_installations',
+  sqlState: '42S02',
+  sqlMessage: "Table 'nettmobfrance.pwa_installations' doesn't exist"
+}
+ User 1 joined room user_1
+User connected: tCJqPKDVgJhl5hEHAABf
+ User 1 joined room user_1
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+User connected: hdAPK54oNUSa1OsvAABh
+ User 1 joined room user_1
+User connected: ptDExaDxHRZWeLinAABj
+ User 1 joined room user_1
+🔐 Tentative de connexion: ulrichthierry47@gmail.com
+📊 Recherche utilisateur: ulrichthierry47@gmail.com
+✅ Utilisateur trouvé - ID: 28 Role: client Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: client )
+✅ Connexion réussie pour: ulrichthierry47@gmail.com
+User connected: 02o9eIzfwLDKiQJ-AABm
+User connected: OhZsnKheOwK_eVe5AABn
+ User 28 joined room user_28
+ User 28 joined room user_28
+User connected: P6A0tDjCwGvd-RCfAABp
+User connected: oSMW1Eth6usQ_zIkAABr
+ User 28 joined room user_28
+User connected: Hhvb5xgnQbnvVZVuAABt
+ User 28 joined room user_28
+✅ Token FCM mis à jour pour l'utilisateur 28
+User connected: impw8cFAeIMH2f8eAABv
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+ User 28 joined room user_28
+📋 Début récupération factures client pour user 28
+✅ Factures client trouvées: 1 pour user 28
+User connected: bxvSWX5TPpzgNDc1AABx
+ User 28 joined room user_28
+🔐 Tentative de connexion: admin@nettmobfrance.fr
+📊 Recherche utilisateur: admin@nettmobfrance.fr
+✅ Utilisateur trouvé - ID: 1 Role: admin Vérifié: 1
+🔐 Validation mot de passe: ✅ Correct
+🔐 Vérification OTP nécessaire: false (Role: admin )
+✅ Connexion réussie pour: admin@nettmobfrance.fr
+🔍 [Dashboard] Récupération des statistiques admin...
+User connected: 6Z60IwwkS6KaMSCkAAB1
+User connected: 4o-369AaagjJSi2JAAB2
+User connected: 51Ps-9Y2M-pitwAfAAB3
+ User 1 joined room user_1
+ User 1 joined room user_1
+✅ [Dashboard] Statistiques récupérées avec succès
+ User 1 joined room user_1
+🔍 [Dashboard] Récupération des statistiques admin...
+✅ [Dashboard] Statistiques récupérées avec succès
+User connected: o1Gh7Nh1fa6CxAKEAAB6
+User connected: sghZ_Z29_FnbT2EIAAB7
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: QS2HKgRpgnWWkh8kAAB9
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+ User 1 joined room user_1
+📋 Admin: Récupération de toutes les factures
+✅ Admin: 3 factures trouvées
+User connected: 7z0ote7SgXQGy3EOAAB_
+ User 1 joined room user_1
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+User connected: uFOivOuFGUv7ikdjAAAC
+User connected: Mf3Cobr2WuavYxrAAAAD
+ User 1 joined room user_1
+✅ Table blog_posts OK
+ User 1 joined room user_1
+✅ Blog slugs + images OK
+User connected: zOTULh4cejbXdC3mAAAG
+User connected: I5-mIgRbzN8UR-KGAAAH
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: qbYCUpt8A3BoraDxAAAJ
+ User 1 joined room user_1
+User connected: preEukk3UAM__vTdAAAL
+ User 27 joined room user_27
+User connected: 5O4WjcabDAxKAzK0AAAN
+User connected: qorHaGTSpsvtHWYsAAAP
+ User 1 joined room user_1
+User connected: QAaInEF6QDT6fRM2AAAR
+ User 28 joined room user_28
+User connected: uGobiiEuaWZb9qE6AAAT
+ User 28 joined room user_28
+User connected: KJWpA1LXPOdb1N9xAAAV
+ User 1 joined room user_1
+User connected: tO2VtNBXeBqMMpJ7AAAX
+ User 1 joined room user_1
+User connected: yQN7NeHk_u6TWCUmAAAb
+User connected: NLpwBOG2uTUwlH6gAAAc
+User connected: 70gdS4Zj4tXkbDJ9AAAd
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: zI97EsNJ95gV87OIAAAf
+ User 1 joined room user_1
+User connected: 0L_YZ5YRTnAXeslNAAAi
+User connected: XyeHlyyUOterX5MhAAAj
+ User 27 joined room user_27
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+User connected: SxlHbtgNrLf1qGrNAAAB
+ User 1 joined room user_1
+User connected: Oz8dRWbeprZYtqC-AAAD
+ User 1 joined room user_1
+✅ Table fcm_tokens OK
+User connected: aK0Ld4d2qSIrCPn5AAAF
+ User 1 joined room user_1
+✅ Table contact_messages OK
+User connected: Mze64gEA8IpAC24uAAAH
+User connected: wDucW_sZQUrC1W4AAAAJ
+User connected: -67CD-OWjO8_qSgDAAAM
+User connected: mwg2bkyc6wn5YPjFAAAN
+ User 27 joined room user_27
+✅ Table blog_posts OK
+User connected: 2Lg8me4abeFDdQmSAAAP
+ User 1 joined room user_1
+ User 1 joined room user_1
+✅ Blog slugs + images OK
+User connected: lrsSRPWL9PZdNAPfAAAR
+ User 1 joined room user_1
+User connected: 4Uhj8yaM4eICMbr9AAAT
+ User 1 joined room user_1
+User connected: o8ElJ-AiQtqejhIHAAAV
+ User 1 joined room user_1
+User connected: qMgn8N8naSLKHE3OAAAX
+ User 28 joined room user_28
+User connected: 6v41TFFebm1XF8kYAAAZ
+ User 28 joined room user_28
+User connected: 3mB5uNN6qf4eq1zIAAAb
+ User 27 joined room user_27
+User connected: FY_HreWP0Am0GT-hAAAd
+ User 1 joined room user_1
+User connected: bwIvKuVAU7-3J2mwAAAf
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+User connected: mLUsDRMZvniaC57xAAAi
+User connected: sCA64waxvQeFy41wAAAj
+ User 1 joined room user_1
+ User 1 joined room user_1
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+User connected: PNbnioNWd9GN5fESAAAD
+User connected: U_irtR4Rb-l_Td5-AAAF
+User connected: PssUqOq5B85uoTbBAAAG
+User connected: FcmFUC_1eKgMjRYDAAAH
+ User 1 joined room user_1
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: nwR1mLnDJyrX5ixeAAAJ
+ User 1 joined room user_1
+User connected: O33JNvebkLo5JMeVAAAM
+User connected: Vn9SuoDSUakO87t4AAAN
+ User 27 joined room user_27
+ User 1 joined room user_1
+User connected: 0FCOOFdkpK4g_2yDAAAS
+User connected: OT_fiLmd-a9931upAAAT
+User connected: 23hObbaxXrlwXBveAAAU
+User connected: wEQJ71KPpDlhOt1bAAAV
+ User 1 joined room user_1
+ User 28 joined room user_28
+ User 1 joined room user_1
+User connected: RE3TKjaMslIm1XjbAAAY
+User connected: tlS20H1fUYlAGIWgAAAZ
+ User 28 joined room user_28
+ User 1 joined room user_1
+User connected: Xb8a7EsJTpUxxjvNAAAb
+ User 1 joined room user_1
+User connected: PGqWtpIhLcgNcdFKAAAd
+ User 1 joined room user_1
+User connected: CkvEo4uwUUAyADASAAAf
+ User 27 joined room user_27
+User connected: 6D8A5Bl1t6wWCaafAAAh
+ User 1 joined room user_1
+User connected: 4HJXRgD-JlHCySOLAAAj
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+✅ Database connected successfully
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+User connected: KYoeSLF5_eigxroMAAAD
+User connected: fymiP28VWa5I-VDWAAAE
+User connected: HZQidsPm-le927zWAAAF
+ User 1 joined room user_1
+ User 1 joined room user_1
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+ Test de connexion reçu
+ Test connexion base de données...
+ Test lecture table users...
+ Test lecture table secteurs...
+ Test lecture table competences...
+ Tous les tests réussis !
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+✅ Firebase Admin initialisé (env:GAC_PATH) pour projet: nettmobfrance-92e4a
+🔐 Configuration VAPID pour Web Push:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour notificationHelper
+✅ Twilio initialisé avec succès
+📋 Account SID: AC_TWILIO_SID_XXX
+📋 Messaging Service: MG383000008a718d76118524f63b57c0ba
+📋 Phone Number: +16672021442
+🔍 Test de connectivité Twilio...
+🔐 Configuration VAPID pour routes notifications:
+  Email: noreply@nettmobfrance.fr
+  Public Key: BDlx3hjHO9XEzdj3bsYQ...
+  Private Key: ✅ Configurée
+✅ VAPID configuré avec succès pour routes notifications
+ Initialisation Firebase Admin...
+🚀 [Scheduler] Démarrage des tâches planifiées...
+✅ [Scheduler] Rappels missions (9h00) - Activé
+✅ [Scheduler] Rappels pointage (18h00) - Activé
+✅ Serveur backend démarré sur http://0.0.0.0:5000
+ Network access: http://192.168.34.56:5000
+User connected: _13Q3zhzinb-0YanAAAD
+✅ Database connected successfully
+User connected: hW73HvWjdum37VX2AAAE
+User connected: BJXenXtelQS95wR5AAAF
+ User 1 joined room user_1
+ User 1 joined room user_1
+ User 1 joined room user_1
+✅ Serveur email prêt et opérationnel
+✅ Table fcm_tokens OK
+✅ Table contact_messages OK
+✅ Table blog_posts OK
+✅ Blog slugs + images OK
+✅ Table tutoriels OK
+User connected: i_fw_4VkJJxzFPdyAAAJ
+ User 1 joined room user_1
+User connected: KgaYNKKFh45QSR7fAAAK
+User connected: 7C1bpe5n6ReBO1ITAAAL
+ User 1 joined room user_1
+ User 1 joined room user_1
+User connected: DAuJdpi_U4XOhtdtAAAN
+ User 1 joined room user_1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+✅ Token FCM mis à jour pour l'utilisateur 1
+❌ Erreur récupération stats PWA: Error: Table 'nettmobfrance.pwa_installations' doesn't exist
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/admin.js:562:36
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:58:5
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:261:12
+    at getSecret (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:101:10)
+    at adminRequired (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:45:7)
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5) {
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sql: 'SELECT COUNT(*) as total FROM pwa_installations',
+  sqlState: '42S02',
+  sqlMessage: "Table 'nettmobfrance.pwa_installations' doesn't exist"
+}
+❌ Erreur récupération stats PWA: Error: Table 'nettmobfrance.pwa_installations' doesn't exist
+    at PromisePool.query (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/routes/admin.js:562:36
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/route.js:149:13)
+    at file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:58:5
+    at /home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:261:12
+    at getSecret (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/jsonwebtoken/verify.js:101:10)
+    at adminRequired (file:///home/thierry-ninja/Desktop/windsurf-project-4/backend/middleware/auth.js:45:7)
+    at Layer.handle [as handle_request] (/home/thierry-ninja/Desktop/windsurf-project-4/backend/node_modules/express/lib/router/layer.js:95:5) {
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sql: 'SELECT COUNT(*) as total FROM pwa_installations',
+  sqlState: '42S02',
+  sqlMessage: "Table 'nettmobfrance.pwa_installations' doesn't exist"
+}

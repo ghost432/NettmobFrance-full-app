@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" id="favicon" href="/favicon-1.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="description" content="NettmobFrance - Plateforme de mise en relation pour professionnels du nettoyage" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Apple iOS Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="NettmobFrance" />
+  <link rel="apple-touch-icon" href="/logo-1.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo-1.png" />
+  <link rel="apple-touch-startup-image" href="/logo-1.png" />
+
+  <!-- Microsoft Windows -->
+  <meta name="msapplication-TileColor" content="#6366f1" />
+  <meta name="msapplication-TileImage" content="/logo-1.png" />
+
+  <title>NettmobFrance</title>
+  <style>
+    /* Splash screen inline - s'affiche instantanément */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease-out;
+    }
+
+    #splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .splash-loader-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-logo {
+      width: 50px;
+      height: 50px;
+      z-index: 10;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Splash screen instantané -->
+  <div id="splash-screen">
+    <div class="splash-content">
+      <div class="splash-loader-container">
+        <img src="/logo-1.png" alt="NettMobFrance" class="splash-logo" />
+      </div>
+    </div>
+  </div>
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    // Masquer le splash screen dès que React est prêt
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+          splash.classList.add('hidden');
+          setTimeout(function () {
+            splash.remove();
+          }, 300);
+        }
+      }, 500);
+    });
+
+    // Pull-to-refresh désactivé - Remplacé par bouton dans header
+  </script>
+</body>
+
+</html>

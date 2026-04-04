@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Notifications - NettMobFrance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #4F46E5;
+      margin-bottom: 10px;
+    }
+    .status {
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .success { background: #D1FAE5; color: #065F46; }
+    .error { background: #FEE2E2; color: #991B1B; }
+    .warning { background: #FEF3C7; color: #92400E; }
+    .info { background: #DBEAFE; color: #1E40AF; }
+    button {
+      background: #4F46E5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    button:hover {
+      background: #4338CA;
+    }
+    button:disabled {
+      background: #9CA3AF;
+      cursor: not-allowed;
+    }
+    .code {
+      background: #1F2937;
+      color: #10B981;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔔 Test des Notifications Push</h1>
+    <p>Utilisez cette page pour diagnostiquer les problèmes de notifications.</p>
+  </div>
+
+  <div class="card">
+    <h2>📊 État Actuel</h2>
+    <div id="status"></div>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Actions de Test</h2>
+    <button onclick="checkSupport()">Vérifier le Support</button>
+    <button onclick="checkPermission()">Vérifier la Permission</button>
+    <button onclick="requestPermission()">Demander la Permission</button>
+    <button onclick="sendTestNotification()">Envoyer une Notification Test</button>
+    <button onclick="checkLocalStorage()">Vérifier le LocalStorage</button>
+    <button onclick="resetAll()">Réinitialiser Tout</button>
+  </div>
+
+  <div class="card">
+    <h2>📝 Logs</h2>
+    <div id="logs" class="code"></div>
+  </div>
+
+  <script>
+    function log(message, type = 'info') {
+      const logsDiv = document.getElementById('logs');
+      const timestamp = new Date().toLocaleTimeString();
+      const emoji = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+      logsDiv.innerHTML += `[${timestamp}] ${emoji} ${message}\n`;
+      logsDiv.scrollTop = logsDiv.scrollHeight;
+    }
+
+    function updateStatus(html) {
+      document.getElementById('status').innerHTML = html;
+    }
+
+    function checkSupport() {
+      log('Vérification du support des notifications...');
+      
+      const notificationSupport = 'Notification' in window;
+      const serviceWorkerSupport = 'serviceWorker' in navigator;
+      const pushSupport = 'PushManager' in window;
+      
+      let html = '';
+      
+      if (notificationSupport) {
+        html += '<div class="status success">✅ Notifications supportées</div>';
+        log('Notifications supportées', 'success');
+      } else {
+        html += '<div class="status error">❌ Notifications non supportées</div>';
+        log('Notifications non supportées', 'error');
+      }
+      
+      if (serviceWorkerSupport) {
+        html += '<div class="status success">✅ Service Worker supporté</div>';
+        log('Service Worker supporté', 'success');
+      } else {
+        html += '<div class="status error">❌ Service Worker non supporté</div>';
+        log('Service Worker non supporté', 'error');
+      }
+      
+      if (pushSupport) {
+        html += '<div class="status success">✅ Push API supportée</div>';
+        log('Push API supportée', 'success');
+      } else {
+        html += '<div class="status error">❌ Push API non supportée</div>';
+        log('Push API non supportée', 'error');
+      }
+      
+      updateStatus(html);
+    }
+
+    function checkPermission() {
+      log('Vérification de la permission...');
+      
+      if (!('Notification' in window)) {
+        updateStatus('<div class="status error">❌ Notifications non supportées</div>');
+        log('Notifications non supportées', 'error');
+        return;
+      }
+      
+      const permission = Notification.permission;
+      let html = '';
+      
+      switch(permission) {
+        case 'granted':
+          html = '<div class="status success">✅ Permission accordée</div>';
+          log('Permission accordée', 'success');
+          break;
+        case 'denied':
+          html = '<div class="status error">❌ Permission refusée</div>';
+          log('Permission refusée', 'error');
+          break;
+        case 'default':
+          html = '<div class="status warning">⚠️ Permission non demandée</div>';
+          log('Permission non demandée', 'warning');
+          break;
+      }
+      
+      updateStatus(html);
+    }
+
+    async function requestPermission() {
+      log('Demande de permission...');
+      
+      if (!('Notification' in window)) {
+        updateStatus('<div class="status error">❌ Notifications non supportées</div>');
+        log('Notifications non supportées', 'error');
+        return;
+      }
+      
+      try {
+        const permission = await Notification.requestPermission();
+        
+        if (permission === 'granted') {
+          updateStatus('<div class="status success">✅ Permission accordée !</div>');
+          log('Permission accordée !', 'success');
+        } else if (permission === 'denied') {
+          updateStatus('<div class="status error">❌ Permission refusée</div>');
+          log('Permission refusée', 'error');
+        } else {
+          updateStatus('<div class="status warning">⚠️ Permission en attente</div>');
+          log('Permission en attente', 'warning');
+        }
+      } catch (error) {
+        updateStatus('<div class="status error">❌ Erreur: ' + error.message + '</div>');
+        log('Erreur: ' + error.message, 'error');
+      }
+    }
+
+    function sendTestNotification() {
+      log('Envoi d\'une notification test...');
+      
+      if (!('Notification' in window)) {
+        log('Notifications non supportées', 'error');
+        return;
+      }
+      
+      if (Notification.permission !== 'granted') {
+        log('Permission non accordée. Demandez d\'abord la permission.', 'warning');
+        updateStatus('<div class="status warning">⚠️ Demandez d\'abord la permission</div>');
+        return;
+      }
+      
+      try {
+        new Notification('🔔 Test NettMobFrance', {
+          body: 'Les notifications fonctionnent correctement !',
+          icon: '/logo.png',
+          badge: '/logo.png',
+          tag: 'test-notification',
+          requireInteraction: false
+        });
+        
+        log('Notification envoyée !', 'success');
+        updateStatus('<div class="status success">✅ Notification envoyée !</div>');
+      } catch (error) {
+        log('Erreur: ' + error.message, 'error');
+        updateStatus('<div class="status error">❌ Erreur: ' + error.message + '</div>');
+      }
+    }
+
+    function checkLocalStorage() {
+      log('Vérification du localStorage...');
+      
+      const deviceId = localStorage.getItem('deviceId');
+      const dismissed = localStorage.getItem('notificationPromptDismissed');
+      const user = localStorage.getItem('user');
+      
+      let html = '<span class="label">DeviceId:</span> ';
+      html += deviceId ? `<code>${deviceId.substring(0, 20)}...</code>` : '<em>Non défini (nouveau appareil)</em>';
+      html += '<br><span class="label">Prompt refusé:</span> ';
+      html += dismissed ? `<code>${dismissed}</code>` : '<em>Jamais refusé</em>';
+      html += '<br><span class="label">Utilisateur connecté:</span> ';
+      html += user ? '✅ Oui' : '❌ Non';
+      
+      updateStatus(html);
+      log('DeviceId: ' + (deviceId || 'Non défini'));
+      log('Prompt refusé: ' + (dismissed || 'Jamais'));
+      log('Utilisateur: ' + (user ? 'Connecté' : 'Non connecté'));
+    }
+
+    function resetAll() {
+      if (!confirm('Êtes-vous sûr de vouloir réinitialiser toutes les données ?')) {
+        return;
+      }
+      
+      log('Réinitialisation...');
+      
+      localStorage.removeItem('deviceId');
+      localStorage.removeItem('notificationPromptDismissed');
+      
+      log('LocalStorage nettoyé', 'success');
+      updateStatus('<div class="status success">✅ Données réinitialisées ! Rechargez la page.</div>');
+    }
+
+    // Vérification automatique au chargement
+    window.onload = function() {
+      log('Page de test chargée');
+      checkSupport();
+      checkPermission();
+      checkLocalStorage();
+    };
+  </script>
+</body>
+</html>

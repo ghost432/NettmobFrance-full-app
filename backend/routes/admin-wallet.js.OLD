@@ -1,0 +1,475 @@
+import express from 'express';
+import db from '../config/database.js';
+import { authenticateToken, authorizeRoles } from '../middleware/auth.js';
+
+const router = express.Router();
+
+// Helper function for role authorization
+const requireRole = (roles) => authorizeRoles(...roles);
+
+// Lister tous les wallets avec pagination et recherche
+router.get('/wallets', authenticateToken, requireRole(['admin']), async (req, res) => {
+  try {
+    const { page = 1, limit = 20, search = '' } = req.query;
+    const offset = (page - 1) * limit;
+    
+    let query = `
+      SELECT 
+        w.*,
+        u.email,
+        ap.first_name,
+        ap.last_name,
+        ap.phone,
+        ap.profile_picture
+      FROM wallets w
+      JOIN users u ON w.user_id = u.id
+      JOIN automob_profiles ap ON u.id = ap.user_id
+      WHERE u.role = 'automob'
+    `;
+    
+    const params = [];
+    
+    if (search) {
+      query += ` AND (
+        u.email LIKE ? OR 
+        ap.first_name LIKE ? OR 
+        ap.last_name LIKE ? OR
+        CONCAT(ap.first_name, ' ', ap.last_name) LIKE ?
+      )`;
+      const searchPattern = `%${search}%`;
+      params.push(searchPattern, searchPattern, searchPattern, searchPattern);
+    }
+    
+    query += ' ORDER BY w.balance DESC LIMIT ? OFFSET ?';
+    params.push(parseInt(limit), parseInt(offset));
+    
+    const [wallets] = await db.query(query, params);
+    
+    // Compter le total
+    let countQuery = `
+      SELECT COUNT(*) as total 
+      FROM wallets w
+      JOIN users u ON w.user_id = u.id
+      JOIN automob_profiles ap ON u.id = ap.user_id
+      WHERE u.role = 'automob'
+    `;
+    
+    const countParams = [];
+    if (search) {
+      countQuery += ` AND (
+        u.email LIKE ? OR 
+        ap.first_name LIKE ? OR 
+        ap.last_name LIKE ? OR
+        CONCAT(ap.first_name, ' ', ap.last_name) LIKE ?
+      )`;
+      const searchPattern = `%${search}%`;
+      countParams.push(searchPattern, searchPattern, searchPattern, searchPattern);
+    }
+    
+    const [countResult] = await db.query(countQuery, countParams);
+    
+    res.json({
+      wallets,
+      pagination: {
+        total: countResult[0].total,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        totalPages: Math.ceil(countResult[0].total / limit)
+      }
+    });
+  } catch (error) {
+    console.error('Erreur récupération wallets:', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des wallets' });
+  }
+});
+
+// Obtenir les détails d'un wallet
+router.get('/wallets/:userId', authenticateToken, requireRole(['admin']), async (req, res) => {
+  try {
+    const [wallets] = await db.query(
+      `SELECT 
+        w.*,
+        u.email,
+        ap.first_name,
+        ap.last_name,
+        ap.phone,
+        ap.profile_picture,
+        ap.id_verified
+      FROM wallets w
+      JOIN users u ON w.user_id = u.id
+      JOIN automob_profiles ap ON u.id = ap.user_id
+      WHERE w.user_id = ?`,
+      [req.params.userId]
+    );
+    
+    if (wallets.length === 0) {
+      return res.status(404).json({ error: 'Wallet non trouvé' });
+    }
+    
+    // Récupérer les transactions récentes
+    const [transactions] = await db.query(
+      `SELECT * FROM wallet_transactions 
+       WHERE user_id = ? 
+       ORDER BY created_at DESC 
+       LIMIT 50`,
+      [req.params.userId]
+    );
+    
+    res.json({
+      wallet: wallets[0],
+      transactions
+    });
+  } catch (error) {
+    console.error('Erreur récupération wallet:', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération du wallet' });
+  }
+});
+
+// Ajouter de l'argent au wallet
+router.post('/wallets/:userId/add', authenticateToken, requireRole(['admin']), async (req, res) => {
+  const connection = await db.getConnection();
+  
+  try {
+    await connection.beginTransaction();
+    
+    const { amount, reason } = req.body;
+    const userId = req.params.userId;
+    
+    if (!amount || amount <= 0) {
+      await connection.rollback();
+      return res.status(400).json({ error: 'Montant invalide' });
+    }
+    
+    // Vérifier que l'utilisateur existe et est un automob
+    const [users] = await connection.query(
+      'SELECT * FROM users WHERE id = ? AND role = "automob"',
+      [userId]
+    );
+    
+    if (users.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ error: 'Automob non trouvé' });
+    }
+    
+    // Créer la transaction
+    await connection.query(
+      `INSERT INTO wallet_transactions (user_id, type, amount, description, status, admin_user_id)
+       VALUES (?, 'admin_credit', ?, ?, 'completed', ?)`,
+      [userId, amount, reason || 'Crédit ajouté par admin', req.user.id]
+    );
+    
+    // Mettre à jour le solde
+    await connection.query(
+      'UPDATE wallets SET balance = balance + ?, updated_at = NOW() WHERE user_id = ?',
+      [amount, userId]
+    );
+    
+    // Créer une notification
+    await connection.query(
+      `INSERT INTO notifications (user_id, title, message, type)
+       VALUES (?, 'Crédit ajouté', ?, 'wallet')`,
+      [userId, `${amount}€ ont été ajoutés à votre wallet par un administrateur`]
+    );
+    
+    // Log de l'action admin
+    await connection.query(
+      `INSERT INTO admin_logs (admin_user_id, action, target_user_id, details)
+       VALUES (?, 'wallet_credit', ?, ?)`,
+      [req.user.id, userId, JSON.stringify({ amount, reason })]
+    );
+    
+    await connection.commit();
+    
+    // Récupérer le nouveau solde
+    const [wallet] = await connection.query(
+      'SELECT balance FROM wallets WHERE user_id = ?',
+      [userId]
+    );
+    
+    res.json({
+      message: 'Crédit ajouté avec succès',
+      newBalance: wallet[0].balance
+    });
+    
+  } catch (error) {
+    await connection.rollback();
+    console.error('Erreur ajout crédit:', error);
+    res.status(500).json({ error: 'Erreur lors de l\'ajout du crédit' });
+  } finally {
+    connection.release();
+  }
+});
+
+// Retirer de l'argent du wallet
+router.post('/wallets/:userId/deduct', authenticateToken, requireRole(['admin']), async (req, res) => {
+  const connection = await db.getConnection();
+  
+  try {
+    await connection.beginTransaction();
+    
+    const { amount, reason } = req.body;
+    const userId = req.params.userId;
+    
+    if (!amount || amount <= 0) {
+      await connection.rollback();
+      return res.status(400).json({ error: 'Montant invalide' });
+    }
+    
+    // Vérifier que l'utilisateur existe et est un automob
+    const [users] = await connection.query(
+      'SELECT * FROM users WHERE id = ? AND role = "automob"',
+      [userId]
+    );
+    
+    if (users.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ error: 'Automob non trouvé' });
+    }
+    
+    // Vérifier le solde
+    const [wallet] = await connection.query(
+      'SELECT balance FROM wallets WHERE user_id = ?',
+      [userId]
+    );
+    
+    if (wallet[0].balance < amount) {
+      await connection.rollback();
+      return res.status(400).json({ error: 'Solde insuffisant' });
+    }
+    
+    // Créer la transaction
+    await connection.query(
+      `INSERT INTO wallet_transactions (user_id, type, amount, description, status, admin_user_id)
+       VALUES (?, 'admin_debit', ?, ?, 'completed', ?)`,
+      [userId, amount, reason || 'Débit effectué par admin', req.user.id]
+    );
+    
+    // Mettre à jour le solde
+    await connection.query(
+      'UPDATE wallets SET balance = balance - ?, updated_at = NOW() WHERE user_id = ?',
+      [amount, userId]
+    );
+    
+    // Créer une notification
+    await connection.query(
+      `INSERT INTO notifications (user_id, title, message, type)
+       VALUES (?, 'Débit effectué', ?, 'wallet')`,
+      [userId, `${amount}€ ont été retirés de votre wallet par un administrateur`]
+    );
+    
+    // Log de l'action admin
+    await connection.query(
+      `INSERT INTO admin_logs (admin_user_id, action, target_user_id, details)
+       VALUES (?, 'wallet_debit', ?, ?)`,
+      [req.user.id, userId, JSON.stringify({ amount, reason })]
+    );
+    
+    await connection.commit();
+    
+    // Récupérer le nouveau solde
+    const [newWallet] = await connection.query(
+      'SELECT balance FROM wallets WHERE user_id = ?',
+      [userId]
+    );
+    
+    res.json({
+      message: 'Débit effectué avec succès',
+      newBalance: newWallet[0].balance
+    });
+    
+  } catch (error) {
+    await connection.rollback();
+    console.error('Erreur retrait:', error);
+    res.status(500).json({ error: 'Erreur lors du retrait' });
+  } finally {
+    connection.release();
+  }
+});
+
+// Mettre le solde à zéro
+router.post('/wallets/:userId/reset', authenticateToken, requireRole(['admin']), async (req, res) => {
+  const connection = await db.getConnection();
+  
+  try {
+    await connection.beginTransaction();
+    
+    const { reason } = req.body;
+    const userId = req.params.userId;
+    
+    // Vérifier que l'utilisateur existe et est un automob
+    const [users] = await connection.query(
+      'SELECT * FROM users WHERE id = ? AND role = "automob"',
+      [userId]
+    );
+    
+    if (users.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ error: 'Automob non trouvé' });
+    }
+    
+    // Récupérer le solde actuel
+    const [wallet] = await connection.query(
+      'SELECT balance FROM wallets WHERE user_id = ?',
+      [userId]
+    );
+    
+    const currentBalance = wallet[0].balance;
+    
+    if (currentBalance > 0) {
+      // Créer la transaction de débit
+      await connection.query(
+        `INSERT INTO wallet_transactions (user_id, type, amount, description, status, admin_user_id)
+         VALUES (?, 'admin_reset', ?, ?, 'completed', ?)`,
+        [userId, currentBalance, reason || 'Remise à zéro par admin', req.user.id]
+      );
+    }
+    
+    // Mettre le solde à zéro
+    await connection.query(
+      'UPDATE wallets SET balance = 0, updated_at = NOW() WHERE user_id = ?',
+      [userId]
+    );
+    
+    // Créer une notification
+    await connection.query(
+      `INSERT INTO notifications (user_id, title, message, type)
+       VALUES (?, 'Wallet remis à zéro', ?, 'wallet')`,
+      [userId, 'Votre wallet a été remis à zéro par un administrateur']
+    );
+    
+    // Log de l'action admin
+    await connection.query(
+      `INSERT INTO admin_logs (admin_user_id, action, target_user_id, details)
+       VALUES (?, 'wallet_reset', ?, ?)`,
+      [req.user.id, userId, JSON.stringify({ previousBalance: currentBalance, reason })]
+    );
+    
+    await connection.commit();
+    
+    res.json({
+      message: 'Wallet remis à zéro avec succès',
+      previousBalance: currentBalance,
+      newBalance: 0
+    });
+    
+  } catch (error) {
+    await connection.rollback();
+    console.error('Erreur remise à zéro:', error);
+    res.status(500).json({ error: 'Erreur lors de la remise à zéro' });
+  } finally {
+    connection.release();
+  }
+});
+
+// Définir un solde spécifique
+router.post('/wallets/:userId/set-balance', authenticateToken, requireRole(['admin']), async (req, res) => {
+  const connection = await db.getConnection();
+  
+  try {
+    await connection.beginTransaction();
+    
+    const { balance, reason } = req.body;
+    const userId = req.params.userId;
+    
+    if (balance === undefined || balance < 0) {
+      await connection.rollback();
+      return res.status(400).json({ error: 'Solde invalide' });
+    }
+    
+    // Vérifier que l'utilisateur existe et est un automob
+    const [users] = await connection.query(
+      'SELECT * FROM users WHERE id = ? AND role = "automob"',
+      [userId]
+    );
+    
+    if (users.length === 0) {
+      await connection.rollback();
+      return res.status(404).json({ error: 'Automob non trouvé' });
+    }
+    
+    // Récupérer le solde actuel
+    const [wallet] = await connection.query(
+      'SELECT balance FROM wallets WHERE user_id = ?',
+      [userId]
+    );
+    
+    const currentBalance = wallet[0].balance;
+    const difference = balance - currentBalance;
+    
+    // Créer la transaction
+    const transactionType = difference > 0 ? 'admin_credit' : 'admin_debit';
+    await connection.query(
+      `INSERT INTO wallet_transactions (user_id, type, amount, description, status, admin_user_id)
+       VALUES (?, ?, ?, ?, 'completed', ?)`,
+      [userId, transactionType, Math.abs(difference), reason || `Solde défini à ${balance}€ par admin`, req.user.id]
+    );
+    
+    // Mettre à jour le solde
+    await connection.query(
+      'UPDATE wallets SET balance = ?, updated_at = NOW() WHERE user_id = ?',
+      [balance, userId]
+    );
+    
+    // Créer une notification
+    await connection.query(
+      `INSERT INTO notifications (user_id, title, message, type)
+       VALUES (?, 'Solde modifié', ?, 'wallet')`,
+      [userId, `Votre solde a été défini à ${balance}€ par un administrateur`]
+    );
+    
+    // Log de l'action admin
+    await connection.query(
+      `INSERT INTO admin_logs (admin_user_id, action, target_user_id, details)
+       VALUES (?, 'wallet_set_balance', ?, ?)`,
+      [req.user.id, userId, JSON.stringify({ previousBalance: currentBalance, newBalance: balance, reason })]
+    );
+    
+    await connection.commit();
+    
+    res.json({
+      message: 'Solde modifié avec succès',
+      previousBalance: currentBalance,
+      newBalance: balance
+    });
+    
+  } catch (error) {
+    await connection.rollback();
+    console.error('Erreur modification solde:', error);
+    res.status(500).json({ error: 'Erreur lors de la modification du solde' });
+  } finally {
+    connection.release();
+  }
+});
+
+// Statistiques globales des wallets
+router.get('/wallets/stats/overview', authenticateToken, requireRole(['admin']), async (req, res) => {
+  try {
+    const [stats] = await db.query(`
+      SELECT 
+        COUNT(*) as total_wallets,
+        SUM(balance) as total_balance,
+        AVG(balance) as average_balance,
+        MAX(balance) as max_balance,
+        MIN(balance) as min_balance,
+        SUM(total_earned) as total_earned_all,
+        SUM(total_withdrawn) as total_withdrawn_all
+      FROM wallets
+    `);
+    
+    const [recentTransactions] = await db.query(`
+      SELECT COUNT(*) as count, SUM(amount) as total
+      FROM wallet_transactions
+      WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    `);
+    
+    res.json({
+      ...stats[0],
+      recent_transactions: recentTransactions[0]
+    });
+  } catch (error) {
+    console.error('Erreur statistiques wallets:', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des statistiques' });
+  }
+});
+
+export default router;

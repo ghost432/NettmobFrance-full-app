@@ -1,0 +1,14 @@
+nohup: les entrées sont ignorées
+
+> nettmobfrance-frontend@1.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 677 ms
+
+  ➜  Local:   http://localhost:5176/
+  ➜  Network: http://192.168.46.154:5176/
+20:13:38 [vite] page reload src/pages/admin/UsersManagement.jsx
+20:25:02 [vite] hmr update /src/pages/admin/UsersList.jsx, /src/index.css
+20:26:58 [vite] hmr update /src/pages/admin/UsersList.jsx, /src/index.css
+21:24:28 [vite] hmr update /src/pages/automob/MissionDetails.jsx, /src/index.css

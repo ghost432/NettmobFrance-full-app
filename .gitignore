@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+backend/.env
+frontend/.env
+*.env.production
+*.env.local
+
+# Build outputs
+dist/
+build/
+
+# Secrets & Config
+backend/config/firebase-service-account.json
+backend/config/*.json
+
+# Ignore everything in root
+/*
+# But include the necessary project folders and files
+!/frontend/
+!/backend/
+!/README.md
+!/nettmobfrance_db_export.sql
+!/.gitignore
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+*.mp4
+*.tar.gz
+*.zip
+android_release/
+
+# PIDs
+*.pid

@@ -1,0 +1,384 @@
+// Service Worker Expert pour Notifications Persistantes Ultra (comme Facebook)
+importScripts('https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.0/firebase-messaging-compat.js');
+
+console.log('🚀 NettmobFrance Service Worker - Mode Expert Ultra');
+console.log('📱 Notifications persistantes : App fermée ✅ | Navigateur fermé ✅ | Utilisateur déconnecté ✅');
+console.log('🎯 Mode Ultra : Réception garantie même si automob déconnecté de son compte');
+
+// Configuration Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDSwL0wNQuS6KwWCPO-ufVjC_NObFTMHis",
+  authDomain: "nettmobfrance-92e4a.firebaseapp.com",
+  databaseURL: "https://nettmobfrance-92e4a-default-rtdb.firebaseio.com",
+  projectId: "nettmobfrance-92e4a",
+  storageBucket: "nettmobfrance-92e4a.appspot.com",
+  messagingSenderId: "1074853867939",
+  appId: "1:1074853867939:web:35ab84f541ea15a0fcaa16",
+  measurementId: "G-JE00NQWJSF"
+};
+
+// Initialiser Firebase dans le Service Worker
+try {
+  firebase.initializeApp(firebaseConfig);
+  console.log('✅ Firebase initialisé dans le Service Worker');
+} catch (error) {
+  console.error('❌ Erreur initialisation Firebase SW:', error);
+}
+
+// Récupérer l'instance de messaging
+const messaging = firebase.messaging();
+
+// Fonction pour mettre à jour le badge
+async function updateBadge() {
+  try {
+    if ('setAppBadge' in navigator) {
+      // Récupérer le nombre de notifications non lues depuis l'API
+      // Récupérer le nombre de notifications non lues depuis l'API
+      // Adapter l'URL selon l'environnement (Dev/Prod)
+      const API_URL = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5000/api'
+        : 'https://api.nettmobfrance.fr/api';
+
+      const response = await fetch(`${API_URL}/notifications/unread-count`, {
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const count = data.count || 0;
+
+        if (count > 0) {
+          await navigator.setAppBadge(count);
+          console.log(`📛 Badge mis à jour: ${count}`);
+        } else {
+          await navigator.clearAppBadge();
+          console.log('📛 Badge effacé');
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Erreur mise à jour badge:', error);
+  }
+}
+
+// =========== EXPERT MODE: NOTIFICATIONS PERSISTANTES ===========
+// Fonctionne même si : App fermée ✅ | Navigateur fermé ✅ | Mode veille ✅
+
+// Gérer les messages en arrière-plan (coeur du système persistant ultra)
+messaging.onBackgroundMessage((payload) => {
+  console.log('🔥 [EXPERT ULTRA] Message arrière-plan reçu:', payload);
+  console.log('📱 État système: App fermée / Navigateur minimal / Utilisateur déconnecté');
+  console.log('🎯 Garantie de réception: Mode Ultra activé - Aucune dépendance à l\'état de connexion');
+
+  // 🔧 VALIDATION EXPERTE - Éviter COMPLÈTEMENT les undefined
+  const rawTitle = payload.notification?.title || payload.data?.title || null;
+  const rawBody = payload.notification?.body || payload.data?.body || null;
+
+  const title = (rawTitle && rawTitle !== 'undefined' && rawTitle.trim() !== '')
+    ? rawTitle
+    : '🎯 NettmobFrance';
+
+  const body = (rawBody && rawBody !== 'undefined' && rawBody.trim() !== '')
+    ? rawBody
+    : 'Nouvelle notification importante';
+
+  // ⚠️ Log si undefined détecté
+  if (!rawTitle || rawTitle === 'undefined') {
+    console.warn('🚨 [SW] Title undefined détecté, fallback appliqué:', {
+      originalTitle: rawTitle,
+      payload: payload
+    });
+  }
+
+  if (!rawBody || rawBody === 'undefined') {
+    console.warn('🚨 [SW] Body undefined détecté, fallback appliqué:', {
+      originalBody: rawBody,
+      payload: payload
+    });
+  }
+
+  // Configuration expert pour persistance maximale
+  const notificationOptions = {
+    body: body,
+    icon: '/favicon-1.png', // Icône locale pour rapidité
+    badge: '/favicon-1.png', // Badge identique pour cohérence
+
+    // ============= PERSISTANCE EXPERT ULTRA =============
+    tag: `nettmob_${payload.data?.type || 'general'}_${Date.now()}`, // Tag unique pour éviter écrasement
+    requireInteraction: true, // 🔥 CRITIQUE: Notification reste jusqu'à action utilisateur
+    persistent: true, // Force la persistance (si supporté)
+    renotify: true, // Permet notifications multiples même type
+    sticky: true, // Notification colle (Android)
+
+    // ============= MODE ULTRA - UTILISATEUR DÉCONNECTÉ =============
+    dir: 'auto', // Direction texte automatique
+    lang: 'fr-FR', // Langue française
+    noscreen: false, // Toujours afficher même écran éteint
+
+    // ============= COMPORTEMENT MOBILE ULTRA =============  
+    silent: false, // Jamais silencieux - garantit réception même déconnecté
+    vibrate: [200, 100, 200, 100, 300], // Pattern vibration distinctif ultra
+    timestamp: Date.now(),
+
+    // ============= DONNÉES ENRICHIES =============
+    data: {
+      // Copier TOUTES les données du payload
+      mission_id: payload.data?.mission_id || payload.data?.missionId,
+      click_action: payload.data?.click_action || payload.data?.action_url,
+      action_url: payload.data?.action_url || payload.data?.click_action,
+      type: payload.data?.type || 'general',
+      category: payload.data?.category || 'notification',
+      // URL de destination
+      url: payload.data?.click_action || payload.data?.action_url || payload.data?.url || '/',
+      // Métadonnées
+      timestamp: Date.now(),
+      priority: 'high',
+      persistent: true,
+      source: 'background_sw'
+    },
+
+    // ============= ACTIONS RAPIDES =============
+    actions: [
+      {
+        action: 'open_app',
+        title: '🚀 Ouvrir App',
+        icon: '/favicon-1.png'
+      },
+      {
+        action: 'view_details',
+        title: '👀 Voir Détails'
+      },
+      {
+        action: 'dismiss',
+        title: '✖️ Ignorer'
+      }
+    ],
+
+    // ============= OPTIONS AVANCÉES =============
+    image: payload.data?.image_url || undefined, // Image si disponible
+    dir: 'ltr', // Direction texte
+    lang: 'fr-FR', // Langue française
+
+    // Options spécifiques navigateurs
+    showTrigger: 'backgroundFetch' // Chrome/Edge
+  };
+
+  // 🔥 AFFICHAGE NOTIFICATION EXPERT
+  console.log('🔔 [EXPERT] Affichage notification persistante...');
+  self.registration.showNotification(title, notificationOptions)
+    .then(() => {
+      console.log('✅ [EXPERT] Notification affichée avec succès');
+      // Badge update asynchrone pour ne pas bloquer
+      updateBadge().catch(e => console.warn('Badge update failed:', e));
+    })
+    .catch(error => {
+      console.error('❌ [EXPERT] Erreur affichage notification:', error);
+    });
+
+  // ============= PERSISTANCE INDEXEDDB ULTRA =============
+  // Garantie absolue : Sauvegarder même si automob déconnecté de son compte
+  try {
+    const notifData = {
+      id: `ultra_${Date.now()}`,
+      title, body,
+      url: payload.data?.click_action || '/',
+      timestamp: Date.now(),
+      userDisconnected: true, // Flag spécial mode ultra
+      read: false
+    };
+
+    // Sauvegarder dans IndexedDB (disponible dans SW)
+    saveNotificationToIndexedDB(notifData)
+      .then(() => console.log('💾 [EXPERT] Notification sauvée dans IndexedDB'))
+      .catch(e => console.warn('IndexedDB save failed:', e));
+  } catch (e) {
+    console.warn('Notification persistence failed:', e);
+  }
+});
+
+// =========== EXPERT MODE: GESTION CLICS NOTIFICATIONS ===========
+
+// Gérer le clic sur la notification (actions avancées)
+self.addEventListener('notificationclick', (event) => {
+  console.log('🔥 [EXPERT] Notification cliquée:', event);
+  console.log('🎯 Action:', event.action || 'default_click');
+
+  const action = event.action;
+  const notificationData = event.notification.data || {};
+
+  // Fermer immédiatement la notification
+  event.notification.close();
+
+  // ============= GESTION ACTIONS RAPIDES =============
+  if (action === 'dismiss') {
+    console.log('✖️ [EXPERT] Notification ignorée par utilisateur');
+    // Marquer comme lue sans action
+    markNotificationAsRead(event.notification);
+    return;
+  }
+
+  if (action === 'view_details') {
+    console.log('👀 [EXPERT] Voir détails demandé');
+    // Logique spécifique pour voir détails (peut ouvrir modal, etc.)
+  }
+
+  // ============= LOG DEBUGGING =============
+  console.log('[Service Worker] Notification cliquée', {
+    action: event.action || 'open',
+    type: notificationData.type,
+    mission_id: notificationData.mission_id,
+    click_action: notificationData.click_action,
+    url: notificationData.url,
+    allData: notificationData
+  });
+
+  // ============= DÉTERMINATION URL CIBLE =============
+  let targetUrl = '/';
+
+  // Priorité: click_action > url > mission_id > type spécifique > défaut
+  if (notificationData.click_action) {
+    targetUrl = notificationData.click_action;
+  } else if (notificationData.action_url) {
+    targetUrl = notificationData.action_url;
+  } else if (notificationData.url && notificationData.url !== '/') {
+    targetUrl = notificationData.url;
+  } else if (notificationData.mission_id || notificationData.missionId) {
+    const missionId = notificationData.mission_id || notificationData.missionId;
+    targetUrl = `/automob/missions/${missionId}`;
+  } else if (notificationData.type === 'new_mission') {
+    targetUrl = '/automob/missions';
+  } else if (notificationData.type === 'application_accepted') {
+    targetUrl = '/automob/my-missions';
+  } else if (notificationData.type === 'new_application') {
+    targetUrl = '/client/missions';
+  }
+
+  console.log('[Service Worker] URL à ouvrir:', targetUrl);
+
+  // ============= OUVERTURE/FOCUS APPLICATION =============
+  event.waitUntil(
+    clients.matchAll({
+      type: 'window',
+      includeUncontrolled: true
+    }).then(async (clientList) => {
+
+      console.log(`🔍 [EXPERT] ${clientList.length} clients trouvés`);
+
+      // Essayer de réutiliser une fenêtre existante
+      for (const client of clientList) {
+        if (client.url.includes(self.location.origin)) {
+          console.log('🎯 [EXPERT] Focus sur fenêtre existante');
+
+          try {
+            // Focus + Navigation
+            await client.focus();
+            client.postMessage({
+              type: 'NOTIFICATION_CLICK',
+              url: targetUrl,
+              notificationData: notificationData,
+              timestamp: Date.now()
+            });
+
+            // Marquer comme lue et mettre à jour badge
+            markNotificationAsRead(event.notification);
+            updateBadge().catch(console.warn);
+
+            return client;
+          } catch (e) {
+            console.warn('Focus client failed:', e);
+          }
+        }
+      }
+
+      // Aucune fenêtre existante - en ouvrir une nouvelle
+      console.log('🆕 [EXPERT] Ouverture nouvelle fenêtre');
+
+      if (clients.openWindow) {
+        try {
+          const newClient = await clients.openWindow(targetUrl);
+
+          // Attendre un peu que la nouvelle fenêtre se charge
+          setTimeout(() => {
+            if (newClient) {
+              newClient.postMessage({
+                type: 'NOTIFICATION_CLICK',
+                notificationData: notificationData,
+                timestamp: Date.now()
+              });
+            }
+          }, 1000);
+
+          markNotificationAsRead(event.notification);
+          updateBadge().catch(console.warn);
+
+          return newClient;
+        } catch (e) {
+          console.error('❌ [EXPERT] Échec ouverture nouvelle fenêtre:', e);
+        }
+      }
+    }).catch(error => {
+      console.error('❌ [EXPERT] Erreur gestion clic notification:', error);
+    })
+  );
+});
+
+// ============= FONCTION HELPER: INDEXEDDB =============
+function saveNotificationToIndexedDB(notifData) {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open('NettmobNotifications', 1);
+
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const db = request.result;
+      const transaction = db.transaction(['notifications'], 'readwrite');
+      const store = transaction.objectStore('notifications');
+      store.add(notifData);
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains('notifications')) {
+        db.createObjectStore('notifications', { keyPath: 'id' });
+      }
+    };
+  });
+}
+
+function markNotificationAsRead(notification) {
+  try {
+    const timestamp = notification.data?.timestamp;
+    if (!timestamp) return;
+
+    const request = indexedDB.open('NettmobNotifications', 1);
+    request.onsuccess = () => {
+      const db = request.result;
+      const transaction = db.transaction(['notifications'], 'readwrite');
+      const store = transaction.objectStore('notifications');
+
+      // Rechercher et mettre à jour
+      const getRequest = store.get(`ultra_${timestamp}`);
+      getRequest.onsuccess = () => {
+        const notification = getRequest.result;
+        if (notification) {
+          notification.read = true;
+          store.put(notification);
+          console.log('✅ [EXPERT] Notification marquée comme lue dans IndexedDB');
+        }
+      };
+    };
+  } catch (e) {
+    console.warn('Mark as read failed:', e);
+  }
+}
+
+// ============= GESTION FERMETURE NOTIFICATION =============
+self.addEventListener('notificationclose', (event) => {
+  console.log('🔒 [EXPERT] Notification fermée sans clic');
+  // Optionnel: marquer comme vue mais non cliquée
+});

@@ -1,0 +1,265 @@
+
+router.get('/', authenticateToken, async (req, res) => {
+  const { role } = req.query;
+  try {
+    const hasRep = await columnExists('client_profiles', 'representative_id_verified');
+    const clientIdVerifiedExpr = hasRep ? 'cp.representative_id_verified' : 'cp.id_verified';
+    let query = `SELECT u.id, u.email, u.role, u.verified, CASE WHEN u.role = 'automob' THEN ap.id_verified WHEN u.role = 'client' THEN ${clientIdVerifiedExpr} ELSE u.id_verified END AS id_verified, u.created_at, u.last_login, u.total_session_duration, ap.first_name as automob_first_name, ap.last_name as automob_last_name, cp.company_name, CASE WHEN u.role = 'automob' AND ap.first_name IS NOT NULL THEN CONCAT(ap.first_name, ' ', COALESCE(ap.last_name, '')) WHEN u.role = 'client' AND cp.company_name IS NOT NULL THEN cp.company_name ELSE 'Sans nom' END as nom_complet FROM users u LEFT JOIN automob_profiles ap ON u.id = ap.user_id AND u.role = 'automob' LEFT JOIN client_profiles cp ON u.id = cp.user_id AND u.role = 'client'`;
+    let params = [];
+    if (role === 'client') { query += ' WHERE u.role = ?'; params = ['client']; } 
+    else if (role === 'automob') { query += ' WHERE u.role = ?'; params = ['automob']; }
+    query += ' ORDER BY u.created_at DESC';
+    const [users] = await db.query(query, params);
+    res.json(users);
+  } catch (error) {
+    console.error('Get users error:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.get('/history', authenticateToken, async (req, res) => {
+  let cursor;
+  try { cursor = req.query.cursor ? decodeCursor(req.query.cursor) : null; } 
+  catch (error) { return res.status(400).json({ error: 'Cursor invalide' }); }
+  const limit = clampNumber(req.query.limit, 5, 100, 20);
+  try {
+    const userId = req.user.id;
+    const [userRows] = await db.query('SELECT id, email, role, last_login, total_session_duration FROM users WHERE id = ?', [userId]);
+    if (!userRows.length) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    const { clause, params: cursorParams } = buildCursorConditions(cursor);
+    const queryParams = [userId, ...cursorParams, limit + 1];
+    const [sessions] = await db.query(`SELECT id, login_at, logout_at, duration_seconds FROM user_sessions WHERE user_id = ? ${clause} ORDER BY login_at DESC, id DESC LIMIT ?`, queryParams);
+    let nextCursor = null;
+    let trimmedSessions = sessions;
+    if (trimmedSessions.length > limit) {
+      trimmedSessions = trimmedSessions.slice(0, limit);
+      const lastEntry = trimmedSessions[trimmedSessions.length - 1];
+      nextCursor = encodeCursor(lastEntry);
+    }
+    return res.json({ user: userRows[0], sessions: trimmedSessions, pagination: { limit, nextCursor } });
+  } catch (error) {
+    console.error('Erreur récupération historique utilisateur:', error);
+    return res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.put('/:id/verify', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Accès refusé' });
+  const { verified } = req.body;
+  try {
+    await db.query('UPDATE users SET verified = ? WHERE id = ?', [verified, req.params.id]);
+    res.json({ message: 'Statut utilisateur mis à jour' });
+  } catch (error) {
+    console.error('Erreur mise à jour utilisateur:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.put('/:id/profile', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Accès refusé' });
+  try {
+    const userId = req.params.id;
+    const [users] = await db.query('SELECT role FROM users WHERE id = ?', [userId]);
+    if (users.length === 0) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    const userRole = users[0].role;
+    const table = userRole === 'automob' ? 'automob_profiles' : userRole === 'client' ? 'client_profiles' : null;
+    if (!table) return res.status(400).json({ error: 'Type d\'utilisateur invalide' });
+    const [existingProfile] = await db.query(`SELECT id FROM ${table} WHERE user_id = ?`, [userId]);
+    if (!existingProfile.length) await db.query(`INSERT INTO ${table} (user_id, created_at, updated_at) VALUES (?, NOW(), NOW())`, [userId]);
+    if (req.body.id_verified !== undefined) await db.query('UPDATE users SET id_verified = ? WHERE id = ?', [req.body.id_verified ? 1 : 0, userId]);
+    const updates = [];
+    const params = [];
+    Object.keys(req.body).forEach(key => {
+      if (req.body[key] !== undefined && key !== 'email' && key !== 'verified' && key !== 'id_verified') {
+        updates.push(`${key} = ?`);
+        params.push(req.body[key]);
+      }
+    });
+    if (updates.length > 0) {
+      updates.push('updated_at = NOW()');
+      await db.query(`UPDATE ${table} SET ${updates.join(', ')} WHERE user_id = ?`, [...params, userId]);
+    }
+    res.json({ message: 'Profil mis à jour avec succès' });
+  } catch (error) {
+    console.error('Erreur mise à jour profil:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.get('/:id', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Accès refusé' });
+  try {
+    const [users] = await db.query('SELECT id, email, role, verified, id_verified, created_at, updated_at, last_login, total_session_duration, profile_picture, cover_picture FROM users WHERE id = ?', [req.params.id]);
+    if (users.length === 0) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    const user = users[0];
+    let profile = null;
+    if (user.role === 'automob') {
+      const [profiles] = await db.query('SELECT * FROM automob_profiles WHERE user_id = ?', [user.id]);
+      profile = profiles[0];
+    } else if (user.role === 'client') {
+      const [profiles] = await db.query('SELECT * FROM client_profiles WHERE user_id = ?', [user.id]);
+      profile = profiles[0];
+    }
+    res.json({ user, profile });
+  } catch (error) {
+    console.error('Erreur récupération détails utilisateur:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.put('/profile', authenticateToken, async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email requis' });
+  try {
+    const [result] = await db.query('UPDATE users SET email = ? WHERE id = ?', [email, req.user.id]);
+    if (result.affectedRows === 0) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    const [users] = await db.query('SELECT id, email, role, verified, created_at, updated_at FROM users WHERE id = ?', [req.user.id]);
+    res.json({ user: users[0] });
+  } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') return res.status(409).json({ error: 'Cet email est déjà utilisé' });
+    console.error('Erreur mise à jour email utilisateur:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+router.put('/profile/automob', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'automob') return res.status(403).json({ error: 'Accès refusé' });
+  const connection = await db.getConnection();
+  try {
+    await connection.beginTransaction();
+    const allowedFields = { first_name: 'first_name', last_name: 'last_name', gender: 'gender', phone: 'phone', phone_country_code: 'phone_country_code', iban: 'iban', bic_swift: 'bic_swift', experience: 'experience', years_of_experience: 'years_of_experience', current_position: 'current_position', secteur_id: 'secteur_id', about_me: 'about_me', work_areas: 'work_areas', address: 'address', city: 'city', latitude: 'latitude', longitude: 'longitude', availability_start_date: 'availability_start_date', availability_end_date: 'availability_end_date', vehicle_type: 'vehicle_type', hourly_rate: 'hourly_rate', siret: 'siret' };
+    const numericFields = ['latitude', 'longitude', 'hourly_rate', 'secteur_id'];
+    const payload = { ...req.body };
+    numericFields.forEach((field) => {
+      if (payload[field] === '' || payload[field] === undefined || payload[field] === null) { delete payload[field]; return; }
+      const parsed = Number(payload[field]);
+      payload[field] = Number.isNaN(parsed) ? null : parsed;
+    });
+    ['availability_start_date', 'availability_end_date'].forEach((field) => {
+      if (payload[field] === '' || payload[field] === undefined) payload[field] = null;
+    });
+    await ensureProfileRow('automob_profiles', req.user.id, connection);
+    const [[profileRow]] = await connection.query('SELECT id FROM automob_profiles WHERE user_id = ?', [req.user.id]);
+    const profileId = profileRow?.id;
+    if (!profileId) throw new Error('Profil automob introuvable après création');
+    const [apCols] = await connection.query('SHOW COLUMNS FROM automob_profiles');
+    const apSet = new Set(apCols.map((c) => c.Field));
+    const dynamicAllowed = Object.fromEntries(Object.entries(allowedFields).filter(([, col]) => apSet.has(col)));
+    const { updates, params } = buildUpdateQuery(dynamicAllowed, payload);
+    if (updates.length > 0) {
+      updates.push('updated_at = NOW()');
+      await connection.query(`UPDATE automob_profiles SET ${updates.join(', ')} WHERE user_id = ?`, [...params, req.user.id]);
+    }
+    if (req.body.competences) {
+      const competenceIds = JSON.parse(req.body.competences);
+      if (Array.isArray(competenceIds)) {
+        await connection.query('DELETE FROM automob_competences WHERE automob_profile_id = ?', [profileId]);
+        if (competenceIds.length > 0) {
+          const values = competenceIds.map(id => [profileId, id]);
+          await connection.query('INSERT INTO automob_competences (automob_profile_id, competence_id) VALUES ?', [values]);
+        }
+      }
+    }
+    if (req.body.availabilities) {
+      const availabilities = JSON.parse(req.body.availabilities);
+      if (Array.isArray(availabilities)) {
+        await connection.query('DELETE FROM automob_availabilities WHERE automob_profile_id = ?', [profileId]);
+        if (availabilities.length > 0) {
+          const values = availabilities.map(a => [profileId, a.start_date, a.end_date]);
+          await connection.query('INSERT INTO automob_availabilities (automob_profile_id, start_date, end_date) VALUES ?', [values]);
+        }
+      }
+    }
+    if (req.body.experiences) {
+      const experiences = JSON.parse(req.body.experiences);
+      if (Array.isArray(experiences)) {
+        await connection.query('DELETE FROM automob_experiences WHERE user_id = ?', [req.user.id]);
+        if (experiences.length > 0) {
+          const values = experiences.map(exp => [req.user.id, exp.job_title, exp.company_name, exp.start_date, exp.end_date || null, exp.is_current ? 1 : 0, exp.description || null]);
+          await connection.query('INSERT INTO automob_experiences (user_id, job_title, company_name, start_date, end_date, is_current, description) VALUES ?', [values]);
+        }
+      }
+    }
+    await connection.commit();
+    const profile = await fetchAutomobProfileWithRelations(req.user.id, connection);
+    res.json({ profile });
+  } catch (error) {
+    if (connection) await connection.rollback();
+    console.error('Erreur mise à jour profil automob:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+router.put('/profile/client', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'client') return res.status(403).json({ error: 'Accès refusé' });
+  const connection = await db.getConnection();
+  try {
+    await connection.beginTransaction();
+    const allowedFields = { company_name: 'company_name', first_name: 'first_name', last_name: 'last_name', manager_position: 'manager_position', phone: 'phone', phone_country_code: 'phone_country_code', address: 'address', city: 'city', latitude: 'latitude', longitude: 'longitude', siret: 'siret', secteur_id: 'secteur_id', company_description: 'company_description', work_areas: 'work_areas' };
+    const payload = { ...req.body };
+    await ensureProfileRow('client_profiles', req.user.id, connection);
+    const [[profileRow]] = await connection.query('SELECT id FROM client_profiles WHERE user_id = ?', [req.user.id]);
+    const profileId = profileRow?.id;
+    if (!profileId) throw new Error('Profil client introuvable après création');
+    const { updates, params } = buildUpdateQuery(allowedFields, payload);
+    if (updates.length > 0) {
+      updates.push('updated_at = NOW()');
+      await connection.query(`UPDATE client_profiles SET ${updates.join(', ')} WHERE user_id = ?`, [...params, req.user.id]);
+    }
+    if (payload.profils_recherches) {
+      const competenceIds = JSON.parse(payload.profils_recherches);
+      if (Array.isArray(competenceIds)) {
+        await connection.query('DELETE FROM client_competences WHERE client_profile_id = ?', [profileId]);
+        if (competenceIds.length > 0) {
+          const values = competenceIds.map(id => [profileId, id]);
+          await connection.query('INSERT INTO client_competences (client_profile_id, competence_id) VALUES ?', [values]);
+        }
+      }
+    }
+    await connection.commit();
+    const profile = await fetchClientProfile(req.user.id, connection);
+    res.json({ profile });
+  } catch (error) {
+    if (connection) await connection.rollback();
+    console.error('Erreur mise à jour profil client:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+router.post('/profile/upload', authenticateToken, upload.fields([{ name: 'profile', maxCount: 1 }, { name: 'cover', maxCount: 1 }]), async (req, res) => {
+  const profileFile = req.files?.profile?.[0];
+  const coverFile = req.files?.cover?.[0];
+  if (!profileFile && !coverFile) return res.status(400).json({ error: 'Aucun fichier fourni' });
+  const profileUrl = profileFile ? `/${profileFile.path.replace(/\\/g, '/')}` : undefined;
+  const coverUrl = coverFile ? `/${coverFile.path.replace(/\\/g, '/')}` : undefined;
+  const connection = await db.getConnection();
+  try {
+    await connection.beginTransaction();
+    const table = req.user.role === 'automob' ? 'automob_profiles' : 'client_profiles';
+    await ensureProfileRow(table, req.user.id, connection);
+    const updates = [];
+    const params = [];
+    if (profileUrl) { updates.push('profile_picture = ?'); params.push(profileUrl); }
+    if (coverUrl) { updates.push('cover_picture = ?'); params.push(coverUrl); }
+    if (updates.length) {
+      updates.push('updated_at = NOW()');
+      params.push(req.user.id);
+      await connection.query(`UPDATE ${table} SET ${updates.join(', ')} WHERE user_id = ?`, params);
+    }
+    await connection.commit();
+    let profile;
+    if (req.user.role === 'automob') profile = await fetchAutomobProfileWithRelations(req.user.id, connection);
+    else profile = await fetchClientProfile(req.user.id, connection);
+    res.json({ profile });
+  } catch (error) {
+    if (connection) await connection.rollback();
+    console.error('Erreur upload fichier profil:', error);
+    return res.status(500).json({ error: 'Erreur serveur' });
+  } finally {
+    if (connection) connection.release();
+  }
+});
