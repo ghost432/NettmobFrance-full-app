@@ -499,9 +499,9 @@ router.put('/admin/:id/revoke', authenticateToken, async (req, res) => {
     await db.query(
       `UPDATE identity_verifications_new
        SET status = 'rejected', reviewed_at = NOW(), reviewed_by = ?,
-           rejection_reason = 'Vérification révoquée par l\'administrateur'
+           rejection_reason = ?
        WHERE id = ?`,
-      [req.user.id, id]
+      [req.user.id, "Vérification révoquée par l'administrateur", id]
     );
 
     // Retirer la vérification du profil
