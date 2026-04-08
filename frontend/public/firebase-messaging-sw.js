@@ -33,11 +33,16 @@ const messaging = firebase.messaging();
 // Obtenir le token FCM au démarrage
 const vapidKey = "BDlx3hjHO9XEzdj3bsYQ6DjmcYIwuMXwnlf1gfAYozSkeVjGenu9_RYeLaWYpiIq6T3hlMHM5ym-JPfbfnGjm98";
 
-getFCMToken().then(token => {
-  if (token) {
-    console.log("🎯 SW: Token FCM prêt pour les notifications");
-  }
-});
+// Ne pas tenter de récupérer le token FCM sur localhost (clé API bloquée)
+if (self.location.hostname !== 'localhost' && self.location.hostname !== '127.0.0.1') {
+  getFCMToken().then(token => {
+    if (token) {
+      console.log("🎯 SW: Token FCM prêt pour les notifications");
+    }
+  });
+} else {
+  console.info("ℹ️ SW: Token FCM ignoré en développement (localhost bloqué par Firebase)");
+}
 
 
 // Obtenir le token FCM avec authentification VAPID

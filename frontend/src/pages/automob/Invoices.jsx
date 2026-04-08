@@ -13,6 +13,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const Invoices = () => {
   useDocumentTitle('Factures');
@@ -22,6 +24,8 @@ const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { currentItems: paginatedInvoices, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(invoices, 10);
 
   useEffect(() => {
     fetchInvoices();
@@ -175,7 +179,7 @@ const Invoices = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {invoices.map((invoice) => (
+                {paginatedInvoices.map((invoice) => (
                   <Card key={invoice.id} className="hover:shadow-md transition-shadow">
                     <CardContent className="pt-6">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -245,6 +249,7 @@ const Invoices = () => {
                 ))}
               </div>
             )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={10} totalItems={totalItems} />
           </CardContent>
         </Card>
       </div>

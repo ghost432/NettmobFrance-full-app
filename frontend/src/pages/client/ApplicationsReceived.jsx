@@ -33,6 +33,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api, { getAssetUrl } from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const ApplicationsReceived = () => {
   useDocumentTitle('Candidatures reçues');
@@ -47,9 +49,6 @@ const ApplicationsReceived = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [actionType, setActionType] = useState(null); // 'accept' or 'reject'
   const [activeTab, setActiveTab] = useState(searchParams.get('status') || 'all');
-  const [currentPage, setCurrentPage] = useState(1);
-  
-  const ITEMS_PER_PAGE = 15;
 
   useEffect(() => {
     fetchApplications();
@@ -212,12 +211,7 @@ const ApplicationsReceived = () => {
     return matchesSearch && app.status === activeTab;
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredApplications.length / ITEMS_PER_PAGE);
-  const paginatedApplications = filteredApplications.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  const { currentItems: paginatedApplications, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredApplications, 15);
 
   const getApplicationsCount = (status) => {
     if (status === 'all') return applications.length;
@@ -413,6 +407,7 @@ const ApplicationsReceived = () => {
                     </Table>
                   </div>
                 )}
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
               </TabsContent>
             </Tabs>
           </CardContent>

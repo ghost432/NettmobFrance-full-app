@@ -10,6 +10,8 @@ import { Clock, CheckCircle, XCircle, Eye, Calendar, User, Briefcase } from 'luc
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const TimesheetsList = () => {
   useDocumentTitle('Relevés d\'heures');
@@ -61,6 +63,8 @@ const TimesheetsList = () => {
     if (filter === 'rejected') return ts.status === 'rejete';
     return true;
   });
+
+  const { currentItems: paginatedTimesheets, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredTimesheets, 15);
 
   const pendingCount = timesheets.filter(ts => ts.status === 'soumis').length;
   const approvedCount = timesheets.filter(ts => ts.status === 'approuve').length;
@@ -144,7 +148,7 @@ const TimesheetsList = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredTimesheets.map((timesheet) => (
+                {paginatedTimesheets.map((timesheet) => (
                   <div
                     key={timesheet.id}
                     className="border rounded-lg p-4 hover:bg-accent/50 transition-colors"
@@ -219,6 +223,7 @@ const TimesheetsList = () => {
                 ))}
               </div>
             )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
           </CardContent>
         </Card>
       </div>

@@ -70,7 +70,7 @@ router.get('/admin/tickets', authenticateToken, async (req, res) => {
     const { status, assigned } = req.query;
 
     let query = `
-      SELECT 
+      SELECT
         t.id,
         t.user_id,
         t.subject,
@@ -82,18 +82,19 @@ router.get('/admin/tickets', authenticateToken, async (req, res) => {
         t.created_at,
         t.updated_at,
         t.resolved_at,
-        u.email as user_email,
-        COALESCE(
+        ANY_VALUE(COALESCE(u.email, 'Compte supprimé')) as user_email,
+        ANY_VALUE(COALESCE(
           CONCAT(ap.first_name, ' ', ap.last_name),
           CONCAT(cp.first_name, ' ', cp.last_name),
-          u.email
-        ) as user_name,
-        u.role as user_role,
+          u.email,
+          'Utilisateur supprimé'
+        )) as user_name,
+        ANY_VALUE(COALESCE(u.role, 'inconnu')) as user_role,
         COUNT(DISTINCT m.id) as message_count,
         SUM(CASE WHEN m.is_read = 0 AND m.is_admin = 0 THEN 1 ELSE 0 END) as unread_count,
         (SELECT message FROM support_messages WHERE ticket_id = t.id ORDER BY created_at DESC LIMIT 1) as last_message
       FROM support_tickets t
-      INNER JOIN users u ON t.user_id = u.id
+      LEFT JOIN users u ON t.user_id = u.id
       LEFT JOIN automob_profiles ap ON u.id = ap.user_id AND u.role = 'automob'
       LEFT JOIN client_profiles cp ON u.id = cp.user_id AND u.role = 'client'
       LEFT JOIN support_messages m ON t.id = m.ticket_id
@@ -240,16 +241,17 @@ router.get('/tickets/:ticketId', authenticateToken, async (req, res) => {
 
     // Vérifier l'accès au ticket
     const [[ticket]] = await db.query(
-      `SELECT t.*, 
-              u.email as user_email,
+      `SELECT t.*,
+              COALESCE(u.email, 'Compte supprimé') as user_email,
               COALESCE(
                 CONCAT(ap.first_name, ' ', ap.last_name),
                 CONCAT(cp.first_name, ' ', cp.last_name),
-                u.email
+                u.email,
+                'Utilisateur supprimé'
               ) as user_name,
-              u.role as user_role
+              COALESCE(u.role, 'inconnu') as user_role
        FROM support_tickets t
-       INNER JOIN users u ON t.user_id = u.id
+       LEFT JOIN users u ON t.user_id = u.id
        LEFT JOIN automob_profiles ap ON u.id = ap.user_id AND u.role = 'automob'
        LEFT JOIN client_profiles cp ON u.id = cp.user_id AND u.role = 'client'
        WHERE t.id = ?`,

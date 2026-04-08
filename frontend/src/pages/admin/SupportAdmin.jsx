@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { usePagination } from '@/hooks/usePagination';
+import { Pagination } from '@/components/ui/pagination';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
@@ -30,6 +32,7 @@ const SupportAdmin = () => {
   const messagesEndRef = useRef(null);
 
   const [tickets, setTickets] = useState([]);
+  const { currentItems: paginatedTickets, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(tickets, 15);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -324,7 +327,7 @@ const SupportAdmin = () => {
                     <p>Aucun ticket</p>
                   </div>
                 ) : (
-                  tickets.map((ticket) => (
+                  paginatedTickets.map((ticket) => (
                     <button
                       key={ticket.id}
                       onClick={() => navigate(`/admin/support/${ticket.id}`)}
@@ -357,6 +360,15 @@ const SupportAdmin = () => {
                     </button>
                   ))
                 )}
+              </div>
+              <div className="p-2 border-t border-gray-200 dark:border-gray-700">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                  itemsPerPage={15}
+                  totalItems={totalItems}
+                />
               </div>
             </div>
           </div>

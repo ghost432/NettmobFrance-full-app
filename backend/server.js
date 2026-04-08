@@ -43,6 +43,7 @@ import aiAssistantRoutes from './routes/aiAssistant_v2.js';
 import db from './config/database.js';
 import { initializeFirebase } from './config/firebase-admin.js';
 import { startSchedulers } from './services/missionScheduler.js';
+import { startKPIAlerts } from './services/kpiAlertService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -53,6 +54,7 @@ initializeFirebase();
 
 // Démarrer les tâches planifiées
 startSchedulers();
+startKPIAlerts();
 
 // S'assurer que la table fcm_tokens existe
 (async () => {

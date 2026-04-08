@@ -2,20 +2,20 @@ import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { getAnalytics } from 'firebase/analytics';
 
-// Configuration Firebase
+// Configuration Firebase — valeurs via variables d'environnement UNIQUEMENT
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDSwL0wNQuS6KwWCPO-ufVjC_NObFTMHis",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "nettmobfrance-92e4a.firebaseapp.com",
-  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL || "https://nettmobfrance-92e4a-default-rtdb.firebaseio.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "nettmobfrance-92e4a",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "nettmobfrance-92e4a.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1074853867939",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1074853867939:web:35ab84f541ea15a0fcaa16",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-JE00NQWJSF"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Clé VAPID publique pour les notifications push
-const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY || "BDlx3hjHO9XEzdj3bsYQ6DjmcYIwuMXwnlf1gfAYozSkeVjGenu9_RYeLaWYpiIq6T3hlMHM5ym-JPfbfnGjm98";
+const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
 
 // Initialiser Firebase
 let app;
@@ -28,7 +28,10 @@ try {
   // Initialiser Firebase Messaging (uniquement dans le navigateur)
   if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
     messaging = getMessaging(app);
-    analytics = getAnalytics(app);
+    // Analytics désactivé en dev : déclenche des requêtes Installations bloquées sur localhost
+    if (!import.meta.env.DEV) {
+      analytics = getAnalytics(app);
+    }
   }
 } catch (error) {
   console.error('Erreur initialisation Firebase:', error);
@@ -106,6 +109,13 @@ export const requestNotificationPermission = async () => {
 
       // Récupérer le token FCM
       console.log('🔑 Récupération du token FCM...');
+
+      // En développement localhost, Firebase bloque les requêtes Installations
+      if (import.meta.env.DEV) {
+        console.info('ℹ️ FCM token ignoré en développement (localhost bloqué par la clé API Firebase)');
+        return null;
+      }
+
       const token = await getToken(messaging, {
         vapidKey,
         serviceWorkerRegistration: await navigator.serviceWorker.getRegistration('/')
@@ -172,8 +182,7 @@ export const onMessageListener = () => {
  * Vérifie si Firebase est configuré
  */
 export const isFirebaseConfigured = () => {
-  return firebaseConfig.apiKey !== "VOTRE_API_KEY" &&
-    vapidKey !== "VOTRE_VAPID_KEY";
+  return !!firebaseConfig.apiKey && !!vapidKey;
 };
 
 export { messaging, vapidKey, firebaseConfig };

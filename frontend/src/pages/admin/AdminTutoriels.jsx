@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Upload, Trash2, PlusCircle, X, Building2, User, ChevronLeft, ChevronRight, Pencil, Check, Search, Filter } from 'lucide-react';
+import { Play, Upload, Trash2, PlusCircle, X, Building2, User, ChevronLeft, Pencil, Check, Search, Filter } from 'lucide-react';
+import { Pagination } from '../../components/ui/pagination';
 import axios from 'axios';
 import { getAssetUrl } from '../../lib/api';
 import { toast } from '../../components/ui/toast';
@@ -257,26 +258,13 @@ const AdminTutoriels = () => {
                         </div>
 
                         {/* Pagination */}
-                        {totalPages > 1 && (
-                            <div className="flex items-center justify-between px-4 py-4 bg-white rounded-3xl border border-border mt-4">
-                                <span className="text-sm font-bold text-muted-foreground">
-                                    Page {page}/{totalPages}
-                                </span>
-                                <div className="flex items-center gap-2">
-                                    <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="p-2 rounded-xl border border-border hover:bg-slate-50 disabled:opacity-40 transition-colors">
-                                        <ChevronLeft className="h-4 w-4" />
-                                    </button>
-                                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
-                                        <button key={n} onClick={() => setPage(n)} className={`w-9 h-9 rounded-xl text-sm font-black transition-all ${n === page ? 'bg-primary text-white' : 'border border-border hover:bg-slate-50'}`}>
-                                            {n}
-                                        </button>
-                                    ))}
-                                    <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="p-2 rounded-xl border border-border hover:bg-slate-50 disabled:opacity-40 transition-colors">
-                                        <ChevronRight className="h-4 w-4" />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
+                        <Pagination
+                            currentPage={page}
+                            totalPages={totalPages}
+                            onPageChange={setPage}
+                            itemsPerPage={PAGE_SIZE}
+                            totalItems={total}
+                        />
                     </>
                 ) : (
                     /* FORM */

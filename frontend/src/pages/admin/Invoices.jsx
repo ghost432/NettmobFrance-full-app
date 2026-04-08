@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
@@ -16,9 +16,12 @@ import {
   FileText, Download, Calendar, Euro, TrendingUp,
   Users, Building2, BarChart3, CheckCircle
 } from 'lucide-react';
+import { exportToCSV } from '@/utils/exportCSV';
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const AdminInvoices = () => {
   useDocumentTitle('Factures');
@@ -125,6 +128,14 @@ const AdminInvoices = () => {
   const displayName = user?.profile?.first_name 
     ? `${user.profile.first_name} ${user.profile.last_name}` 
     : (user?.email?.split('@')[0] || 'Administrateur');
+
+  const clientInvoices = useMemo(() => allInvoices.filter(inv => inv.invoice_type === 'client'), [allInvoices]);
+  const automobInvoices = useMemo(() => allInvoices.filter(inv => inv.invoice_type === 'automob'), [allInvoices]);
+
+  const { currentItems: paginatedAll, currentPage: pageAll, totalPages: totalPagesAll, totalItems: totalAll, setCurrentPage: setPageAll } = usePagination(allInvoices, 10);
+  const { currentItems: paginatedSummary, currentPage: pageSummary, totalPages: totalPagesSummary, totalItems: totalSummary, setCurrentPage: setPageSummary } = usePagination(summaryInvoices, 10);
+  const { currentItems: paginatedClients, currentPage: pageClients, totalPages: totalPagesClients, totalItems: totalClients, setCurrentPage: setPageClients } = usePagination(clientInvoices, 10);
+  const { currentItems: paginatedAutomobs, currentPage: pageAutomobs, totalPages: totalPagesAutomobs, totalItems: totalAutomobs, setCurrentPage: setPageAutomobs } = usePagination(automobInvoices, 10);
 
   // Calculs statistiques
   // Total commission NettmobFrance (20% sur toutes les prestations)
@@ -241,11 +252,31 @@ const AdminInvoices = () => {
           {/* All Invoices */}
           <TabsContent value="all" className="mt-6">
             <Card>
-              <CardHeader>
-                <CardTitle>Toutes les factures</CardTitle>
-                <CardDescription>
-                  Vue d'ensemble de toutes les factures du système
-                </CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Toutes les factures</CardTitle>
+                  <CardDescription>
+                    Vue d'ensemble de toutes les factures du système
+                  </CardDescription>
+                </div>
+                <button
+                  className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium hover:bg-muted transition-colors"
+                  onClick={() => exportToCSV(
+                    allInvoices.map(inv => ({
+                      numero: inv.invoice_number || inv.id,
+                      type: inv.invoice_type,
+                      utilisateur: inv.user_name || inv.user_email || '',
+                      montant: inv.total_amount || inv.amount || '',
+                      statut: inv.status,
+                      date: inv.created_at ? new Date(inv.created_at).toLocaleDateString('fr-FR') : ''
+                    })),
+                    'factures',
+                    { numero: 'N° Facture', type: 'Type', utilisateur: 'Utilisateur', montant: 'Montant (€)', statut: 'Statut', date: 'Date' }
+                  )}
+                >
+                  <Download className="h-4 w-4" />
+                  Exporter CSV
+                </button>
               </CardHeader>
               <CardContent>
                 {allInvoices.length === 0 ? (
@@ -255,7 +286,7 @@ const AdminInvoices = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {allInvoices.map((invoice) => (
+                    {paginatedAll.map((invoice) => (
                       <Card key={invoice.id} className="hover:shadow-md transition-shadow">
                         <CardContent className="pt-6">
                           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -349,6 +380,7 @@ const AdminInvoices = () => {
                         </CardContent>
                       </Card>
                     ))}
+                    <Pagination currentPage={pageAll} totalPages={totalPagesAll} onPageChange={setPageAll} itemsPerPage={10} totalItems={totalAll} />
                   </div>
                 )}
               </CardContent>
@@ -372,7 +404,7 @@ const AdminInvoices = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {summaryInvoices.map((invoice) => (
+                    {paginatedSummary.map((invoice) => (
                       <Card key={invoice.id} className="hover:shadow-md transition-shadow border-indigo-200">
                         <CardContent className="pt-6">
                           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -442,6 +474,7 @@ const AdminInvoices = () => {
                         </CardContent>
                       </Card>
                     ))}
+                    <Pagination currentPage={pageSummary} totalPages={totalPagesSummary} onPageChange={setPageSummary} itemsPerPage={10} totalItems={totalSummary} />
                   </div>
                 )}
               </CardContent>
@@ -459,9 +492,7 @@ const AdminInvoices = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {allInvoices
-                    .filter(inv => inv.invoice_type === 'client')
-                    .map((invoice) => (
+                  {paginatedClients.map((invoice) => (
                       <Card key={invoice.id} className="hover:shadow-md transition-shadow">
                         <CardContent className="pt-6">
                           <div className="flex justify-between items-start">
@@ -499,6 +530,7 @@ const AdminInvoices = () => {
                         </CardContent>
                       </Card>
                     ))}
+                  <Pagination currentPage={pageClients} totalPages={totalPagesClients} onPageChange={setPageClients} itemsPerPage={10} totalItems={totalClients} />
                 </div>
               </CardContent>
             </Card>
@@ -515,9 +547,7 @@ const AdminInvoices = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {allInvoices
-                    .filter(inv => inv.invoice_type === 'automob')
-                    .map((invoice) => (
+                  {paginatedAutomobs.map((invoice) => (
                       <Card key={invoice.id} className="hover:shadow-md transition-shadow">
                         <CardContent className="pt-6">
                           <div className="flex justify-between items-start">
@@ -553,6 +583,7 @@ const AdminInvoices = () => {
                         </CardContent>
                       </Card>
                     ))}
+                  <Pagination currentPage={pageAutomobs} totalPages={totalPagesAutomobs} onPageChange={setPageAutomobs} itemsPerPage={10} totalItems={totalAutomobs} />
                 </div>
               </CardContent>
             </Card>

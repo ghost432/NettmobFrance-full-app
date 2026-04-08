@@ -5,12 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import api from '@/lib/api';
 import { useEffect, useState } from 'react';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 export const ArchivedMissions = () => {
   useDocumentTitle('Missions Archivées - Admin');
   
   const [missions, setMissions] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { currentItems: paginatedMissions, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(missions, 15);
 
   useEffect(() => {
     fetchArchivedMissions();
@@ -41,6 +45,7 @@ export const ArchivedMissions = () => {
           {loading ? (
             <div>Chargement...</div>
           ) : (
+            <>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -52,7 +57,7 @@ export const ArchivedMissions = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {missions.map(mission => (
+                {paginatedMissions.map(mission => (
                   <TableRow key={mission.id}>
                     <TableCell>{mission.id}</TableCell>
                     <TableCell>{mission.title}</TableCell>
@@ -67,6 +72,8 @@ export const ArchivedMissions = () => {
                 ))}
               </TableBody>
             </Table>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
+            </>
           )}
         </CardContent>
       </Card>

@@ -40,6 +40,11 @@ export const DashboardLayout = ({
   const [pendingApplicationsCount, setPendingApplicationsCount] = useState(0);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
+  const [pullState, setPullState] = useState('idle'); // 'idle' | 'pulling' | 'ready' | 'refreshing'
+  const scrollContainerRef = useRef(null);
+  const touchStartYRef = useRef(0);
+  const pullDistanceRef = useRef(0);
+  const PULL_THRESHOLD = 70;
 
   // Désactiver le scroll sur le body pour éviter les doubles barres de défilement
   useEffect(() => {
@@ -185,11 +190,61 @@ export const DashboardLayout = ({
       setIsHeaderSticky(scrollTop > 0);
     };
 
-    const scrollContainer = document.querySelector('.dashboard-scroll-container');
+    const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
       scrollContainer.addEventListener('scroll', handleScroll);
       return () => scrollContainer.removeEventListener('scroll', handleScroll);
     }
+  }, []);
+
+  // Pull-to-refresh sur mobile
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e) => {
+      if (container.scrollTop <= 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+      } else {
+        touchStartYRef.current = -1;
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (touchStartYRef.current < 0) return;
+      const deltaY = e.touches[0].clientY - touchStartYRef.current;
+      if (deltaY > 0 && container.scrollTop <= 0) {
+        e.preventDefault();
+        pullDistanceRef.current = Math.min(deltaY * 0.5, PULL_THRESHOLD * 1.5);
+        setPullState(pullDistanceRef.current >= PULL_THRESHOLD ? 'ready' : 'pulling');
+      } else if (deltaY <= 0) {
+        pullDistanceRef.current = 0;
+        setPullState('idle');
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (touchStartYRef.current < 0) return;
+      if (pullDistanceRef.current >= PULL_THRESHOLD) {
+        setPullState('refreshing');
+        pullDistanceRef.current = 0;
+        setTimeout(() => window.location.reload(), 400);
+      } else {
+        pullDistanceRef.current = 0;
+        setPullState('idle');
+      }
+      touchStartYRef.current = -1;
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
   }, []);
 
   const initialGroups = useMemo(() => {
@@ -1017,11 +1072,21 @@ export const DashboardLayout = ({
   ) : null;
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-muted/30">
+    <div className="flex h-[100dvh] w-full overflow-hidden bg-muted/30">
       {desktopSidebar}
       {mobileSidebar}
 
-      <div className="flex flex-1 flex-col overflow-y-auto dashboard-scroll-container bg-muted/30">
+      <div ref={scrollContainerRef} className="flex flex-1 flex-col overflow-y-auto dashboard-scroll-container bg-muted/30">
+        {/* Indicateur pull-to-refresh */}
+        {pullState !== 'idle' && (
+          <div className="flex items-center justify-center gap-2 py-3 text-sm text-muted-foreground sm:hidden">
+            <RefreshCw className={cn('h-4 w-4', pullState === 'refreshing' && 'animate-spin')} />
+            <span>
+              {pullState === 'refreshing' ? 'Actualisation...' : pullState === 'ready' ? 'Relâcher pour actualiser' : 'Tirer pour actualiser'}
+            </span>
+          </div>
+        )}
+
         {/* Barre sticky globale - apparaît au scroll */}
         {isHeaderSticky && (
           <div className="sticky top-0 z-20 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-4 sm:px-6">
@@ -1033,10 +1098,10 @@ export const DashboardLayout = ({
         <main className="flex-1 px-4 sm:px-6">
           <div className="mx-auto w-full max-w-7xl">
             {/* Bloc contenu encapsulé */}
-            <div className="border border-border bg-card shadow-sm rounded-[22px] overflow-hidden flex flex-col my-6">
+            <div className="border border-border bg-card shadow-sm rounded-[22px] flex flex-col my-6">
               {/* Barre de contrôles initiale - visible seulement en haut */}
               {!isHeaderSticky && (
-                <div className="border-b border-border px-4 py-4 sm:px-6">
+                <div className="border-b border-border px-4 py-4 sm:px-6 rounded-t-[22px] overflow-hidden">
                   {renderHeaderControls()}
                 </div>
               )}
@@ -1048,7 +1113,7 @@ export const DashboardLayout = ({
               </div>
 
               {/* Contenu */}
-              <section className="px-4 py-6 sm:px-6">
+              <section className="px-4 py-6 sm:px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
                 {children}
               </section>
             </div>

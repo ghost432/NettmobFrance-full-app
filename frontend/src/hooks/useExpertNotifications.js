@@ -108,6 +108,11 @@ export function useExpertNotifications() {
       // 1. Demander token FCM pour notifications serveur
       const token = await requestNotificationPermission();
 
+      if (token === null && import.meta.env.DEV) {
+        // En dev, Firebase bloque localhost — on ignore silencieusement
+        return;
+      }
+
       if (token) {
         console.log('🎫 [EXPERT] Token FCM obtenu:', token.substring(0, 20) + '...');
 

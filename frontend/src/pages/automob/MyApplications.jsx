@@ -22,6 +22,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const MyApplications = () => {
   useDocumentTitle('Mes Candidatures');
@@ -31,9 +33,6 @@ const MyApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  
-  const ITEMS_PER_PAGE = 15;
 
   useEffect(() => {
     fetchApplications();
@@ -84,6 +83,8 @@ const MyApplications = () => {
     app.mission_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     app.client_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const { currentItems: paginatedApplications, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredApplications, 15);
 
   const displayName = () => {
     if (user?.profile?.first_name && user?.profile?.last_name) {
@@ -200,7 +201,7 @@ const MyApplications = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredApplications.map((application) => (
+                    {paginatedApplications.map((application) => (
                       <TableRow key={application.id}>
                         <TableCell>
                           <div>
@@ -246,6 +247,7 @@ const MyApplications = () => {
                 </Table>
               </div>
             )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
           </CardContent>
         </Card>
       </div>

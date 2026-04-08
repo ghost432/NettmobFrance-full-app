@@ -31,6 +31,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const WalletManagement = () => {
   useDocumentTitle('Gestion des Portefeuilles');
@@ -277,6 +279,9 @@ const WalletManagement = () => {
     return w.status === activeTab;
   });
 
+  const { currentItems: paginatedWithdrawals, currentPage: pageW, totalPages: totalPagesW, totalItems: totalW, setCurrentPage: setPageW } = usePagination(filteredWithdrawals, 10);
+  const { currentItems: paginatedWallets, currentPage: pageWal, totalPages: totalPagesWal, totalItems: totalWal, setCurrentPage: setPageWal } = usePagination(wallets, 10);
+
   const displayName = user?.email || 'Admin';
 
   const totalPending = withdrawals
@@ -400,7 +405,7 @@ const WalletManagement = () => {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      {filteredWithdrawals.map((withdrawal) => (
+                      {paginatedWithdrawals.map((withdrawal) => (
                         <Card key={withdrawal.id} className="hover:shadow-md transition-shadow">
                           <CardContent className="pt-6">
                             <div className="flex flex-col gap-4">
@@ -498,6 +503,7 @@ const WalletManagement = () => {
                           </CardContent>
                         </Card>
                       ))}
+                      <Pagination currentPage={pageW} totalPages={totalPagesW} onPageChange={setPageW} itemsPerPage={10} totalItems={totalW} />
                     </div>
                   )}
                 </CardContent>
@@ -516,7 +522,7 @@ const WalletManagement = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {wallets.map((wallet) => (
+                  {paginatedWallets.map((wallet) => (
                     <Card key={wallet.id} className="hover:shadow-md transition-shadow">
                       <CardContent className="pt-6">
                         <div className="flex flex-col gap-4">
@@ -608,6 +614,7 @@ const WalletManagement = () => {
                       </CardContent>
                     </Card>
                   ))}
+                  <Pagination currentPage={pageWal} totalPages={totalPagesWal} onPageChange={setPageWal} itemsPerPage={10} totalItems={totalWal} />
                 </div>
               </CardContent>
             </Card>

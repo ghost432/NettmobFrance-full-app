@@ -13,6 +13,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const CompletedMissions = () => {
   useDocumentTitle('Missions Terminées');
@@ -20,6 +22,8 @@ const CompletedMissions = () => {
   const { user } = useAuth();
   const [missions, setMissions] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { currentItems: paginatedMissions, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(missions, 10);
 
   useEffect(() => {
     fetchCompletedMissions();
@@ -145,7 +149,7 @@ const CompletedMissions = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {missions.map((mission) => (
+                {paginatedMissions.map((mission) => (
                   <Card key={mission.id} className="overflow-hidden">
                     <CardContent className="p-6">
                       <div className="space-y-4">
@@ -256,6 +260,7 @@ const CompletedMissions = () => {
                 ))}
               </div>
             )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={10} totalItems={totalItems} />
           </CardContent>
         </Card>
       </div>

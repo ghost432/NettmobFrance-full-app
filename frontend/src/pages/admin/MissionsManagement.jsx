@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { usePagination } from '@/hooks/usePagination';
+import { Pagination } from '@/components/ui/pagination';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { adminNavigation } from '@/constants/navigation';
@@ -34,13 +36,15 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { 
-  Briefcase, Search, Filter, Calendar, MapPin, Users, Euro, 
-  Clock, MoreHorizontal, Eye, Edit, Trash2, CheckCircle2, 
-  XCircle, Loader2, AlertCircle, Plus, Building2, User
+import {
+  Briefcase, Search, Filter, Calendar, MapPin, Users, Euro,
+  Clock, MoreHorizontal, Eye, Edit, Trash2, CheckCircle2,
+  XCircle, Loader2, AlertCircle, Plus, Building2, User, Download
 } from 'lucide-react';
+import { exportToCSV } from '@/utils/exportCSV';
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
+import { TableSkeleton } from '@/components/ui/skeleton';
 import { toast } from '@/components/ui/toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -261,6 +265,8 @@ const MissionsManagement = () => {
     mission.client_company?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const { currentItems: paginatedMissions, currentPage: missionsPage, totalPages: missionsTotalPages, totalItems: missionsTotalItems, setCurrentPage: setMissionsPage } = usePagination(filteredMissions, 15);
+
   const displayName = () => user?.email?.split('@')[0] || 'Admin';
 
   return (
@@ -363,6 +369,26 @@ const MissionsManagement = () => {
               <Plus className="h-4 w-4 mr-2" />
               Créer une Mission
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => exportToCSV(
+                filteredMissions.map(m => ({
+                  nom: m.mission_name || m.title,
+                  statut: m.status,
+                  client: m.client_name || m.client_email || '',
+                  debut: m.start_date ? new Date(m.start_date).toLocaleDateString('fr-FR') : '',
+                  fin: m.end_date ? new Date(m.end_date).toLocaleDateString('fr-FR') : '',
+                  tarif: m.hourly_rate,
+                  automobs: m.nb_automobs || 1,
+                  ville: m.city || m.address || ''
+                })),
+                'missions',
+                { nom: 'Mission', statut: 'Statut', client: 'Client', debut: 'Début', fin: 'Fin', tarif: 'Tarif/h', automobs: 'Nb Automobs', ville: 'Ville' }
+              )}
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Exporter CSV
+            </Button>
           </div>
         </div>
 
@@ -376,9 +402,7 @@ const MissionsManagement = () => {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <p className="text-muted-foreground">Chargement...</p>
-              </div>
+              <TableSkeleton rows={8} cols={7} />
             ) : filteredMissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12">
                 <Briefcase className="h-12 w-12 text-muted-foreground mb-4" />
@@ -399,7 +423,7 @@ const MissionsManagement = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredMissions.map((mission) => (
+                    {paginatedMissions.map((mission) => (
                       <TableRow key={mission.id}>
                         <TableCell>
                           <div>
@@ -511,6 +535,13 @@ const MissionsManagement = () => {
                 </Table>
               </div>
             )}
+            <Pagination
+              currentPage={missionsPage}
+              totalPages={missionsTotalPages}
+              onPageChange={setMissionsPage}
+              itemsPerPage={15}
+              totalItems={missionsTotalItems}
+            />
           </CardContent>
         </Card>
 

@@ -12,8 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { toast } from '@/components/ui/toast';
 import {
-  CheckCircle, XCircle, Clock, Eye, Download, ExternalLink,
-  User, Building2, FileText, Camera, Award, HardHat, Mail, Phone, MapPin
+  CheckCircle, XCircle, Clock, Eye, Download,
+  User, Building2, FileText, Camera, Award, HardHat, Mail, Phone, MapPin,
+  ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight
 } from 'lucide-react';
 import api from '@/lib/api';
 
@@ -28,6 +29,10 @@ const VerificationManagementNew = () => {
   const [rejectionReason, setRejectionReason] = useState('');
   const [processing, setProcessing] = useState(false);
   const [filter, setFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [pagination, setPagination] = useState({ total: 0, totalPages: 1 });
+  const [stats, setStats] = useState({ all: 0, pending: 0, approved: 0, rejected: 0 });
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) return null;
@@ -37,32 +42,18 @@ const VerificationManagementNew = () => {
   };
 
   useEffect(() => {
-    fetchVerifications();
-  }, []);
+    fetchVerifications(currentPage, filter, perPage);
+  }, [currentPage, filter, perPage]);
 
-  const fetchVerifications = async () => {
+  const fetchVerifications = async (page = 1, status = 'all', limit = 10) => {
     setLoading(true);
     try {
-      const response = await api.get('/verification-new/admin/all');
-      const verifs = response.data.verifications || [];
-
-      // Debug: afficher les fichiers reçus
-      verifs.forEach(v => {
-        console.log(`Frontend - Verification ${v.id}:`, {
-          has_habilitations: v.has_habilitations,
-          nombre_habilitations: v.nombre_habilitations,
-          habilitations_files: v.habilitations_files,
-          habilitations_files_type: typeof v.habilitations_files,
-          habilitations_files_length: v.habilitations_files?.length,
-          has_caces: v.has_caces,
-          nombre_caces: v.nombre_caces,
-          caces_files: v.caces_files,
-          caces_files_type: typeof v.caces_files,
-          caces_files_length: v.caces_files?.length
-        });
-      });
-
-      setVerifications(verifs);
+      const params = new URLSearchParams({ page, limit });
+      if (status !== 'all') params.set('status', status);
+      const response = await api.get(`/verification-new/admin/all?${params}`);
+      setVerifications(response.data.verifications || []);
+      setPagination(response.data.pagination || { total: 0, totalPages: 1 });
+      setStats(response.data.stats || { all: 0, pending: 0, approved: 0, rejected: 0 });
     } catch (error) {
       console.error('Erreur chargement vérifications:', error);
       toast.error('Erreur lors du chargement');
@@ -71,15 +62,16 @@ const VerificationManagementNew = () => {
     }
   };
 
+  const refreshCurrentPage = () => fetchVerifications(currentPage, filter, perPage);
+
   const handleApprove = async (id) => {
     if (!window.confirm('Êtes-vous sûr de vouloir approuver cette demande ?')) return;
-
     setProcessing(true);
     try {
       await api.put(`/verification-new/admin/${id}/approve`);
       toast.success('Demande approuvée avec succès');
-      fetchVerifications();
       setShowDetailDialog(false);
+      refreshCurrentPage();
     } catch (error) {
       console.error('Erreur approbation:', error);
       toast.error('Erreur lors de l\'approbation');
@@ -93,17 +85,16 @@ const VerificationManagementNew = () => {
       toast.error('Veuillez indiquer une raison de rejet');
       return;
     }
-
     setProcessing(true);
     try {
       await api.put(`/verification-new/admin/${selectedVerification.id}/reject`, {
         rejection_reason: rejectionReason
       });
       toast.success('Demande rejetée');
-      fetchVerifications();
       setShowRejectDialog(false);
       setShowDetailDialog(false);
       setRejectionReason('');
+      refreshCurrentPage();
     } catch (error) {
       console.error('Erreur rejet:', error);
       toast.error('Erreur lors du rejet');
@@ -114,13 +105,12 @@ const VerificationManagementNew = () => {
 
   const handleRevoke = async (id) => {
     if (!window.confirm('Êtes-vous sûr de vouloir révoquer cette vérification ? L\'utilisateur devra soumettre une nouvelle demande.')) return;
-
     setProcessing(true);
     try {
       await api.put(`/verification-new/admin/${id}/revoke`);
       toast.success('Vérification révoquée avec succès');
-      fetchVerifications();
       setShowDetailDialog(false);
+      refreshCurrentPage();
     } catch (error) {
       console.error('Erreur révocation:', error);
       toast.error('Erreur lors de la révocation');
@@ -146,10 +136,14 @@ const VerificationManagementNew = () => {
     return <Badge className={config.className}>{config.label}</Badge>;
   };
 
-  const filteredVerifications = verifications.filter(v => {
-    if (filter === 'all') return true;
-    return v.status === filter;
-  });
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(Math.max(1, Math.min(page, pagination.totalPages)));
+  };
 
   const DocumentCard = ({ label, path, icon: Icon = FileText }) => {
     if (!path) return null;
@@ -487,33 +481,33 @@ const VerificationManagementNew = () => {
         <div className="flex flex-wrap gap-4">
           <Button
             variant={filter === 'all' ? 'default' : 'outline'}
-            onClick={() => setFilter('all')}
+            onClick={() => handleFilterChange('all')}
           >
-            Toutes ({verifications.length})
+            Toutes ({stats.all})
           </Button>
           <Button
             variant={filter === 'pending' ? 'default' : 'outline'}
-            onClick={() => setFilter('pending')}
+            onClick={() => handleFilterChange('pending')}
             className="gap-2"
           >
             <Clock className="h-4 w-4" />
-            En attente ({verifications.filter(v => v.status === 'pending').length})
+            En attente ({stats.pending})
           </Button>
           <Button
             variant={filter === 'approved' ? 'default' : 'outline'}
-            onClick={() => setFilter('approved')}
+            onClick={() => handleFilterChange('approved')}
             className="gap-2"
           >
             <CheckCircle className="h-4 w-4" />
-            Approuvées ({verifications.filter(v => v.status === 'approved').length})
+            Approuvées ({stats.approved})
           </Button>
           <Button
             variant={filter === 'rejected' ? 'default' : 'outline'}
-            onClick={() => setFilter('rejected')}
+            onClick={() => handleFilterChange('rejected')}
             className="gap-2"
           >
             <XCircle className="h-4 w-4" />
-            Rejetées ({verifications.filter(v => v.status === 'rejected').length})
+            Rejetées ({stats.rejected})
           </Button>
         </div>
 
@@ -524,7 +518,7 @@ const VerificationManagementNew = () => {
               Chargement...
             </CardContent>
           </Card>
-        ) : filteredVerifications.length === 0 ? (
+        ) : verifications.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center text-muted-foreground">
               Aucune demande de vérification
@@ -532,7 +526,7 @@ const VerificationManagementNew = () => {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {filteredVerifications.map((verification) => {
+            {verifications.map((verification) => {
               const isAutomob = verification.user_type === 'automob';
               return (
                 <Card key={verification.id} className="hover:shadow-md transition-shadow">
@@ -591,6 +585,88 @@ const VerificationManagementNew = () => {
                 </Card>
               );
             })}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {pagination.totalPages > 1 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>
+                {Math.min((currentPage - 1) * perPage + 1, pagination.total)}–{Math.min(currentPage * perPage, pagination.total)} sur {pagination.total} demandes
+              </span>
+              <span className="hidden sm:inline">·</span>
+              <div className="hidden sm:flex items-center gap-2">
+                <span>Afficher</span>
+                <select
+                  value={perPage}
+                  onChange={(e) => { setPerPage(Number(e.target.value)); setCurrentPage(1); }}
+                  className="border rounded px-2 py-1 text-sm bg-background"
+                >
+                  {[5, 10, 20, 50].map(n => <option key={n} value={n}>{n}</option>)}
+                </select>
+                <span>par page</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                size="sm" variant="outline"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronsLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                size="sm" variant="outline"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <div className="flex items-center gap-1">
+                {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
+                  .filter(p => p === 1 || p === pagination.totalPages || Math.abs(p - currentPage) <= 1)
+                  .reduce((acc, p, idx, arr) => {
+                    if (idx > 0 && p - arr[idx - 1] > 1) acc.push('...');
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, idx) =>
+                    p === '...' ? (
+                      <span key={`ellipsis-${idx}`} className="px-1 text-muted-foreground">…</span>
+                    ) : (
+                      <Button
+                        key={p}
+                        size="sm"
+                        variant={p === currentPage ? 'default' : 'outline'}
+                        onClick={() => handlePageChange(p)}
+                        className="h-8 w-8 p-0"
+                      >
+                        {p}
+                      </Button>
+                    )
+                  )
+                }
+              </div>
+              <Button
+                size="sm" variant="outline"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === pagination.totalPages}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+              <Button
+                size="sm" variant="outline"
+                onClick={() => handlePageChange(pagination.totalPages)}
+                disabled={currentPage === pagination.totalPages}
+                className="h-8 w-8 p-0"
+              >
+                <ChevronsRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         )}
 

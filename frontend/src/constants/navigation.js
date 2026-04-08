@@ -85,6 +85,7 @@ export const adminNavigation = [
       { label: 'Logs d\'activité', icon: Activity, path: '/admin/activity-logs' },
       { label: 'Statistiques PWA', icon: Smartphone, path: '/admin/pwa-stats' },
       { label: 'Installer PWA', icon: Download, path: '/admin/install-pwa' },
+      { label: 'Sous-rôles Admin', icon: ShieldCheck, path: '/admin/roles' },
     ]
   },
   { label: 'Support', icon: MessageSquare, path: '/admin/support' },

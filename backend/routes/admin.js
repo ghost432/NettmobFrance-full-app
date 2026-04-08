@@ -12,6 +12,29 @@ router.delete('/users/:id', adminRequired, adminController.deleteUser);
 
 // Routes pour la gestion des missions
 router.get('/missions', adminRequired, adminController.listMissions);
+
+// Missions archivées (status = 'termine') — doit être avant /missions/:id
+router.get('/missions/archived', adminRequired, async (req, res) => {
+  try {
+    const [missions] = await db.query(`
+      SELECT m.id, m.mission_name AS title, m.status, m.updated_at AS archived_at,
+             cp.company_name
+      FROM missions m
+      LEFT JOIN client_profiles cp ON m.client_id = cp.user_id
+      WHERE m.status = 'termine'
+      ORDER BY m.updated_at DESC
+    `);
+    res.json({
+      missions: missions.map(m => ({
+        ...m,
+        client: { company_name: m.company_name }
+      }))
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 router.get('/missions/:id', adminRequired, adminController.getMission);
 router.post('/missions', adminRequired, adminController.createMission);
 router.put('/missions/:id', adminRequired, adminController.updateMission);
@@ -624,6 +647,57 @@ router.get('/pwa-stats', adminRequired, async (req, res) => {
     });
   } catch (error) {
     console.error('❌ Erreur récupération stats PWA:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// ============= GESTION DES SOUS-RÔLES ADMIN =============
+
+const VALID_ADMIN_ROLES = ['super_admin', 'moderateur', 'comptable', 'support'];
+
+// Liste tous les admins avec leur sous-rôle
+router.get('/sub-roles', adminRequired, async (req, res) => {
+  try {
+    const [admins] = await db.query(`
+      SELECT id, email, admin_role, created_at
+      FROM users
+      WHERE role = 'admin'
+      ORDER BY created_at ASC
+    `);
+    res.json(admins);
+  } catch (error) {
+    console.error('❌ Erreur liste sous-rôles:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Modifier le sous-rôle d'un admin
+router.put('/sub-roles/:userId', adminRequired, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { admin_role } = req.body;
+
+    if (!VALID_ADMIN_ROLES.includes(admin_role)) {
+      return res.status(400).json({ error: 'Sous-rôle invalide. Valeurs: ' + VALID_ADMIN_ROLES.join(', ') });
+    }
+
+    // Empêcher de dégrader son propre compte
+    if (parseInt(userId) === req.user.id && admin_role !== 'super_admin') {
+      return res.status(403).json({ error: 'Vous ne pouvez pas modifier votre propre sous-rôle' });
+    }
+
+    const [result] = await db.query(
+      'UPDATE users SET admin_role = ? WHERE id = ? AND role = ?',
+      [admin_role, userId, 'admin']
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Admin introuvable' });
+    }
+
+    res.json({ message: 'Sous-rôle mis à jour', admin_role });
+  } catch (error) {
+    console.error('❌ Erreur mise à jour sous-rôle:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { clientNavigation } from '@/constants/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +15,7 @@ import { toast } from '@/components/ui/toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   Briefcase, MapPin, Clock, Calendar, Users, Euro, FileText,
-  Info, Sun, Moon, Building, CheckCircle, AlertTriangle
+  Info, Sun, Moon, Building, CheckCircle, AlertTriangle, Copy
 } from 'lucide-react';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
@@ -28,6 +28,7 @@ const PublishMission = () => {
   useDocumentTitle('Publier une mission');
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [secteurs, setSecteurs] = useState([]);
   const [competences, setCompetences] = useState([]);
@@ -36,19 +37,21 @@ const PublishMission = () => {
   const [hourlyRates, setHourlyRates] = useState([]);
 
   const [publishMode, setPublishMode] = useState('express'); // 'express' ou 'with_algorithm'
+  const template = location.state?.template;
+
   const [formData, setFormData] = useState({
-    mission_name: '',
+    mission_name: template?.mission_name || '',
     mission_type_info: 'Mission tarif horaire - Payer chaque auto-mob sur le tarif par heure',
-    work_time: 'jour', // jour ou nuit
-    secteur_id: '',
+    work_time: template?.work_time || 'jour',
+    secteur_id: template?.secteur_id || '',
     competences_ids: [],
-    billing_frequency: 'jour', // jour, semaine, mois
-    max_hours: '',
-    hourly_rate: '',
-    location_type: 'sur_site',
-    address: '',
-    description: '',
-    nb_automobs: 1,
+    billing_frequency: template?.billing_frequency || 'jour',
+    max_hours: template?.max_hours || '',
+    hourly_rate: template?.hourly_rate || '',
+    location_type: template?.location_type || 'sur_site',
+    address: template?.address || '',
+    description: template?.description || '',
+    nb_automobs: template?.nb_automobs || 1,
     start_date: '',
     end_date: '',
     start_time: '',
@@ -436,6 +439,16 @@ const PublishMission = () => {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Formulaire */}
         <div className="space-y-6">
+          {/* Bannière de duplication */}
+          {template && (
+            <Alert className="border-blue-300 bg-blue-50 dark:bg-blue-950/20">
+              <Copy className="h-5 w-5 text-blue-600" />
+              <AlertTitle className="text-blue-800">Mission dupliquée</AlertTitle>
+              <AlertDescription className="text-blue-700">
+                Les champs ont été pré-remplis depuis la mission d'origine. Mettez à jour les dates et vérifiez les informations avant de publier.
+              </AlertDescription>
+            </Alert>
+          )}
           {/* Avertissement profil non vérifié */}
           {user && !user.id_verified && (
             <Alert variant="destructive" className="border-orange-500 bg-orange-50 dark:bg-orange-950/20">

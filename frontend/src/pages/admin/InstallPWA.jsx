@@ -4,6 +4,7 @@ import { adminNavigation } from '@/constants/navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, Smartphone, Monitor, CheckCircle2, Info } from 'lucide-react';
+import api from '@/lib/api';
 
 const InstallPWA = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -32,10 +33,18 @@ const InstallPWA = () => {
       setDeferredPrompt(e);
     };
 
+    // Enregistrer l'installation quand elle est confirmée par le navigateur
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      api.post('/admin/pwa-install').catch(() => {});
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
@@ -50,6 +59,7 @@ const InstallPWA = () => {
     if (outcome === 'accepted') {
       setIsInstalled(true);
       setDeferredPrompt(null);
+      api.post('/admin/pwa-install').catch(() => {});
     }
   };
 

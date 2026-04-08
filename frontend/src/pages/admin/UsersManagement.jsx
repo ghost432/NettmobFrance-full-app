@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { usePagination } from '@/hooks/usePagination';
+import { Pagination } from '@/components/ui/pagination';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { useAuth } from '@/context/AuthContext';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
@@ -32,9 +34,12 @@ import {
   Mail,
   User as UserIcon,
   CheckCircle2,
-  XCircle as XCircleIcon
+  XCircle as XCircleIcon,
+  Download
 } from 'lucide-react';
+import { exportToCSV } from '@/utils/exportCSV';
 import api from '@/lib/api';
+import { TableSkeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -230,6 +235,8 @@ const UsersManagement = () => {
     return true;
   });
 
+  const { currentItems: paginatedUsers, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredUsers, 15);
+
   const stats = {
     total: users.length,
     automob: users.filter(u => u.role === 'automob').length,
@@ -287,13 +294,33 @@ const UsersManagement = () => {
         {/* Barre d'actions */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
-            <Button
-              onClick={() => setShowCreateDialog(true)}
-              className="bg-primary w-full sm:w-auto"
-            >
-              <UserPlus className="h-4 w-4 mr-2" />
-              Ajouter un utilisateur
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowCreateDialog(true)}
+                className="bg-primary w-full sm:w-auto"
+              >
+                <UserPlus className="h-4 w-4 mr-2" />
+                Ajouter un utilisateur
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => exportToCSV(
+                  filteredUsers.map(u => ({
+                    email: u.email,
+                    role: u.role,
+                    nom: u.nom_complet || u.company_name || '',
+                    telephone: u.phone || '',
+                    verifie: u.id_verified ? 'Oui' : 'Non',
+                    inscription: u.created_at ? new Date(u.created_at).toLocaleDateString('fr-FR') : ''
+                  })),
+                  'utilisateurs',
+                  { email: 'Email', role: 'Rôle', nom: 'Nom / Société', telephone: 'Téléphone', verifie: 'Vérifié', inscription: "Date d'inscription" }
+                )}
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Exporter CSV
+              </Button>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative flex-1 sm:flex-initial">
@@ -331,9 +358,7 @@ const UsersManagement = () => {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-              </div>
+              <TableSkeleton rows={8} cols={6} />
             ) : filteredUsers.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 Aucun utilisateur trouvé
@@ -353,7 +378,7 @@ const UsersManagement = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredUsers.map((userData) => {
+                    {paginatedUsers.map((userData) => {
                       // Formater le nom complet selon le rôle
                       let displayName = 'Sans nom';
                       if (userData.nom_complet && userData.nom_complet.trim() !== '' && userData.nom_complet !== 'Sans nom') {
@@ -379,7 +404,7 @@ const UsersManagement = () => {
                         }
                       }
 
-                      const isVerified = userData.verified === 1 || userData.verified === true;
+                      const isVerified = userData.id_verified === 1 || userData.id_verified === true;
 
                       return (
                         <TableRow key={userData.id}>
@@ -476,6 +501,13 @@ const UsersManagement = () => {
                 </Table>
               </div>
             )}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              itemsPerPage={15}
+              totalItems={totalItems}
+            />
           </CardContent>
         </Card>
       </div>

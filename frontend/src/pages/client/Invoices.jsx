@@ -20,6 +20,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const ClientInvoices = () => {
   useDocumentTitle('Factures');
@@ -92,6 +94,8 @@ const ClientInvoices = () => {
     if (activeTab === 'paid') return inv.status === 'paid' || inv.status === 'payee';
     return true;
   });
+
+  const { currentItems: paginatedInvoices, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredInvoices, 10);
 
   // Calculer total_amount = amount + commission pour chaque facture
   const calculateTotalAmount = (invoice) => {
@@ -217,7 +221,7 @@ const ClientInvoices = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {filteredInvoices.map((invoice) => {
+                    {paginatedInvoices.map((invoice) => {
                       // Générer numéro de facture
                       const invoiceNumber = `CLI-${String(invoice.id).padStart(6, '0')}`;
                       // Calculer montants
@@ -311,6 +315,7 @@ const ClientInvoices = () => {
                     })}
                   </div>
                 )}
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={10} totalItems={totalItems} />
               </CardContent>
             </Card>
           </TabsContent>

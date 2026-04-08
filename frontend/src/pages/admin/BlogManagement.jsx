@@ -2,9 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import {
     PlusCircle, Pencil, Trash2, Eye, Search, Filter,
     FileText, Building2, User, Calendar, ImagePlus, X,
-    Save, ChevronLeft, ChevronRight, Bold, Italic, List, Link as LinkIcon,
+    Save, ChevronLeft, Bold, Italic, List, Link as LinkIcon,
     Heading2, Heading3, AlignLeft, Quote
 } from 'lucide-react';
+import { usePagination } from '../../hooks/usePagination';
+import { Pagination } from '../../components/ui/pagination';
 import axios from 'axios';
 import { toast } from '../../components/ui/toast';
 import { Button } from '../../components/ui/button';
@@ -113,8 +115,6 @@ const BlogManagement = () => {
     const [saving, setSaving] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [adminPage, setAdminPage] = useState(1);
-    const ADMIN_PAGE_SIZE = 15;
 
     const [formData, setFormData] = useState({
         title: '',
@@ -222,8 +222,7 @@ const BlogManagement = () => {
         const matchSearch = !searchTerm || p.title.toLowerCase().includes(searchTerm.toLowerCase());
         return matchType && matchSearch;
     });
-    const adminTotalPages = Math.ceil(filtered.length / ADMIN_PAGE_SIZE);
-    const paginatedAdmin = filtered.slice((adminPage - 1) * ADMIN_PAGE_SIZE, adminPage * ADMIN_PAGE_SIZE);
+    const { currentItems: paginatedAdmin, currentPage: adminPage, totalPages: adminTotalPages, totalItems: adminTotalItems, setCurrentPage: setAdminPage } = usePagination(filtered, 15);
 
     const formatDate = (d) => new Date(d).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
     const getImageSrc = (p) => {
@@ -389,38 +388,13 @@ const BlogManagement = () => {
                         </div>
 
                         {/* Admin Pagination */}
-                        {adminTotalPages > 1 && (
-                            <div className="flex items-center justify-between px-4 py-4 bg-slate-50 rounded-b-[2.5rem] border-t border-border">
-                                <span className="text-sm font-bold text-muted-foreground">
-                                    {filtered.length} article{filtered.length > 1 ? 's' : ''} · page {adminPage}/{adminTotalPages}
-                                </span>
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => setAdminPage(p => Math.max(1, p - 1))}
-                                        disabled={adminPage === 1}
-                                        className="p-2 rounded-xl border border-border hover:bg-muted disabled:opacity-40 transition-colors"
-                                    >
-                                        <ChevronLeft className="h-4 w-4" />
-                                    </button>
-                                    {Array.from({ length: adminTotalPages }, (_, i) => i + 1).map(n => (
-                                        <button
-                                            key={n}
-                                            onClick={() => setAdminPage(n)}
-                                            className={`w-9 h-9 rounded-xl text-sm font-black transition-all ${n === adminPage ? 'bg-primary text-white' : 'border border-border hover:bg-muted'}`}
-                                        >
-                                            {n}
-                                        </button>
-                                    ))}
-                                    <button
-                                        onClick={() => setAdminPage(p => Math.min(adminTotalPages, p + 1))}
-                                        disabled={adminPage === adminTotalPages}
-                                        className="p-2 rounded-xl border border-border hover:bg-muted disabled:opacity-40 transition-colors"
-                                    >
-                                        <ChevronRight className="h-4 w-4" />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
+                        <Pagination
+                            currentPage={adminPage}
+                            totalPages={adminTotalPages}
+                            onPageChange={setAdminPage}
+                            itemsPerPage={15}
+                            totalItems={adminTotalItems}
+                        />
                     </>
                 ) : (
                     /* FORM VIEW */

@@ -377,97 +377,177 @@ router.get('/status', authenticateToken, async (req, res) => {
   }
 });
 
-// Récupérer toutes les demandes de vérification (ADMIN)
+// Helper pour formater les chemins de fichiers d'une vérification
+const formatVerificationFiles = (v) => {
+  // Traiter habilitations_files
+  if (v.habilitations_files) {
+    if (Buffer.isBuffer(v.habilitations_files)) {
+      try { v.habilitations_files = JSON.parse(v.habilitations_files.toString()); }
+      catch (e) { v.habilitations_files = []; }
+    }
+    v.habilitations_files = Array.isArray(v.habilitations_files)
+      ? v.habilitations_files.filter(p => p && typeof p === 'string' && p.trim()).map(p => p.startsWith('/') ? p : `/${p}`)
+      : [];
+  } else {
+    v.habilitations_files = [];
+  }
+
+  // Traiter caces_files
+  if (v.caces_files) {
+    if (Buffer.isBuffer(v.caces_files)) {
+      try { v.caces_files = JSON.parse(v.caces_files.toString()); }
+      catch (e) { v.caces_files = []; }
+    }
+    v.caces_files = Array.isArray(v.caces_files)
+      ? v.caces_files.filter(p => p && typeof p === 'string' && p.trim()).map(p => p.startsWith('/') ? p : `/${p}`)
+      : [];
+  } else {
+    v.caces_files = [];
+  }
+
+  // Formater les autres chemins de fichiers
+  ['document_recto', 'document_verso', 'selfie_with_document', 'assurance_rc',
+   'justificatif_domicile', 'avis_insee', 'attestation_urssaf', 'kbis'].forEach(field => {
+    if (v[field] && typeof v[field] === 'string' && v[field].trim() && !v[field].startsWith('/')) {
+      v[field] = `/${v[field]}`;
+    }
+  });
+};
+
+// Récupérer toutes les demandes de vérification (ADMIN) avec pagination
 router.get('/admin/all', authenticateToken, async (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Accès refusé' });
   }
 
+  const page  = Math.max(1, parseInt(req.query.page)  || 1);
+  const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 10));
+  const offset = (page - 1) * limit;
+  const statusFilter = ['pending', 'approved', 'rejected'].includes(req.query.status)
+    ? req.query.status : null;
+
   try {
+    // Compteurs par statut (toujours sur la totalité)
+    const [counts] = await db.query(
+      'SELECT status, COUNT(*) as count FROM identity_verifications_new GROUP BY status'
+    );
+    const stats = { all: 0, pending: 0, approved: 0, rejected: 0 };
+    counts.forEach(row => { stats[row.status] = Number(row.count); stats.all += Number(row.count); });
+
+    // Clause WHERE selon le filtre
+    const where = statusFilter ? 'WHERE v.status = ?' : '';
+    const params = statusFilter ? [statusFilter] : [];
+
+    // Total pour la pagination
+    const [[{ total }]] = await db.query(
+      `SELECT COUNT(*) as total FROM identity_verifications_new v ${where}`,
+      params
+    );
+
     const [verifications] = await db.query(
       `SELECT v.*, u.email as user_email, u.role as user_role, u.profile_picture as user_avatar
        FROM identity_verifications_new v
        JOIN users u ON v.user_id = u.id
-       ORDER BY v.submitted_at DESC`
+       ${where}
+       ORDER BY v.submitted_at DESC
+       LIMIT ? OFFSET ?`,
+      [...params, limit, offset]
     );
 
-    // Formater tous les chemins de fichiers (JSON déjà parsé par MySQL)
-    verifications.forEach(v => {
-      // Traiter habilitations_files (déjà un objet/array JSON)
-      if (v.habilitations_files) {
-        // MySQL peut retourner un Buffer pour les champs JSON, le convertir si nécessaire
-        if (Buffer.isBuffer(v.habilitations_files)) {
-          try {
-            v.habilitations_files = JSON.parse(v.habilitations_files.toString());
-          } catch (e) {
-            console.error('Erreur parsing Buffer habilitations_files:', e);
-            v.habilitations_files = [];
-          }
-        }
-        // S'assurer que c'est un tableau et formater les chemins
-        if (Array.isArray(v.habilitations_files)) {
-          v.habilitations_files = v.habilitations_files
-            .filter(path => path && typeof path === 'string' && path.trim())
-            .map(path => path.startsWith('/') ? path : `/${path}`);
-        } else {
-          v.habilitations_files = [];
-        }
-      } else {
-        v.habilitations_files = [];
-      }
-      
-      // Traiter caces_files (déjà un objet/array JSON)
-      if (v.caces_files) {
-        // MySQL peut retourner un Buffer pour les champs JSON, le convertir si nécessaire
-        if (Buffer.isBuffer(v.caces_files)) {
-          try {
-            v.caces_files = JSON.parse(v.caces_files.toString());
-          } catch (e) {
-            console.error('Erreur parsing Buffer caces_files:', e);
-            v.caces_files = [];
-          }
-        }
-        // S'assurer que c'est un tableau et formater les chemins
-        if (Array.isArray(v.caces_files)) {
-          v.caces_files = v.caces_files
-            .filter(path => path && typeof path === 'string' && path.trim())
-            .map(path => path.startsWith('/') ? path : `/${path}`);
-        } else {
-          v.caces_files = [];
-        }
-      } else {
-        v.caces_files = [];
-      }
-      
-      // Formater tous les autres chemins de fichiers pour s'assurer qu'ils commencent par /
-      const fileFields = [
-        'document_recto', 'document_verso', 'selfie_with_document',
-        'assurance_rc', 'justificatif_domicile', 'avis_insee', 
-        'attestation_urssaf', 'kbis'
-      ];
-      
-      fileFields.forEach(field => {
-        if (v[field] && typeof v[field] === 'string' && v[field].trim() && !v[field].startsWith('/')) {
-          v[field] = `/${v[field]}`;
-        }
-      });
-      
-      // Logs pour debug
-      console.log(`✅ Verification ${v.id} formatée:`, {
-        user_type: v.user_type,
-        document_recto: v.document_recto ? '✓' : '✗',
-        document_verso: v.document_verso ? '✓' : '✗',
-        selfie: v.selfie_with_document ? '✓' : '✗',
-        has_habilitations: v.has_habilitations,
-        habilitations_count: v.habilitations_files.length,
-        has_caces: v.has_caces,
-        caces_count: v.caces_files.length
-      });
-    });
+    verifications.forEach(formatVerificationFiles);
 
-    res.json({ verifications });
+    res.json({
+      verifications,
+      pagination: {
+        page,
+        limit,
+        total: Number(total),
+        totalPages: Math.ceil(Number(total) / limit)
+      },
+      stats
+    });
   } catch (error) {
     console.error('Erreur récupération vérifications:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Révoquer une vérification approuvée (ADMIN) - DOIT être avant la route générique /:action
+router.put('/admin/:id/revoke', authenticateToken, async (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Accès refusé' });
+  }
+
+  const { id } = req.params;
+
+  try {
+    const [verification] = await db.query(
+      `SELECT v.*, u.email as user_email
+       FROM identity_verifications_new v
+       JOIN users u ON v.user_id = u.id
+       WHERE v.id = ?`,
+      [id]
+    );
+
+    if (verification.length === 0) {
+      return res.status(404).json({ error: 'Demande non trouvée' });
+    }
+
+    const verif = verification[0];
+
+    // Mettre à jour le statut de la vérification
+    await db.query(
+      `UPDATE identity_verifications_new
+       SET status = 'rejected', reviewed_at = NOW(), reviewed_by = ?,
+           rejection_reason = 'Vérification révoquée par l\'administrateur'
+       WHERE id = ?`,
+      [req.user.id, id]
+    );
+
+    // Retirer la vérification du profil
+    if (verif.user_type === 'automob') {
+      await db.query(
+        'UPDATE automob_profiles SET id_verified = 0 WHERE user_id = ?',
+        [verif.user_id]
+      );
+    } else {
+      // Pour les clients, utiliser representative_id_verified si dispo, sinon id_verified
+      const hasRep = await columnExists('client_profiles', 'representative_id_verified');
+      const col = hasRep ? 'representative_id_verified' : 'id_verified';
+      await db.query(
+        `UPDATE client_profiles SET ${col} = 0 WHERE user_id = ?`,
+        [verif.user_id]
+      );
+    }
+
+    // Mettre à jour la table users
+    await db.query(
+      'UPDATE users SET id_verified = 0 WHERE id = ?',
+      [verif.user_id]
+    );
+
+    // Envoyer email de révocation
+    const userName = verif.user_type === 'automob'
+      ? `${verif.first_name} ${verif.last_name}`
+      : `${verif.manager_first_name} ${verif.manager_last_name}`;
+    try { await sendRevocationEmail(verif.user_email, userName, verif.user_type); } catch (e) { console.error('Erreur email révocation:', e.message); }
+
+    // Envoyer notification de révocation à l'utilisateur
+    const io = req.app.get('io');
+    await createNotification(
+      verif.user_id,
+      '⚠️ Vérification révoquée',
+      'Votre vérification d\'identité a été révoquée par un administrateur. Vous pouvez soumettre une nouvelle demande.',
+      'warning',
+      'verification',
+      verif.user_type === 'automob' ? '/automob/verify-identity' : '/client/verify-identity',
+      io
+    );
+    console.log(`🔄 Vérification révoquée pour ${verif.user_email}`);
+
+    res.json({ message: 'Vérification révoquée avec succès' });
+  } catch (error) {
+    console.error('Erreur révocation:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
@@ -588,86 +668,6 @@ router.put('/admin/:id/:action', authenticateToken, async (req, res) => {
     res.json({ message: `Demande ${action === 'approve' ? 'approuvée' : 'rejetée'} avec succès` });
   } catch (error) {
     console.error('Erreur traitement vérification:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
-
-// Révoquer une vérification approuvée (ADMIN)
-router.put('/admin/:id/revoke', authenticateToken, async (req, res) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Accès refusé' });
-  }
-
-  const { id } = req.params;
-
-  try {
-    const [verification] = await db.query(
-      `SELECT v.*, u.email as user_email
-       FROM identity_verifications_new v
-       JOIN users u ON v.user_id = u.id
-       WHERE v.id = ?`,
-      [id]
-    );
-
-    if (verification.length === 0) {
-      return res.status(404).json({ error: 'Demande non trouvée' });
-    }
-
-    const verif = verification[0];
-
-    // Mettre à jour le statut de la vérification
-    await db.query(
-      `UPDATE identity_verifications_new 
-       SET status = 'rejected', reviewed_at = NOW(), reviewed_by = ?,
-           rejection_reason = 'Vérification révoquée par l\'administrateur'
-       WHERE id = ?`,
-      [req.user.id, id]
-    );
-
-    // Retirer la vérification du profil
-    if (verif.user_type === 'automob') {
-      await db.query(
-        'UPDATE automob_profiles SET id_verified = 0 WHERE user_id = ?',
-        [verif.user_id]
-      );
-    } else {
-      // Pour les clients, utiliser representative_id_verified si dispo, sinon id_verified
-      const hasRep = await columnExists('client_profiles', 'representative_id_verified');
-      const col = hasRep ? 'representative_id_verified' : 'id_verified';
-      await db.query(
-        `UPDATE client_profiles SET ${col} = 0 WHERE user_id = ?`,
-        [verif.user_id]
-      );
-    }
-
-    // Mettre à jour la table users
-    await db.query(
-      'UPDATE users SET id_verified = 0 WHERE id = ?',
-      [verif.user_id]
-    );
-
-    // Envoyer email de révocation
-    const userName = verif.user_type === 'automob' 
-      ? `${verif.first_name} ${verif.last_name}`
-      : `${verif.manager_first_name} ${verif.manager_last_name}`;
-    try { await sendRevocationEmail(verif.user_email, userName, verif.user_type); } catch (e) { console.error('Erreur email révocation:', e.message); }
-    
-    // Envoyer notification de révocation à l'utilisateur
-    const io = req.app.get('io');
-    await createNotification(
-      verif.user_id,
-      '⚠️ Vérification révoquée',
-      'Votre vérification d\'identité a été révoquée par un administrateur. Vous pouvez soumettre une nouvelle demande.',
-      'warning',
-      'verification',
-      verif.user_type === 'automob' ? '/automob/verify-identity' : '/client/verify-identity',
-      io
-    );
-    console.log(`🔄 Vérification révoquée pour ${verif.user_email}`);
-
-    res.json({ message: 'Vérification révoquée avec succès' });
-  } catch (error) {
-    console.error('Erreur révocation:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });

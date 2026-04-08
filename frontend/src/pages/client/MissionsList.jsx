@@ -24,10 +24,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { 
-  Briefcase, Search, Filter, Calendar, MapPin, Users, Euro, 
+import {
+  Briefcase, Search, Filter, Calendar, MapPin, Users, Euro,
   Clock, ChevronLeft, ChevronRight, Eye, Edit, Trash2, MoreHorizontal,
-  CheckCircle2, CheckCircle, XCircle, Loader2, AlertCircle, Plus
+  CheckCircle2, CheckCircle, XCircle, Loader2, AlertCircle, Plus, Copy
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import api, { getAssetUrl } from '@/lib/api';
@@ -345,6 +345,25 @@ const MissionsList = () => {
     }
   };
 
+  const handleDuplicate = (mission) => {
+    navigate('/client/publish-mission', {
+      state: {
+        template: {
+          mission_name: `Copie de ${mission.mission_name || mission.title}`,
+          description: mission.description || '',
+          secteur_id: mission.secteur_id || '',
+          billing_frequency: mission.billing_frequency || 'jour',
+          max_hours: mission.max_hours || '',
+          hourly_rate: mission.hourly_rate || '',
+          location_type: mission.location_type || 'sur_site',
+          address: mission.address || '',
+          nb_automobs: mission.nb_automobs || 1,
+          work_time: mission.work_time || 'jour',
+        }
+      }
+    });
+  };
+
   const handleDelete = async (missionId) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cette mission ?')) return;
     
@@ -653,6 +672,10 @@ const MissionsList = () => {
                                 >
                                   <Eye className="mr-2 h-4 w-4" />
                                   Voir les détails
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDuplicate(mission)}>
+                                  <Copy className="mr-2 h-4 w-4" />
+                                  Dupliquer cette mission
                                 </DropdownMenuItem>
                                 {mission.status === 'ouvert' && (
                                   <>

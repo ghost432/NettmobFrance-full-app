@@ -126,6 +126,7 @@ const FeedbackManagement = lazy(() => import('./pages/admin/FeedbackManagement')
 const AdminContact = lazy(() => import('./pages/admin/AdminContact'));
 const AdminDevis = lazy(() => import('./pages/admin/AdminDevis'));
 const AdminTutoriels = lazy(() => import('./pages/admin/AdminTutoriels'));
+const AdminRoles = lazy(() => import('./pages/admin/AdminRoles'));
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
@@ -252,6 +253,7 @@ const AppContent = () => {
             <Route path="/admin/support/:ticketId" element={<ProtectedRoute allowedRoles={['admin']}><SupportAdmin /></ProtectedRoute>} />
             <Route path="/admin/contact" element={<ProtectedRoute allowedRoles={['admin']}><AdminContact /></ProtectedRoute>} />
             <Route path="/admin/devis" element={<ProtectedRoute allowedRoles={['admin']}><AdminDevis /></ProtectedRoute>} />
+            <Route path="/admin/roles" element={<ProtectedRoute allowedRoles={['admin']}><AdminRoles /></ProtectedRoute>} />
             <Route path="/admin/tutoriels" element={<ProtectedRoute allowedRoles={['admin']}><AdminTutoriels /></ProtectedRoute>} />
             <Route path="/client/dashboard" element={<ProtectedRoute allowedRoles={['client']}><DashboardClient /></ProtectedRoute>} />
             <Route path="/client/publish-mission" element={<ProtectedRoute allowedRoles={['client']}><PublishMission /></ProtectedRoute>} />

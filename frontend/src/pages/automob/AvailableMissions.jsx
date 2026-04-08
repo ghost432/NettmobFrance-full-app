@@ -24,6 +24,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 import { useNavigate } from 'react-router-dom';
 import { createMissionSlug } from '@/utils/slugify';
 
@@ -37,9 +39,6 @@ const AvailableMissions = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [rejectedMissions, setRejectedMissions] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  
-  const ITEMS_PER_PAGE = 15;
 
   useEffect(() => {
     // Charger les missions refusées depuis localStorage
@@ -74,6 +73,8 @@ const AvailableMissions = () => {
     mission.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     mission.city?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const { currentItems: paginatedMissions, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredMissions, 15);
 
   const displayName = () => {
     if (user?.profile?.first_name && user?.profile?.last_name) {
@@ -164,7 +165,7 @@ const AvailableMissions = () => {
           </Card>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredMissions.map((mission) => (
+            {paginatedMissions.map((mission) => (
               <Card key={mission.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
@@ -300,7 +301,7 @@ const AvailableMissions = () => {
             ))}
           </div>
         )}
-
+        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
       </div>
     </DashboardLayout>
   );

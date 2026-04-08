@@ -21,6 +21,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/toast';
+import { Pagination } from '@/components/ui/pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 const MyMissions = () => {
   useDocumentTitle('Mes Missions');
@@ -32,9 +34,6 @@ const MyMissions = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const ITEMS_PER_PAGE = 15;
 
   useEffect(() => {
     fetchMyMissions();
@@ -148,6 +147,8 @@ const MyMissions = () => {
     const statusOrder = { 'en_cours': 1, 'ouvert': 2, 'termine': 3, 'annule': 4 };
     return (statusOrder[a.status] || 5) - (statusOrder[b.status] || 5);
   });
+
+  const { currentItems: paginatedMissions, currentPage, totalPages, totalItems, setCurrentPage } = usePagination(filteredMissions, 15);
 
   // Calculer les statistiques
   const stats = {
@@ -267,7 +268,7 @@ const MyMissions = () => {
               </Card>
             ) : (
               <div className="grid gap-4">
-                {filteredMissions.map((mission) => {
+                {paginatedMissions.map((mission) => {
                   const missionStatus = getMissionStatus(mission);
                   const isAccepted = mission.application_status === 'accepte';
 
@@ -454,6 +455,7 @@ const MyMissions = () => {
                 })}
               </div>
             )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} itemsPerPage={15} totalItems={totalItems} />
           </TabsContent>
         </Tabs>
       </div>

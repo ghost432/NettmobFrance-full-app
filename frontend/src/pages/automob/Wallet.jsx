@@ -3,6 +3,8 @@ import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import { automobNavigation } from '@/constants/navigation';
+import { usePagination } from '@/hooks/usePagination';
+import { Pagination } from '@/components/ui/pagination';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -155,6 +157,22 @@ const Wallet = () => {
     if (type === 'debit') return <ArrowDownCircle className="h-5 w-5 text-red-600" />;
     return <AlertCircle className="h-5 w-5 text-yellow-600" />;
   };
+
+  const {
+    currentItems: paginatedTransactions,
+    currentPage: txPage,
+    totalPages: txTotalPages,
+    totalItems: txTotalItems,
+    setCurrentPage: setTxPage,
+  } = usePagination(transactions, 10);
+
+  const {
+    currentItems: paginatedWithdrawals,
+    currentPage: wdPage,
+    totalPages: wdTotalPages,
+    totalItems: wdTotalItems,
+    setCurrentPage: setWdPage,
+  } = usePagination(withdrawals, 10);
 
   const displayName = useMemo(() => {
     if (profile?.first_name && profile?.last_name) {
@@ -340,7 +358,7 @@ const Wallet = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {withdrawals.map((withdrawal) => (
+                {paginatedWithdrawals.map((withdrawal) => (
                   <Card key={withdrawal.id} className="hover:shadow-md transition-shadow">
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
@@ -379,6 +397,11 @@ const Wallet = () => {
                 ))}
               </div>
             )}
+            {wdTotalPages > 1 && (
+              <div className="pt-4 border-t">
+                <Pagination currentPage={wdPage} totalPages={wdTotalPages} onPageChange={setWdPage} itemsPerPage={10} totalItems={wdTotalItems} />
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -398,7 +421,7 @@ const Wallet = () => {
               </div>
             ) : (
               <div className="space-y-3">
-                {transactions.map((transaction) => (
+                {paginatedTransactions.map((transaction) => (
                   <div
                     key={transaction.id}
                     className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
@@ -427,6 +450,11 @@ const Wallet = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
+            {txTotalPages > 1 && (
+              <div className="pt-4 border-t">
+                <Pagination currentPage={txPage} totalPages={txTotalPages} onPageChange={setTxPage} itemsPerPage={10} totalItems={txTotalItems} />
               </div>
             )}
           </CardContent>

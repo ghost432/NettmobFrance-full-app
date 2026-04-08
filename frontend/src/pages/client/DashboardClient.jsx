@@ -6,10 +6,10 @@ import { clientNavigation } from '@/constants/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  FileText, 
-  Users, 
-  MessageSquare, 
+import {
+  FileText,
+  Users,
+  MessageSquare,
   Plus,
   CheckCircle,
   XCircle,
@@ -18,7 +18,9 @@ import {
   AlertTriangle,
   Bell,
   Calendar,
-  Send
+  Send,
+  Euro,
+  TrendingUp
 } from 'lucide-react';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { usePushNotifications } from '@/hooks/usePushNotifications';
@@ -57,7 +59,9 @@ const DashboardClient = () => {
     acceptedApplications: 0,
     rejectedApplications: 0,
     pendingApplications: 0,
-    profileViews: 0
+    profileViews: 0,
+    totalSpent: 0,
+    avgCostPerMission: 0
   });
   const [recentDisputes, setRecentDisputes] = useState([]);
   const [recentNotifications, setRecentNotifications] = useState([]);
@@ -108,17 +112,27 @@ const DashboardClient = () => {
       setAllMissions(missions);
       setAllApplications(applications);
 
+      const completedMissions = missions.filter(m => m.status === 'termine' || m.status === 'completed');
+      const totalSpent = completedMissions.reduce((sum, m) => {
+        const hours = parseFloat(m.max_hours || 0);
+        const rate = parseFloat(m.hourly_rate || 0);
+        const nb = parseInt(m.nb_automobs || 1);
+        return sum + hours * rate * nb;
+      }, 0);
+
       setStats({
         totalMissions: missions.length,
         missionsPublished: missions.filter(m => m.status === 'ouvert' || m.status === 'open').length,
         missionsInProgress: missions.filter(m => m.status === 'en_cours' || m.status === 'in_progress').length,
-        missionsCompleted: missions.filter(m => m.status === 'termine' || m.status === 'completed').length,
+        missionsCompleted: completedMissions.length,
         missionsCancelled: missions.filter(m => m.status === 'annule' || m.status === 'cancelled').length,
         totalApplications: applications.length,
         acceptedApplications: applications.filter(a => a.status === 'accepte' || a.status === 'accepted').length,
         rejectedApplications: applications.filter(a => a.status === 'refuse' || a.status === 'rejected').length,
         pendingApplications: applications.filter(a => a.status === 'en_attente' || a.status === 'pending').length,
-        profileViews: user?.profile?.profile_views || 0
+        profileViews: user?.profile?.profile_views || 0,
+        totalSpent,
+        avgCostPerMission: completedMissions.length > 0 ? totalSpent / completedMissions.length : 0
       });
 
       // Générer les données de graphiques
@@ -314,6 +328,45 @@ const DashboardClient = () => {
               </CardHeader>
               <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
                 <div className="text-2xl font-bold text-yellow-600">{stats.pendingApplications}</div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Résumé financier */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Résumé Financier</h3>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-4 sm:pb-2">
+                <CardTitle className="text-sm font-medium">Total Dépensé</CardTitle>
+                <Euro className="h-4 w-4 text-blue-600" />
+              </CardHeader>
+              <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
+                <div className="text-2xl font-bold">{stats.totalSpent.toFixed(0)}€</div>
+                <p className="text-xs text-muted-foreground">sur missions terminées</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-4 sm:pb-2">
+                <CardTitle className="text-sm font-medium">Coût Moyen / Mission</CardTitle>
+                <TrendingUp className="h-4 w-4 text-green-600" />
+              </CardHeader>
+              <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
+                <div className="text-2xl font-bold">{stats.avgCostPerMission.toFixed(0)}€</div>
+                <p className="text-xs text-muted-foreground">par mission complétée</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-4 sm:pb-2">
+                <CardTitle className="text-sm font-medium">Taux d'Acceptation</CardTitle>
+                <CheckCircle className="h-4 w-4 text-green-600" />
+              </CardHeader>
+              <CardContent className="p-3 pt-0 sm:p-4 sm:pt-0">
+                <div className="text-2xl font-bold text-green-600">
+                  {stats.totalApplications > 0 ? Math.round((stats.acceptedApplications / stats.totalApplications) * 100) : 0}%
+                </div>
+                <p className="text-xs text-muted-foreground">candidatures acceptées</p>
               </CardContent>
             </Card>
           </div>
